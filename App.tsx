@@ -7,8 +7,10 @@ import { useState } from "react";
 
 export default function App() {
   const [user, setUser] = useState({});
+  console.log(user, '<<< User');
+  
   return (
-    <UserContext.Provider value={{}}>
+    <UserContext.Provider value={{setUser}}>
       <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
           <Login />

@@ -4,19 +4,33 @@ import { useState, useContext } from "react";
 import { createUserAccount } from "../firebase/auth";
 import { UserContext } from "../contexts/UserContext";
 import { addUser } from "../firebase/db";
+import { User } from "../dataTypes";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
+
   const [showPassword, setShowPassword] = useState(true);
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const handleRegisterPress = async () => {
     // TODO: Handle email / password validation
-    console.log(email, password);
+
+    const newUser = {
+      email: email,
+      avatar: avatar,
+      name: name,
+      events: [],
+      reference: "",
+    }
 
     await createUserAccount(email, password);
-    const newUser = await addUser({});
+    const id = await addUser(newUser);
+
+    newUser.reference = id;
+    setUser(newUser);
   };
 
   const handleShowPasswordPress = () => {
@@ -35,6 +49,10 @@ export default function Login() {
         secureTextEntry={showPassword}
         onChangeText={(newText) => setPassword(newText)}
       ></TextInput>
+      <Text>Name:</Text>
+      <TextInput placeholder="name" onChangeText={(newText) => setName(newText)}></TextInput>
+      <Text>Avatar:</Text>
+      <TextInput placeholder="image URL" onChangeText={(newText) => setAvatar(newText)}></TextInput>
       <Button title="show password" onPress={handleShowPasswordPress}></Button>
       <Button title="Register" onPress={handleRegisterPress}></Button>
     </View>

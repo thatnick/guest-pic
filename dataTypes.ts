@@ -3,7 +3,7 @@ export interface User {
   name: string;
   events: Event[];
   avatar: string;
-  otherInfo: string;
+  reference: string;
 }
 
 export interface Event {

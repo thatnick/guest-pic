@@ -6,7 +6,7 @@ export const createUserAccount = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      console.log(`${userCredential.user} is signed in`);
+      console.log(`signed in`);
     })
     .catch((error) => {
       // TODO: Handle these errors!

@@ -11,10 +11,10 @@ export const addUser = async (user: User) => {
       email: user.email,
       events: user.events,
       avatar: user.avatar,
-      otherInfo: user.otherInfo,
     });
     return docRef.id;
   } catch (err) {
     console.error("Error adding document: ", err);
+    return "";
   }
 };
