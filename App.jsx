@@ -4,10 +4,5 @@ import { View, Text, SafeAreaView } from "react-native";
 import CameraFunc from "./camera/CameraFunc";
 
 export default function App() {
-  return (
- 
-    
-       <CameraFunc />
-   
-  )
+  return <CameraFunc />;
 }

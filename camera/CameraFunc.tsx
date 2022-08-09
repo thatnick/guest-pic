@@ -1,103 +1,114 @@
-import {StatusBar} from 'expo-status-bar'
-import React from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native'
-import {Camera} from 'expo-camera'
-import CameraPreview from './CameraPreview'
-let camera: Camera
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { Camera } from "expo-camera";
+import CameraPreview from "./CameraPreview";
+import { uploadPhoto } from "../firebase/storage";
+let camera: Camera;
 export default function CameraFunc() {
-  const [startCamera, setStartCamera] = React.useState(false)
-  const [previewVisible, setPreviewVisible] = React.useState(false)
-  const [capturedImage, setCapturedImage] = React.useState<any>(null)
-  const [cameraType, setCameraType] = React.useState(Camera.Constants.Type.back)
-  const [flashMode, setFlashMode] = React.useState('off')
+  const [startCamera, setStartCamera] = React.useState(false);
+  const [previewVisible, setPreviewVisible] = React.useState(false);
+  const [capturedImage, setCapturedImage] = React.useState<any>(null);
+  const [cameraType, setCameraType] = React.useState(
+    Camera.Constants.Type.back
+  );
+  const [flashMode, setFlashMode] = React.useState("off");
 
   const __startCamera = async () => {
-    const {status} = await Camera.requestCameraPermissionsAsync()
-    console.log(status)
-    if (status === 'granted') {
-      setStartCamera(true)
+    const { status } = await Camera.requestCameraPermissionsAsync();
+    console.log(status);
+    if (status === "granted") {
+      setStartCamera(true);
     } else {
-      Alert.alert('Access denied')
+      Alert.alert("Access denied");
     }
-  }
+  };
   const __takePicture = async () => {
-    const photo: any = await camera.takePictureAsync()
-    console.log(photo)
-    setPreviewVisible(true)
+    const photo: any = await camera.takePictureAsync();
+    console.log(photo);
+    setPreviewVisible(true);
     //setStartCamera(false)
-    setCapturedImage(photo)
-  }
-  const __savePhoto = () => {}
+    setCapturedImage(photo);
+  };
+  const __savePhoto = () => {
+    console.log(capturedImage, "cap img in camera func");
+
+    uploadPhoto(capturedImage.uri);
+  };
   const __retakePicture = () => {
-    setCapturedImage(null)
-    setPreviewVisible(false)
-    __startCamera()
-  }
+    setCapturedImage(null);
+    setPreviewVisible(false);
+    __startCamera();
+  };
   const __handleFlashMode = () => {
-    if (flashMode === 'on') {
-      setFlashMode('off')
-    } else if (flashMode === 'off') {
-      setFlashMode('on')
+    if (flashMode === "on") {
+      setFlashMode("off");
+    } else if (flashMode === "off") {
+      setFlashMode("on");
     } else {
-      setFlashMode('auto')
+      setFlashMode("auto");
     }
-  }
+  };
   const __switchCamera = () => {
-    if (cameraType === 'back') {
-      setCameraType('front')
+    if (cameraType === "back") {
+      setCameraType("front");
     } else {
-      setCameraType('back')
+      setCameraType("back");
     }
-  }
+  };
   return (
     <View style={styles.container}>
       {startCamera ? (
         <View
           style={{
             flex: 1,
-            width: '100%'
+            width: "100%",
           }}
         >
           {previewVisible && capturedImage ? (
-            <CameraPreview photo={capturedImage} savePhoto={__savePhoto} retakePicture={__retakePicture} />
+            <CameraPreview
+              photo={capturedImage}
+              savePhoto={__savePhoto}
+              retakePicture={__retakePicture}
+            />
           ) : (
             <Camera
               type={cameraType}
               flashMode={flashMode}
-              style={{flex: 1}}
+              style={{ flex: 1 }}
               ref={(r) => {
-                camera = r
+                camera = r;
               }}
             >
               <View
                 style={{
                   flex: 1,
-                  width: '100%',
-                  backgroundColor: 'transparent',
-                  flexDirection: 'row'
+                  width: "100%",
+                  backgroundColor: "transparent",
+                  flexDirection: "row",
                 }}
               >
                 <View
                   style={{
-                    position: 'absolute',
-                    left: '5%',
-                    top: '10%',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
+                    position: "absolute",
+                    left: "5%",
+                    top: "10%",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
                   }}
                 >
                   <TouchableOpacity
                     onPress={__handleFlashMode}
                     style={{
-                      backgroundColor: flashMode === 'off' ? '#000' : '#fff',
-                      borderRadius: '50%',
+                      backgroundColor: flashMode === "off" ? "#000" : "#fff",
+                      borderRadius: "50%",
                       height: 25,
-                      width: 25
+                      width: 25,
                     }}
                   >
                     <Text
                       style={{
-                        fontSize: 20
+                        fontSize: 20,
                       }}
                     >
                       ⚡️
@@ -107,36 +118,36 @@ export default function CameraFunc() {
                     onPress={__switchCamera}
                     style={{
                       marginTop: 20,
-                      borderRadius: '50%',
+                      borderRadius: "50%",
                       height: 25,
-                      width: 25
+                      width: 25,
                     }}
                   >
                     <Text
                       style={{
-                        fontSize: 20
+                        fontSize: 20,
                       }}
                     >
-                      {cameraType === 'front' ? '🤳' : '📷'}
+                      {cameraType === "front" ? "🤳" : "📷"}
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <View
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     bottom: 0,
-                    flexDirection: 'row',
+                    flexDirection: "row",
                     flex: 1,
-                    width: '100%',
+                    width: "100%",
                     padding: 20,
-                    justifyContent: 'space-between'
+                    justifyContent: "space-between",
                   }}
                 >
                   <View
                     style={{
-                      alignSelf: 'center',
+                      alignSelf: "center",
                       flex: 1,
-                      alignItems: 'center'
+                      alignItems: "center",
                     }}
                   >
                     <TouchableOpacity
@@ -146,7 +157,7 @@ export default function CameraFunc() {
                         height: 70,
                         bottom: 0,
                         borderRadius: 50,
-                        backgroundColor: '#fff'
+                        backgroundColor: "#fff",
                       }}
                     />
                   </View>
@@ -159,9 +170,9 @@ export default function CameraFunc() {
         <View
           style={{
             flex: 1,
-            backgroundColor: '#fff',
-            justifyContent: 'center',
-            alignItems: 'center'
+            backgroundColor: "#fff",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity
@@ -169,18 +180,18 @@ export default function CameraFunc() {
             style={{
               width: 130,
               borderRadius: 4,
-              backgroundColor: '#14274e',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 40
+              backgroundColor: "#14274e",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              height: 40,
             }}
           >
             <Text
               style={{
-                color: '#fff',
-                fontWeight: 'bold',
-                textAlign: 'center'
+                color: "#fff",
+                fontWeight: "bold",
+                textAlign: "center",
               }}
             >
               Take picture
@@ -191,15 +202,14 @@ export default function CameraFunc() {
 
       <StatusBar style="auto" />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
-
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
