@@ -34,6 +34,7 @@ export default function CameraFunc() {
     console.log(capturedImage, "cap img in camera func");
 
     uploadPhoto(capturedImage.uri);
+    setCapturedImage(null)
   };
   const __retakePicture = () => {
     setCapturedImage(null);
