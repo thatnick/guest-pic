@@ -31,6 +31,12 @@ export default function SignUp() {
     await addUser(newUser);
 
     setUser(newUser);
+
+    setEmail("");
+    setPassword("");
+    setShowPassword(true);
+    setName("");
+    setAvatar("");
   };
 
   const handleShowPasswordPress = () => {

@@ -16,12 +16,13 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
-   await signIn(email, password);
-   const user = await getUserByEmail(email);
-   setUser(user);
+    await signIn(email, password);
+    const user = await getUserByEmail(email);
+    setUser(user);
 
-   console.log(`${email} is logged in`);
-
+    setEmail("");
+    setPassword("");
+    console.log(`${email} is logged in`);
   };
 
   return (
