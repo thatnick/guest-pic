@@ -1,12 +1,12 @@
 import tw from "twrnc";
 import { View, Text, TextInput, Button } from "react-native";
 import { useState, useContext } from "react";
-import { createUserAccount } from "../firebase/auth";
-import { UserContext } from "../contexts/UserContext";
-import { addUser } from "../firebase/db";
-import { User } from "../dataTypes";
+import { createUserAccount } from "../../firebase/auth";
+import { UserContext } from "../../contexts/UserContext";
+import { addUser } from "../../firebase/db";
+import { User } from "../../dataTypes";
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -24,12 +24,12 @@ export default function Login() {
       name: name,
       events: [],
       reference: "",
-    }
+      documentID: email,
+    };
 
     await createUserAccount(email, password);
-    const id = await addUser(newUser);
+    await addUser(newUser);
 
-    newUser.reference = id;
     setUser(newUser);
   };
 
@@ -50,9 +50,15 @@ export default function Login() {
         onChangeText={(newText) => setPassword(newText)}
       ></TextInput>
       <Text>Name:</Text>
-      <TextInput placeholder="name" onChangeText={(newText) => setName(newText)}></TextInput>
+      <TextInput
+        placeholder="name"
+        onChangeText={(newText) => setName(newText)}
+      ></TextInput>
       <Text>Avatar:</Text>
-      <TextInput placeholder="image URL" onChangeText={(newText) => setAvatar(newText)}></TextInput>
+      <TextInput
+        placeholder="image URL"
+        onChangeText={(newText) => setAvatar(newText)}
+      ></TextInput>
       <Button title="show password" onPress={handleShowPasswordPress}></Button>
       <Button title="Register" onPress={handleRegisterPress}></Button>
     </View>
