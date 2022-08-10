@@ -6,6 +6,7 @@ import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
+import EventList from "./components/Events/EventList";
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -22,8 +23,10 @@ export default function App() {
             <View>
               <Login setIsLoggedIn={setIsLoggedIn} />
               <SignUp setIsLoggedIn={setIsLoggedIn} />
+              <EventList />
             </View>
           )}
+
           <StatusBar style="auto" />
         </View>
       </SafeAreaView>
