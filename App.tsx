@@ -7,6 +7,7 @@ import { UserContext } from "./contexts/UserContext";
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
+import CameraFunc from "./camera/CameraFunc";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,7 +15,8 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <SafeAreaView>
+      <CameraFunc />
+      {/* <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
           {isLoggedIn ? (
             <UserCard />
@@ -25,7 +27,7 @@ const App = () => {
             </View>
           )}
         </View>
-      </SafeAreaView>
+      </SafeAreaView> */}
     </UserContext.Provider>
   );
 };

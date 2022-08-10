@@ -31,4 +31,18 @@ if (docSnap.exists()) {
   // doc.data() will be undefined in this case
   console.log("No such document!");
 }
-} 
+}
+
+export const addImage = async (image: string) => {
+  try { console.log(image)
+    const docRef = await setDoc(doc(db, "images", image), {
+      name: image,
+      
+   
+    });
+    
+  } catch (err) {
+    console.error("Error adding document: ", err);
+    return "";
+  }
+};
