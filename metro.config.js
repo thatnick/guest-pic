@@ -1,7 +1,28 @@
-const { getDefaultConfig } = require("@expo/metro-config");
+/**
+ * Metro configuration for React Native
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
-const defaultConfig = getDefaultConfig(__dirname);
+module.exports = {
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
+  resolver: {
+    sourceExts: ["jsx", "js", "ts", "tsx", "cjs"],
+  },
+};
 
-defaultConfig.resolver.assetExts.push("cjs");
+// const { getDefaultConfig } = require("@expo/metro-config");
 
-module.exports = defaultConfig;
+// const defaultConfig = getDefaultConfig(__dirname);
+
+// defaultConfig.resolver.assetExts.push("cjs");
+
+// module.exports = defaultConfig;

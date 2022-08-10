@@ -1,16 +1,16 @@
-import tw from "twrnc";
-import { StatusBar } from "expo-status-bar";
-import { View, Text, SafeAreaView } from "react-native";
-import Login from "./components/Login/Login";
-import { UserContext } from "./contexts/UserContext";
+import React from "react";
+import { SafeAreaView, View } from "react-native";
 import { useState } from "react";
+import tw from "twrnc";
+import { UserContext } from "./contexts/UserContext";
+
+import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
 
-export default function App() {
-  const [user, setUser] = useState({});
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(user, "<<< User");
+  const [user, setUser] = useState({});
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -24,9 +24,10 @@ export default function App() {
               <SignUp setIsLoggedIn={setIsLoggedIn} />
             </View>
           )}
-          <StatusBar style="auto" />
         </View>
       </SafeAreaView>
     </UserContext.Provider>
   );
-}
+};
+
+export default App;

@@ -1,85 +1,85 @@
-import { View, ImageBackground, TouchableOpacity, Text } from "react-native";
-import CloseCamera from "./CloseCamera";
+// import { View, ImageBackground, TouchableOpacity, Text } from "react-native";
+// import CloseCamera from "./CloseCamera";
 
-const CameraPreview = ({
-  photo,
-  retakePicture,
-  savePhoto,
-  __closeCamera,
-}: any) => {
-  return (
-    <View
-      style={{
-        backgroundColor: "transparent",
-        flex: 1,
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <ImageBackground
-        source={{ uri: photo && photo.uri }}
-        style={{
-          flex: 1,
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            padding: 15,
-            justifyContent: "flex-end",
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <CloseCamera onPress={__closeCamera} />
-            <TouchableOpacity
-              onPress={retakePicture}
-              style={{
-                width: 130,
-                height: 40,
+// const CameraPreview = ({
+//   photo,
+//   retakePicture,
+//   savePhoto,
+//   __closeCamera,
+// }: any) => {
+//   return (
+//     <View
+//       style={{
+//         backgroundColor: "transparent",
+//         flex: 1,
+//         width: "100%",
+//         height: "100%",
+//       }}
+//     >
+//       <ImageBackground
+//         source={{ uri: photo && photo.uri }}
+//         style={{
+//           flex: 1,
+//         }}
+//       >
+//         <View
+//           style={{
+//             flex: 1,
+//             flexDirection: "column",
+//             padding: 15,
+//             justifyContent: "flex-end",
+//           }}
+//         >
+//           <View
+//             style={{
+//               flexDirection: "row",
+//               justifyContent: "space-between",
+//             }}
+//           >
+//             <CloseCamera onPress={__closeCamera} />
+//             <TouchableOpacity
+//               onPress={retakePicture}
+//               style={{
+//                 width: 130,
+//                 height: 40,
 
-                alignItems: "center",
-                borderRadius: 4,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontSize: 20,
-                }}
-              >
-                Re-take
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={savePhoto}
-              style={{
-                width: 130,
-                height: 40,
+//                 alignItems: "center",
+//                 borderRadius: 4,
+//               }}
+//             >
+//               <Text
+//                 style={{
+//                   color: "#fff",
+//                   fontSize: 20,
+//                 }}
+//               >
+//                 Re-take
+//               </Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               onPress={savePhoto}
+//               style={{
+//                 width: 130,
+//                 height: 40,
 
-                alignItems: "center",
-                borderRadius: 4,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontSize: 20,
-                }}
-              >
-                save photo
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
-    </View>
-  );
-};
+//                 alignItems: "center",
+//                 borderRadius: 4,
+//               }}
+//             >
+//               <Text
+//                 style={{
+//                   color: "#fff",
+//                   fontSize: 20,
+//                 }}
+//               >
+//                 save photo
+//               </Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//       </ImageBackground>
+//     </View>
+//   );
+// };
 
-export default CameraPreview;
+// export default CameraPreview;

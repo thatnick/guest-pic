@@ -1,15 +1,15 @@
-import { useState, useContext } from "react";
-import { View, Text, TextInput, Button } from "react-native";
-import { signIn } from "../../firebase/auth";
-import { getUserByEmail } from "../../firebase/db";
-import { UserContext } from "../../contexts/UserContext";
+import React, {useState, useContext} from 'react';
+import {View, Text, TextInput, Button} from 'react-native';
+import {signIn} from '../../firebase/auth';
+import {getUserByEmail} from '../../firebase/db';
+import {UserContext} from '../../contexts/UserContext';
 
-export default function Login({ setIsLoggedIn }) {
+export default function Login({setIsLoggedIn}) {
   const [showPassword, setShowPassword] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const { setUser } = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
   };
@@ -19,9 +19,9 @@ export default function Login({ setIsLoggedIn }) {
     const user = await getUserByEmail(email);
     setUser(user);
 
-    setEmail("");
+    setEmail('');
 
-    setPassword("");
+    setPassword('');
     setIsLoggedIn(true);
     console.log(`${email} is logged in`);
   };
@@ -31,14 +31,12 @@ export default function Login({ setIsLoggedIn }) {
       <Text>Email:</Text>
       <TextInput
         placeholder="email"
-        onChangeText={(newText) => setEmail(newText)}
-      ></TextInput>
+        onChangeText={newText => setEmail(newText)}></TextInput>
       <Text>Password:</Text>
       <TextInput
         placeholder="password"
         secureTextEntry={showPassword}
-        onChangeText={(newText) => setPassword(newText)}
-      ></TextInput>
+        onChangeText={newText => setPassword(newText)}></TextInput>
       <Button title="show password" onPress={handleShowPasswordPress}></Button>
       <Button title="Login" onPress={handleLogin}></Button>
     </View>
