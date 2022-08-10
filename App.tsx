@@ -6,12 +6,14 @@ import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
+
 import CameraFunc from "./camera/CameraFunc";
+
 
 export default function App() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(user, "<<< User");
+  // console.log(user, "<<< User");
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -24,8 +26,10 @@ export default function App() {
             <View>
               <Login setIsLoggedIn={setIsLoggedIn} />
               <SignUp setIsLoggedIn={setIsLoggedIn} />
+           
             </View>
           )}
+
           <StatusBar style="auto" />
         </View>
       </SafeAreaView> */}
