@@ -1,0 +1,6 @@
+module Pods_guestpic_guestpicTests {
+  umbrella header "Pods-guestpic-guestpicTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
