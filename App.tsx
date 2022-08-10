@@ -5,18 +5,25 @@ import Login from "./components/Login/Login";
 import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import SignUp from "./components/Login/SignUp";
+import UserCard from "./components/User/UserCard";
 
 export default function App() {
   const [user, setUser] = useState({});
-  console.log(user, '<<< User');
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(user, "<<< User");
+
   return (
-    <UserContext.Provider value={{setUser}}>
+    <UserContext.Provider value={{ user, setUser }}>
       <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
-          <Login />
-          <SignUp />
-
+          {isLoggedIn ? (
+            <UserCard />
+          ) : (
+            <View>
+              <Login setIsLoggedIn={setIsLoggedIn} />
+              <SignUp setIsLoggedIn={setIsLoggedIn} />
+            </View>
+          )}
           <StatusBar style="auto" />
         </View>
       </SafeAreaView>

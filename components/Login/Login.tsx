@@ -4,13 +4,12 @@ import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts/UserContext";
 
-export default function Login() {
+export default function Login({ setIsLoggedIn }) {
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUser } = useContext(UserContext);
-
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
   };
@@ -21,7 +20,9 @@ export default function Login() {
     setUser(user);
 
     setEmail("");
+
     setPassword("");
+    setIsLoggedIn(true);
     console.log(`${email} is logged in`);
   };
 

@@ -6,7 +6,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { addUser } from "../../firebase/db";
 import { User } from "../../dataTypes";
 
-export default function SignUp() {
+export default function SignUp({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -37,6 +37,7 @@ export default function SignUp() {
     setShowPassword(true);
     setName("");
     setAvatar("");
+    setIsLoggedIn(true);
   };
 
   const handleShowPasswordPress = () => {
