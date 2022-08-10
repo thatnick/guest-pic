@@ -76,6 +76,7 @@ export default function CameraFunc() {
           {previewVisible && capturedImage ? (
             <CameraPreview
               photo={capturedImage}
+              __closeCamera={__closeCamera}
               savePhoto={__savePhoto}
               retakePicture={__retakePicture}
             />

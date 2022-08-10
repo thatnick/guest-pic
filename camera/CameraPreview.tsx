@@ -1,7 +1,12 @@
 import { View, ImageBackground, TouchableOpacity, Text } from "react-native";
 import CloseCamera from "./CloseCamera";
 
-const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
+const CameraPreview = ({
+  photo,
+  retakePicture,
+  savePhoto,
+  __closeCamera,
+}: any) => {
   return (
     <View
       style={{
@@ -31,7 +36,7 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
               justifyContent: "space-between",
             }}
           >
-            {/* <CloseCamera  /> */}
+            <CloseCamera onPress={__closeCamera} />
             <TouchableOpacity
               onPress={retakePicture}
               style={{
