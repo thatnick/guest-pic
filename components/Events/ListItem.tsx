@@ -9,6 +9,11 @@ import React from "react";
 // import colors from "../config/colors";
 // import Swipeable from "react-native-gesture-handler/Swipeable";
 
+// TODO: add the rest of the props here satisfy eslint rule
+interface Props {
+  title: string;
+}
+
 export default function ListItem({
   title,
   subTitle,

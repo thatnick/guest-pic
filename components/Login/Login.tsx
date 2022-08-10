@@ -4,7 +4,11 @@ import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts/UserContext";
 
-export default function Login({ setIsLoggedIn }) {
+interface Props {
+  setIsLoggedIn: (loggedIn: boolean) => void;
+}
+
+export default function Login({ setIsLoggedIn }: Props) {
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
