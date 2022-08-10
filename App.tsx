@@ -23,7 +23,7 @@ export default function App() {
             <View>
               <Login setIsLoggedIn={setIsLoggedIn} />
               <SignUp setIsLoggedIn={setIsLoggedIn} />
-              <EventList />
+              {/* <EventList /> */}
             </View>
           )}
 
