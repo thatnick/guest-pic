@@ -1,9 +1,10 @@
+import { app } from "./firebaseApp";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { User } from "../dataTypes";
 
 
-import { app } from "./firebaseApp";
 const storage = getStorage(app);
+
 
 export const uploadPhoto = async (user: User, uri: string) => {
   
@@ -24,6 +25,7 @@ export const uploadPhoto = async (user: User, uri: string) => {
   const snapshot = await uploadBytes(refs, bytes, metadata);
   console.log(snapshot,'<<<snapshot')
   return imageName
+
 
 
 };
