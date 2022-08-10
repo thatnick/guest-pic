@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPreview from "./CameraPreview";
 import { uploadPhoto } from "../firebase/storage";
+import CloseCamera from "./CloseCamera";
 let camera: Camera;
 export default function CameraFunc() {
   const [startCamera, setStartCamera] = React.useState(false);
@@ -34,7 +35,7 @@ export default function CameraFunc() {
     console.log(capturedImage, "cap img in camera func");
 
     uploadPhoto(capturedImage.uri);
-    setCapturedImage(null)
+    setCapturedImage(null);
   };
   const __retakePicture = () => {
     setCapturedImage(null);
@@ -57,6 +58,12 @@ export default function CameraFunc() {
       setCameraType("back");
     }
   };
+
+  const __closeCamera = () => {
+    setStartCamera(false);
+    setPreviewVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       {startCamera ? (
@@ -69,6 +76,7 @@ export default function CameraFunc() {
           {previewVisible && capturedImage ? (
             <CameraPreview
               photo={capturedImage}
+              __closeCamera={__closeCamera}
               savePhoto={__savePhoto}
               retakePicture={__retakePicture}
             />
@@ -98,6 +106,7 @@ export default function CameraFunc() {
                     justifyContent: "space-between",
                   }}
                 >
+                  <CloseCamera onPress={__closeCamera} />
                   <TouchableOpacity
                     onPress={__handleFlashMode}
                     style={{
