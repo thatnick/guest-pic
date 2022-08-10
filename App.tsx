@@ -1,19 +1,19 @@
-import React from 'react';
-import {SafeAreaView, View} from 'react-native';
-import {useState} from 'react';
-import tw from 'twrnc';
-import {UserContext} from './contexts/UserContext';
+import React from "react";
+import { SafeAreaView, View } from "react-native";
+import { useState } from "react";
+import tw from "twrnc";
+import { UserContext } from "./contexts/UserContext";
 
-import Login from './components/Login/Login';
-import SignUp from './components/Login/SignUp';
-import UserCard from './components/User/UserCard';
+import Login from "./components/Login/Login";
+import SignUp from "./components/Login/SignUp";
+import UserCard from "./components/User/UserCard";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{ user, setUser }}>
       <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
           {isLoggedIn ? (
