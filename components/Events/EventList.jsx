@@ -1,5 +1,5 @@
 import { Text, FlatList, TouchableOpacity } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getEvents } from "../../firebase/db";
 import ListItem from "./ListItem";
 import { UserContext } from "../../contexts/UserContext";
