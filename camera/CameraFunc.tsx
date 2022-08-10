@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPreview from "./CameraPreview";
 import { uploadPhoto } from "../firebase/storage";
+import { addImage } from "../firebase/db";
 let camera: Camera;
 export default function CameraFunc() {
   const [startCamera, setStartCamera] = React.useState(false);
@@ -30,11 +31,13 @@ export default function CameraFunc() {
     //setStartCamera(false)
     setCapturedImage(photo);
   };
-  const __savePhoto = () => {
+  const __savePhoto = async () => {
     console.log(capturedImage, "cap img in camera func");
 
-    uploadPhoto(capturedImage.uri);
+    const imageName = await uploadPhoto(capturedImage.uri);
+    console.log(imageName)
     setCapturedImage(null)
+    addImage(imageName)
   };
   const __retakePicture = () => {
     setCapturedImage(null);
