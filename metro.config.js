@@ -14,15 +14,8 @@ module.exports = {
       },
     }),
   },
-  resolver: {
-    sourceExts: ["jsx", "js", "ts", "tsx", "cjs"],
-  },
+  // TODO: Delete commented code below if the CJS error doesn't return
+  // resolver: {
+  //   sourceExts: ["jsx", "js", "ts", "tsx", "cjs"],
+  // },
 };
-
-// const { getDefaultConfig } = require("@expo/metro-config");
-
-// const defaultConfig = getDefaultConfig(__dirname);
-
-// defaultConfig.resolver.assetExts.push("cjs");
-
-// module.exports = defaultConfig;
