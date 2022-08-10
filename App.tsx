@@ -6,7 +6,9 @@ import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
-import EventList from "./components/Events/EventList";
+
+import CameraFunc from "./camera/CameraFunc";
+
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -15,7 +17,8 @@ export default function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <SafeAreaView>
+      <CameraFunc />
+      {/* <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
           {isLoggedIn ? (
             <UserCard />
@@ -23,13 +26,13 @@ export default function App() {
             <View>
               <Login setIsLoggedIn={setIsLoggedIn} />
               <SignUp setIsLoggedIn={setIsLoggedIn} />
-              {/* <EventList /> */}
+           
             </View>
           )}
 
           <StatusBar style="auto" />
         </View>
-      </SafeAreaView>
+      </SafeAreaView> */}
     </UserContext.Provider>
   );
 }
