@@ -4,7 +4,12 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPreview from "./CameraPreview";
 import { uploadPhoto } from "../firebase/storage";
+import { addImage } from "../firebase/db";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
+
 import CloseCamera from "./CloseCamera";
+
 let camera: Camera;
 export default function CameraFunc() {
   const [startCamera, setStartCamera] = React.useState(false);
@@ -14,6 +19,7 @@ export default function CameraFunc() {
     Camera.Constants.Type.back
   );
   const [flashMode, setFlashMode] = React.useState("off");
+  const { user } = useContext(UserContext);
 
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
@@ -31,11 +37,15 @@ export default function CameraFunc() {
     //setStartCamera(false)
     setCapturedImage(photo);
   };
-  const __savePhoto = () => {
+  const __savePhoto = async () => {
     console.log(capturedImage, "cap img in camera func");
 
-    uploadPhoto(capturedImage.uri);
-    setCapturedImage(null);
+
+    const imageName = await uploadPhoto(user,capturedImage.uri);
+    console.log(imageName)
+    setCapturedImage(null)
+    addImage(imageName)
+
   };
   const __retakePicture = () => {
     setCapturedImage(null);
