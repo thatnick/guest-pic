@@ -1,8 +1,5 @@
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
-import { app } from "./firebaseApp";
-const storage = getStorage(app);
-
 export const uploadPhoto = async (uri: string) => {
   const storage = getStorage();
   const refs = ref(storage, "image.jpg");
