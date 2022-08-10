@@ -11,7 +11,7 @@ import EventList from "./components/Events/EventList";
 export default function App() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(user, "<<< User");
+  // console.log(user, "<<< User");
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

@@ -24,6 +24,7 @@ export default function CameraFunc() {
       Alert.alert("Access denied");
     }
   };
+
   const __takePicture = async () => {
     const photo: any = await camera.takePictureAsync();
     console.log(photo);
@@ -31,12 +32,14 @@ export default function CameraFunc() {
     //setStartCamera(false)
     setCapturedImage(photo);
   };
+
   const __savePhoto = () => {
     console.log(capturedImage, "cap img in camera func");
 
     uploadPhoto(capturedImage.uri);
     setCapturedImage(null);
   };
+
   const __retakePicture = () => {
     setCapturedImage(null);
     setPreviewVisible(false);
