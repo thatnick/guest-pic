@@ -1,15 +1,19 @@
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { User } from "../dataTypes";
+
 
 import { app } from "./firebaseApp";
 const storage = getStorage(app);
 
-export const uploadPhoto = async (uri: string) => {
+export const uploadPhoto = async (user: User, uri: string) => {
+  
   const metadata = {
     
     customMetadata:{
 
-      user: 'testuser',
+      user: user.name,
       event_id: 'testevent'
+      //event_id needs to be added
   }
   }
   const imageName = `${new Date().toString()}.jpg`

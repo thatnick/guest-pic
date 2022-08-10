@@ -5,6 +5,8 @@ import { Camera } from "expo-camera";
 import CameraPreview from "./CameraPreview";
 import { uploadPhoto } from "../firebase/storage";
 import { addImage } from "../firebase/db";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 let camera: Camera;
 export default function CameraFunc() {
   const [startCamera, setStartCamera] = React.useState(false);
@@ -14,6 +16,7 @@ export default function CameraFunc() {
     Camera.Constants.Type.back
   );
   const [flashMode, setFlashMode] = React.useState("off");
+  const { user } = useContext(UserContext);
 
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
@@ -34,7 +37,7 @@ export default function CameraFunc() {
   const __savePhoto = async () => {
     console.log(capturedImage, "cap img in camera func");
 
-    const imageName = await uploadPhoto(capturedImage.uri);
+    const imageName = await uploadPhoto(user,capturedImage.uri);
     console.log(imageName)
     setCapturedImage(null)
     addImage(imageName)

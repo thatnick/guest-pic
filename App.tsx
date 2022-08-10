@@ -14,21 +14,21 @@ export default function App() {
   console.log(user, "<<< User");
 
   return (
-    <CameraFunc />
-    // <UserContext.Provider value={{ user, setUser }}>
-    //   <SafeAreaView>
-    //     <View style={tw`pt-6 bg-green-100`}>
-    //       {isLoggedIn ? (
-    //         <UserCard />
-    //       ) : (
-    //         <View>
-    //           <Login setIsLoggedIn={setIsLoggedIn} />
-    //           <SignUp setIsLoggedIn={setIsLoggedIn} />
-    //         </View>
-    //       )}
-    //       <StatusBar style="auto" />
-    //     </View>
-    //   </SafeAreaView>
-    // </UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <CameraFunc />
+      {/* <SafeAreaView>
+        <View style={tw`pt-6 bg-green-100`}>
+          {isLoggedIn ? (
+            <UserCard />
+          ) : (
+            <View>
+              <Login setIsLoggedIn={setIsLoggedIn} />
+              <SignUp setIsLoggedIn={setIsLoggedIn} />
+            </View>
+          )}
+          <StatusBar style="auto" />
+        </View>
+      </SafeAreaView> */}
+    </UserContext.Provider>
   );
 }
