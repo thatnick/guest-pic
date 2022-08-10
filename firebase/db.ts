@@ -1,5 +1,12 @@
 import { app } from "./firebaseApp";
-import { getFirestore, getDoc, setDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  getDoc,
+  setDoc,
+  doc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import { User } from "../dataTypes";
 
 const db = getFirestore(app);
@@ -12,7 +19,6 @@ export const addUser = async (user: User) => {
       events: user.events,
       avatar: user.avatar,
     });
-    
   } catch (err) {
     console.error("Error adding document: ", err);
     return "";
@@ -20,17 +26,28 @@ export const addUser = async (user: User) => {
 };
 
 export const getUserByEmail = async (email: string) => {
-
   const docRef = doc(db, "users", email);
   const docSnap = await getDoc(docRef);
 
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-  return docSnap.data();
-} else {
-  // doc.data() will be undefined in this case
-  console.log("No such document!");
-}
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+    return docSnap.data();
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+};
+
+export const getEvents = async () => {
+  const querySnapshot = await getDocs(collection(db, "events"));
+  const events = [];
+  querySnapshot.forEach((doc: any) => {
+    // doc.data() is never undefined for query doc snapshots
+    //console.log(doc.id, " => ", doc.data());
+    events.push(doc.data());
+  });
+  return events;
+
 }
 
 export const addImage = async (image: string) => {
@@ -45,4 +62,5 @@ export const addImage = async (image: string) => {
     console.error("Error adding document: ", err);
     return "";
   }
+
 };

@@ -34,7 +34,6 @@
 //   };
 //   const __savePhoto = () => {
 //     console.log(capturedImage, "cap img in camera func");
-
 //     uploadPhoto(capturedImage.uri);
 //     setCapturedImage(null);
 //   };
@@ -211,10 +210,12 @@
 //         </View>
 //       )}
 
+
 //       <StatusBar style="auto" />
 //     </View>
 //   );
 // }
+
 
 // const styles = StyleSheet.create({
 //   container: {
