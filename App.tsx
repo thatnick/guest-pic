@@ -8,29 +8,13 @@ import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
 import CreateEvent from "./components/Events/CreateEvent";
+import IteninaryForm from "./components/Itininary/IteninaryForm";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {/* <CameraFunc /> */}
-      <SafeAreaView>
-        <View style={tw`pt-6 bg-green-100`}>
-          <CreateEvent />
-          {/* {isLoggedIn ? (
-            <UserCard />
-          ) : (
-            <View>
-              <Login setIsLoggedIn={setIsLoggedIn} />
-              <SignUp setIsLoggedIn={setIsLoggedIn} />
-            </View>
-          )} */}
-        </View>
-      </SafeAreaView>
-    </UserContext.Provider>
-  );
+  return <IteninaryForm />;
 };
 
 export default App;
