@@ -17,8 +17,8 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <CameraFunc />
-      {/* <SafeAreaView>
+      {/* <CameraFunc /> */}
+      <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
           {isLoggedIn ? (
             <UserCard />
@@ -32,7 +32,7 @@ const App = () => {
 
 
         </View>
-      </SafeAreaView> */}
+      </SafeAreaView>
     </UserContext.Provider>
   );
 };

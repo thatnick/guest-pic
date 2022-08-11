@@ -1,5 +1,5 @@
-import { Text, FlatList, TouchableOpacity } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import { Text, FlatList, TouchableOpacity, View } from "react-native";
+import React,{ useContext, useEffect, useState } from "react";
 import { getEvents } from "../../firebase/db";
 import ListItem from "./ListItem";
 import { UserContext } from "../../contexts/UserContext";
@@ -13,20 +13,22 @@ export default function EventList() {
   }, []);
 
   return (
+    <View>
     <FlatList
       data={events}
       // keyExtractor={(e) => e.id.toString()}
       renderItem={({ item }) => (
         <ListItem
-          title={item.title}
-          // subTitle={item.description}
-          image={item.banner}
-          // onPress={() => console.log("message selected", item)}
-          // renderRightActions={() => (
+        title={item.title}
+        // subTitle={item.description}
+        image={item.banner}
+        // onPress={() => console.log("message selected", item)}
+        // renderRightActions={() => (
           //   <ListItemDeleteActions onPress={() => handleDelete(item)} />
           // )}
-        />
-      )}
-    />
+          />
+          )}
+          />
+          </View>
   );
 }
