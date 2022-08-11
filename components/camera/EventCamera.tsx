@@ -1,26 +1,40 @@
-import React, { useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import { requestCameraPermissions } from "../../utilities/permissions";
-import TakePhotoButton from "./TakePhotoButton";
+import PhotoPreview from "./PhotoPreview";
+import PhotoActionButtons from "./PhotoActionButtons";
 
 export default function EventCamera() {
   requestCameraPermissions();
   const devices = useCameraDevices();
   const device = devices.back;
   const camera = useRef<Camera>(null);
+  const [photoPreview, setPhotoPreview] = useState(false);
+  const [photo, setPhoto] = useState({});
 
   if (device == null) return <Text>Loading...</Text>;
   return (
     <View style={styles.camContainer}>
-      <Camera
-        style={StyleSheet.absoluteFill}
-        device={device}
-        ref={camera}
-        isActive={true}
-        photo={true}
+      {photoPreview ? (
+        <PhotoPreview photo={photo} />
+      ) : (
+        <Camera
+          style={StyleSheet.absoluteFill}
+          device={device}
+          ref={camera}
+          isActive={true}
+          photo={true}
+        />
+      )}
+      <PhotoActionButtons
+        style={styles.captureButton}
+        camera={camera}
+        photo={photo}
+        photoPreview={photoPreview}
+        setPhotoPreview={setPhotoPreview}
+        setPhoto={setPhoto}
       />
-      <TakePhotoButton style={styles.captureButton} camera={camera} />
     </View>
   );
 }
