@@ -10,11 +10,14 @@ export default function TakePhotoButton({ camera }: Props) {
     try {
       console.log("Taking photo...");
       const photo = await camera.current.takePhoto();
-      // TODO: do something with the photo
+
+      console.log(photo.path);
+      // TODO: upload the photo with uploadPhoto(user, photo.path)
+      // TODO: add photo the db with addImage (imageName)
     } catch (e) {
       console.error("Failed to take photo!", e);
     }
   };
 
-  return <Button title="Take Photo" onPress={() => takePhoto} />;
+  return <Button title="Take Photo" onPress={takePhoto} />;
 }
