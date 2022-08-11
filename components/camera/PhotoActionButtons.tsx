@@ -27,8 +27,6 @@ export default function TakePhotoButton({
   return photoPreview ? (
     <View>
       <ImageBackground style={{height:"100%", width:'100%'}} source={{ uri: photo.path }}>
-
-      {/* <Button title="Retake photo" onPress={() => setPhotoPreview(false)} /> */}
       <TouchableOpacity 
       style={styles.retake}>
    <Icon name={"remove"}  size={50} color="red" onPress={async () => 
@@ -46,23 +44,9 @@ export default function TakePhotoButton({
      setPhotoPreview(false);
     }}/>
  </TouchableOpacity>
-      {/* <Button
-        title="Save photo"
-        onPress={async () => {
-          console.log(photo, "PHOTO");
-          
-          const imageName = await uploadPhoto(photo.path);
-          addImage(imageName);
-          setPhotoPreview(false);
-        }}
-      /> */}
       </ImageBackground>
     </View>
   ) : (
-    // <TouchableOpacity style={styles.button}>
-
-    //   <Button title="Take Photo" onPress={capturePhoto} />
-    // </TouchableOpacity>
     <TouchableOpacity
    style={styles.content}>
    <Icon name={"square-o"}  size={80} color="red" onPress={capturePhoto}/>

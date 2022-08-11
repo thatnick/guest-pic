@@ -11,12 +11,6 @@ import HomeScreen from "./components/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
-import Login from "./components/Login/Login";
-import SignUp from "./components/Login/SignUp";
-import UserCard from "./components/User/UserCard";
-import CreateEvent from "./components/Events/CreateEvent";
-import EventList from "./components/Events/EventList";
-
 // const App = () => {
 //   const [isLoggedIn, setIsLoggedIn] = useState(false);
 //   const [addEventForm, setAddEventForm] = useState(false);
@@ -65,7 +59,6 @@ const App = () => {
         </Stack.Navigator>
       </UserContext.Provider>
     </NavigationContainer>
-
   );
 };
 

@@ -12,7 +12,7 @@ export default function PhotoPreview({ photo }) {
     },
   });
 
-  return <ImageBackground style={styles.photo} source={{ uri: photo.path }} 
-  />
+  // return <ImageBackground style={styles.photo} source={{ uri: photo.path }} 
+  // />
   ;
 }

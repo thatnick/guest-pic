@@ -15,7 +15,10 @@
     "react-native": "0.69.3",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.15.0",
+<<<<<<< HEAD
     "react-native-vector-icons": "^9.2.0",
+=======
+>>>>>>> e23410781347b10ff51bc937e2c16a2b7996869f
     "react-native-vision-camera": "^2.14.1",
     "twrnc": "^3.4.0"
   },

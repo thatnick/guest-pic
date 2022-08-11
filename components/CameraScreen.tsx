@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
+<<<<<<< HEAD
 import { Button, StyleSheet, Text, View } from "react-native";
+=======
+import { StyleSheet, Text, View } from "react-native";
+>>>>>>> e23410781347b10ff51bc937e2c16a2b7996869f
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import { requestCameraPermissions } from "../utilities/permissions";
 import PhotoPreview from "./camera/PhotoPreview";

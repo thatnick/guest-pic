@@ -596,7 +596,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = guest1;
+				PRODUCT_BUNDLE_IDENTIFIER = pic.guest;
 				PRODUCT_NAME = guestpic;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

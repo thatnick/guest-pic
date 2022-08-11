@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<<<<<<< HEAD
 	<key>ATSApplicationFontsPath</key>
 	<string>Fonts</string>
 	<key>UIAppFonts</key>
@@ -17,6 +18,8 @@
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
 	</array>
+=======
+>>>>>>> e23410781347b10ff51bc937e2c16a2b7996869f
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) needs access to your Camera.</string>
 	<key>CFBundleDevelopmentRegion</key>
