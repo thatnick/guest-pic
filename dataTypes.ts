@@ -7,13 +7,15 @@ export interface User {
 }
 
 export interface Event {
-  title: string;
-  startDate: Date;
-  banner: string;
-  users: User[];
-  hosts: User[];
-  itinerary: ItineraryItems[];
-  photos: Photos[];
+  title: string,
+  description: string,
+  location: string,
+  itinerary: ItineraryItems[],
+  guests: User[],
+  photos: Photos[],
+  date: string,
+  banner: string,
+  hosts: User[],
 }
 
 export interface ItineraryItems {
@@ -28,4 +30,13 @@ export interface Photos {
   filepath: string;
   user: string;
   timestamp: Date;
+}
+
+export interface newEvent {
+  title: string,
+  description: string,
+  location: string,
+  date: string,
+  banner: string,
+  hosts: object,
 }

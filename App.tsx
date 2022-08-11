@@ -6,7 +6,9 @@ import { UserContext } from "./contexts/UserContext";
 import CameraScreen from "./components/CameraScreen";
 import HomeScreen from "./components/HomeScreen";
 
+
 const Stack = createNativeStackNavigator();
+
 
 const App = () => {
   const [user, setUser] = useState({});
