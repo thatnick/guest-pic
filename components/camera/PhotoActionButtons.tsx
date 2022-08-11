@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Touchable, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { Button, StyleSheet, Touchable, TouchableHighlight, TouchableOpacity, View, ImageBackground } from "react-native";
 import { Camera } from "react-native-vision-camera";
 import { uploadPhoto } from "../../firebase/storage";
 import { addImage } from "../../firebase/db";
@@ -26,17 +26,37 @@ export default function TakePhotoButton({
 
   return photoPreview ? (
     <View>
-      <Button title="Retake photo" onPress={() => setPhotoPreview(false)} />
-      <Button
+      <ImageBackground style={{height:"100%", width:'100%'}} source={{ uri: photo.path }}>
+
+      {/* <Button title="Retake photo" onPress={() => setPhotoPreview(false)} /> */}
+      <TouchableOpacity 
+      style={styles.retake}>
+   <Icon name={"remove"}  size={50} color="red" onPress={async () => 
+          setPhotoPreview(false)
+        }/>
+ </TouchableOpacity>
+      <TouchableOpacity
+   style={styles.save}
+  >
+   <Icon name={"check"}  size={50} color="green" onPress={async () => {
+     console.log(photo, "PHOTO");
+     
+     const imageName = await uploadPhoto(photo.path);
+     addImage(imageName);
+     setPhotoPreview(false);
+    }}/>
+ </TouchableOpacity>
+      {/* <Button
         title="Save photo"
         onPress={async () => {
           console.log(photo, "PHOTO");
-
+          
           const imageName = await uploadPhoto(photo.path);
           addImage(imageName);
           setPhotoPreview(false);
         }}
-      />
+      /> */}
+      </ImageBackground>
     </View>
   ) : (
     // <TouchableOpacity style={styles.button}>
@@ -57,5 +77,15 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'flex-end',
     padding:50
+},
+retake:{display:'flex',
+flexDirection:'row',
+justifycontent:'center',
+alignSelf:"flex-start"
+},
+save:{display:'flex',
+flexDirection:'row',
+justifycontent:'center',
+alignSelf:"flex-end"
 },
 });

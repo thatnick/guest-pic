@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { View, Button } from "react-native";
+import { View, Button, TouchableOpacity, StyleSheet } from "react-native";
 import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
 import UserCard from "./User/UserCard";
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 export default function HomeScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -10,11 +12,16 @@ export default function HomeScreen({ navigation }) {
     <View>
       {isLoggedIn ? (
         <View>
-          <Button
+          {/* <Button
             title="Open Camera"
             onPress={() => navigation.navigate("Camera")}
-          />
+          /> */}
           <UserCard />
+           <TouchableOpacity
+   style={styles.content}
+  >
+   <Icon name={"camera"}  size={50} color="blue" onPress={() => navigation.navigate("Camera")}/>
+ </TouchableOpacity>
         </View>
       ) : (
         <View>
@@ -25,3 +32,8 @@ export default function HomeScreen({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  content:{
+},
+});
