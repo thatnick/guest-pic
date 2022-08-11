@@ -13,7 +13,6 @@ export const uploadPhoto = async (user: User, uri: string) => {
     },
   };
   const imageName = `${new Date().toString()}.jpg`;
-  const storage = getStorage();
   const refs = ref(storage, `images/${imageName}`);
   const img = await fetch(uri);
   const bytes = await img.blob();
