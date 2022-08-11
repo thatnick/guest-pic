@@ -7,7 +7,7 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
-import { User } from "../dataTypes";
+import { newEvent, User } from "../dataTypes";
 
 const db = getFirestore(app);
 
@@ -60,3 +60,22 @@ export const addImage = async (image: string) => {
     return "";
   }
 };
+
+export const addEvent = async (eventToAdd: Event) => {
+  try {
+    const docRef = await setDoc(doc(db, "events", Math.random().toString()), {
+      title: eventToAdd.title,
+      description: eventToAdd.description,
+      location: eventToAdd.location,
+      itinerary: [],
+      guests: [],
+      photos: [],
+      date: eventToAdd.date,
+      banner: eventToAdd.banner,
+      hosts: [eventToAdd.hosts],
+    });
+  } catch (err) {
+    console.error("Error adding new event: ", err);
+    return "";
+  }
+}
