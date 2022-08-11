@@ -14,6 +14,7 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
+      {/* <CameraFunc /> */}
       <SafeAreaView>
         <View style={tw`pt-6 bg-green-100`}>
           {isLoggedIn ? (
