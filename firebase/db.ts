@@ -54,6 +54,7 @@ export const addImage = async (image: string) => {
     console.log(image);
     const docRef = await setDoc(doc(db, "images", image), {
       name: image,
+      testMsg: "Saved photo details in db"
     });
   } catch (err) {
     console.error("Error adding document: ", err);

@@ -4,17 +4,17 @@ import { User } from "../dataTypes";
 
 const storage = getStorage(app);
 
-export const uploadPhoto = async (user: User, uri: string) => {
+export const uploadPhoto = async (path: string) => {
   const metadata = {
     customMetadata: {
-      user: user.name,
+      user: "testuser",
       event_id: "testevent",
       //event_id needs to be added
     },
   };
   const imageName = `${new Date().toString()}.jpg`;
   const refs = ref(storage, `images/${imageName}`);
-  const img = await fetch(uri);
+  const img = await fetch(path);
   const bytes = await img.blob();
   const snapshot = await uploadBytes(refs, bytes, metadata);
   console.log(snapshot, "<<<snapshot");
