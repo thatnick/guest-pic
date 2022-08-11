@@ -47,20 +47,16 @@ export const getEvents = async () => {
     events.push(doc.data());
   });
   return events;
-
-}
+};
 
 export const addImage = async (image: string) => {
-  try { console.log(image)
+  try {
+    console.log(image);
     const docRef = await setDoc(doc(db, "images", image), {
       name: image,
-      
-   
     });
-    
   } catch (err) {
     console.error("Error adding document: ", err);
     return "";
   }
-
 };

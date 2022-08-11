@@ -8,12 +8,9 @@ import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
 import UserCard from "./components/User/UserCard";
 
-import CameraFunc from "./camera/CameraFunc";
-
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
-
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -26,11 +23,8 @@ const App = () => {
             <View>
               <Login setIsLoggedIn={setIsLoggedIn} />
               <SignUp setIsLoggedIn={setIsLoggedIn} />
-           
             </View>
           )}
-
-
         </View>
       </SafeAreaView>
     </UserContext.Provider>

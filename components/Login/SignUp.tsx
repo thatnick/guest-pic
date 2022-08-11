@@ -6,7 +6,11 @@ import { UserContext } from "../../contexts/UserContext";
 import { addUser } from "../../firebase/db";
 import { User } from "../../dataTypes";
 
-export default function SignUp({ setIsLoggedIn }) {
+interface Props {
+  setIsLoggedIn: (loggedIn: boolean) => void;
+}
+
+export default function SignUp({ setIsLoggedIn }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
