@@ -15,7 +15,7 @@ module.exports = {
     }),
   },
   // TODO: Delete commented code below if the CJS error doesn't return
-  // resolver: {
-  //   sourceExts: ["jsx", "js", "ts", "tsx", "cjs"],
-  // },
+  resolver: {
+    sourceExts: ["jsx", "js", "ts", "tsx", "cjs"],
+  },
 };
