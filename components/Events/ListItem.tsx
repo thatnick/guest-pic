@@ -26,11 +26,17 @@ export default function ListItem({
   renderRightActions,
   ImageComponent,
   data,
-}) {
+})
+
+
+{
+  const setEvent = ()=>{
+    console.log(data)
+  }
 
   return (
     // <Swipeable renderRightActions={renderRightActions}>
-    <TouchableHighlight underlayColor="red" onPress={<EventCard data={data}/>}>
+    <TouchableHighlight underlayColor="red" onPress={setEvent}>
       <View style={[styles.container, styles.shadowProp]}>
         {/* {ImageComponent} */}
         <ImageBackground
