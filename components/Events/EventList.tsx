@@ -13,12 +13,14 @@ export default function EventList() {
   }, []);
 
   return (
-    <View>
+    <View style={{ height: "85%" }}>
     <FlatList
       data={events}
       // keyExtractor={(e) => e.id.toString()}
       renderItem={({ item }) => (
         <ListItem
+
+        data={item}
         title={item.title}
         // subTitle={item.description}
         image={item.banner}

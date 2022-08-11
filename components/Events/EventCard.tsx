@@ -8,8 +8,8 @@ import {
 import React from "react";
 
 
-export default function EventCard () {
-
+export default function EventCard ({data}) {
+console.log(data)
     return(
         <View style={[styles.container, styles.shadowProp]}>
         {/* {ImageComponent} */}

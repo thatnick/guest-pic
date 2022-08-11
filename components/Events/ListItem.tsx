@@ -6,10 +6,14 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import EventCard from './EventCard'
+
 // import colors from "../config/colors";
 // import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // TODO: add the rest of the props here satisfy eslint rule
+
+
 interface Props {
   title: string;
 }
@@ -21,10 +25,12 @@ export default function ListItem({
   onPress,
   renderRightActions,
   ImageComponent,
+  data,
 }) {
+
   return (
     // <Swipeable renderRightActions={renderRightActions}>
-    <TouchableHighlight underlayColor="red" onPress={onPress}>
+    <TouchableHighlight underlayColor="red" onPress={<EventCard data={data}/>}>
       <View style={[styles.container, styles.shadowProp]}>
         {/* {ImageComponent} */}
         <ImageBackground

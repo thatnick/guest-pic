@@ -498,7 +498,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pic.guest;
+				PRODUCT_BUNDLE_IDENTIFIER = guest1;
 				PRODUCT_NAME = guestpic;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -524,7 +524,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pic.guest;
+				PRODUCT_BUNDLE_IDENTIFIER = guest1;
 				PRODUCT_NAME = guestpic;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

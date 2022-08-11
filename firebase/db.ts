@@ -79,3 +79,4 @@ export const addEvent = async (eventToAdd: Event) => {
     return "";
   }
 }
+
