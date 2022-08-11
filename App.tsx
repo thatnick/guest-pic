@@ -1,8 +1,15 @@
-import React from "react";
 import { SafeAreaView, View, Button } from "react-native";
-import { useState } from "react";
 import tw from "twrnc";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { UserContext } from "./contexts/UserContext";
+import CameraScreen from "./components/CameraScreen";
+import HomeScreen from "./components/HomeScreen";
+
+const Stack = createNativeStackNavigator();
+
 
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
@@ -44,6 +51,21 @@ const App = () => {
         </View>
       </SafeAreaView>
     </UserContext.Provider>
+
+
+const App = () => {
+  const [user, setUser] = useState({});
+
+  return (
+    <NavigationContainer>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Camera" component={CameraScreen} />
+        </Stack.Navigator>
+      </UserContext.Provider>
+    </NavigationContainer>
+
   );
 };
 
