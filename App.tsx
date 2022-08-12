@@ -17,11 +17,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <UserContext.Provider value={{ user, setUser }}>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Camera" component={CameraScreen} />
           <Stack.Screen name="Login" component={Login} />
-
         </Stack.Navigator>
       </UserContext.Provider>
     </NavigationContainer>
