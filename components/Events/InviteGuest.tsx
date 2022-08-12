@@ -8,20 +8,23 @@ import {
   Button,
 } from "react-native";
 import { UserContext } from "../../contexts/UserContext";
-import { addUser, getUserByEmail } from "../../firebase/db";
+import { addEventToUser, addUser, addUserToEvent, getUserByEmail } from "../../firebase/db";
 
 export default function InviteGuest({ event }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  console.log(event, "EVENT IN INVITE GUEST");
-
   const { user } = useContext(UserContext);
 
   const handleAddGuestPress = () => {
     getUserByEmail(email).then((user) => {
-      if (!user.hasOwnProperty(name)) {
-        addUser({ name, email, events: [event], avatar: user.avatar });
+      if (!user.hasOwnProperty('name')) {
+        addUser({ name, email, events: [event.id], avatar: "https://openpsychometrics.org/tests/characters/test-resources/pics/S/3.jpg" })
+        addUserToEvent(email, event.id)
+      } else {
+        console.log('handleaddguest')
+        addEventToUser(email, event.id)
+        addUserToEvent(email, event.id)
       }
     });
 

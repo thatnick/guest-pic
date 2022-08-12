@@ -6,6 +6,8 @@ import {
   doc,
   collection,
   getDocs,
+  updateDoc,
+  arrayUnion
 } from "firebase/firestore";
 import { newEvent, User } from "../dataTypes";
 
@@ -81,3 +83,20 @@ export const addEvent = async (eventToAdd: Event) => {
     return "";
   }
 };
+
+export const addEventToUser = async (email, event) => {
+
+  const userRef = doc(db, "users", email);
+  
+  await updateDoc(userRef, {
+    events: arrayUnion(event)
+  });
+}
+
+export const addUserToEvent = async (email, event) => {
+const eventRef = doc(db,"events",event)
+await updateDoc(eventRef, {
+  guests: arrayUnion(email)
+})
+
+}
