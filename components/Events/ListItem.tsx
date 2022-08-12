@@ -14,6 +14,7 @@ import EventCard from "./EventCard";
 import UserCard from "../User/UserCard";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import GuestListModal from "./GuestListModal";
 
 // import colors from "../config/colors";
 // import Swipeable from "react-native-gesture-handler/Swipeable";
@@ -35,28 +36,49 @@ export default function ListItem({
 }) {
   const setEvent = () => {
     console.log(data);
-    setModalVisible(true);
+    setEventCardModalVisible(true);
   };
-  const [modalVisible, setModalVisible] = useState(false);
+  const [eventCardModalVisible, setEventCardModalVisible] = useState(false);
+  const [guestListModalVisible, setGuestListModalVisible] = useState(false);
   const navigation = useNavigation();
   return (
     // <Swipeable renderRightActions={renderRightActions}>
     <View>
+      <GuestListModal
+        visible={guestListModalVisible}
+        setVisible={setGuestListModalVisible}
+        setEventCardModalVisible={setEventCardModalVisible}
+      />
       <Modal
         animationType="slide"
         transparent={false}
-        visible={modalVisible}
+        visible={eventCardModalVisible}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+          setEventCardModalVisible(!eventCardModalVisible);
         }}
       >
         <View>
           <View>
             <EventCard data={data} />
+            <TouchableOpacity
+            //  style={styles.content}
+            >
+              <Icon
+                name={"user-plus"}
+                size={50}
+                color="blue"
+                onPress={() => {
+                  setEventCardModalVisible(false);
+                  setGuestListModalVisible(true);
+                }}
+              />
+            </TouchableOpacity>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => {
+                setEventCardModalVisible(!eventCardModalVisible);
+              }}
             >
               <Text style={styles.textStyle}>Close</Text>
             </Pressable>
@@ -68,7 +90,7 @@ export default function ListItem({
                 size={50}
                 color="blue"
                 onPress={() => {
-                  setModalVisible(!modalVisible);
+                  setEventCardModalVisible(!eventCardModalVisible);
                   navigation.navigate("Camera");
                 }}
               />
