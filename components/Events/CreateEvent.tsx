@@ -11,7 +11,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { newEvent } from "../../dataTypes";
 import { addEvent } from "../../firebase/db";
 
-export default function CreateEvent() {
+export default function CreateEvent({setAddEventForm}) {
   const [eventTitle, setEventTitle] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
@@ -32,6 +32,8 @@ export default function CreateEvent() {
     };
 
     await addEvent(eventToAdd);
+
+    setAddEventForm(false);
 
     setEventTitle("");
     setLocation("");
@@ -63,6 +65,7 @@ export default function CreateEvent() {
       <TextInput onChangeText={(newText) => setBanner(newText)}></TextInput>
 
       <Button title="Create" onPress={handleRegisterPress}></Button>
+      <Button title="X" onPress={() => setAddEventForm(false)}></Button>
     </View>
   );
 }

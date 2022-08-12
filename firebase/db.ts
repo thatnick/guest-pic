@@ -68,7 +68,7 @@ export const addEvent = async (eventToAdd: Event) => {
       description: eventToAdd.description,
       location: eventToAdd.location,
       itinerary: [],
-      guests: [],
+      guests: [eventToAdd.hosts],
       photos: [],
       date: eventToAdd.date,
       banner: eventToAdd.banner,
@@ -79,3 +79,4 @@ export const addEvent = async (eventToAdd: Event) => {
     return "";
   }
 }
+
