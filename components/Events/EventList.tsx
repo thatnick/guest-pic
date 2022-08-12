@@ -14,6 +14,8 @@ export default function EventList() {
 
   return (
     <View style={{ height: "85%" }}>
+    
+    
     <FlatList
       data={events}
       // keyExtractor={(e) => e.id.toString()}
