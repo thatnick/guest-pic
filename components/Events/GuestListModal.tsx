@@ -30,7 +30,9 @@ export default function GuestListModal({
       <View>
         <View>
           <Icon name={"user-plus"} size={50} color="blue" onPress={() => {}}>
-            Invite Guest
+            <Text style={{ fontFamily: "Arial", fontSize: 15 }}>
+              Invite Guest
+            </Text>
           </Icon>
           <Pressable
             style={[styles.button, styles.buttonClose]}
