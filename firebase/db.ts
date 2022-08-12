@@ -78,4 +78,16 @@ export const addEvent = async (eventToAdd: Event) => {
     console.error("Error adding new event: ", err);
     return "";
   }
-}
+};
+
+export const getAllImages = async () => {
+  const querySnapshot = await getDocs(collection(db, "images"));
+  const images = [];
+  querySnapshot.forEach((doc: any) => {
+    // doc.data() is never undefined for query doc snapshots
+    //console.log(doc.id, " => ", doc.data());
+    images.push(doc.data());
+  });
+
+  return images;
+};

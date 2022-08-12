@@ -1,6 +1,7 @@
 import { app } from "./firebaseApp";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { User } from "../dataTypes";
+import { CommonActions } from "@react-navigation/native";
 
 const storage = getStorage(app);
 
@@ -19,4 +20,8 @@ export const uploadPhoto = async (path: string) => {
   const snapshot = await uploadBytes(refs, bytes, metadata);
   console.log(snapshot, "<<<snapshot");
   return imageName;
+};
+
+export const imagesByUri = () => {
+  return getDownloadURL(ref(storage, "test/images-10.jpeg"));
 };
