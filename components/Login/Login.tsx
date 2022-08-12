@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts/UserContext";
-import {LoginContext} from '../../contexts/LoginContext'
+import { LoggedInContext } from "../../contexts/LoginContext";
 
 // interface Props {
 //   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
 
   const { setUser } = useContext(UserContext);
-  const { setLogin } = useContext(LoginContext);
+  const { setLogin } = useContext(LoggedInContext);
 
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
@@ -30,7 +30,7 @@ export default function Login({ navigation }) {
 
     setPassword("");
     setLogin(true);
-    navigation.navigate("Home")
+    navigation.navigate("Home");
     console.log(`${email} is logged in`);
   };
 
@@ -39,11 +39,14 @@ export default function Login({ navigation }) {
       <Text>Email:</Text>
       <TextInput
         placeholder="email"
+        textContentType="emailAddress"
+        autoCapitalize="none"
         onChangeText={(newText) => setEmail(newText)}
       ></TextInput>
       <Text>Password:</Text>
       <TextInput
         placeholder="password"
+        textContentType="password"
         secureTextEntry={showPassword}
         onChangeText={(newText) => setPassword(newText)}
       ></TextInput>
