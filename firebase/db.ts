@@ -3,27 +3,36 @@ import {
   getFirestore,
   getDoc,
   setDoc,
+  addDoc,
   doc,
   collection,
   getDocs,
   updateDoc,
-  arrayUnion
+  arrayUnion,
 } from "firebase/firestore";
-import { ItineraryItems, newEvent, User } from "../dataTypes";
+import { ItineraryItem, User, Event } from "../types";
 
 const db = getFirestore(app);
 
 export const addUser = async (user: User) => {
   try {
-    const docRef = await setDoc(doc(db, "users", user.email), {
+    await setDoc(doc(db, "users", user.id), {
       name: user.name,
-      email: user.email,
-      events: user.events,
-      avatar: user.avatar,
+      avatarUrl: user.avatarUrl,
     });
   } catch (err) {
     console.error("Error adding document: ", err);
-    return "";
+  }
+};
+
+const addUserEvent = async (event: Event, user: User) => {
+  try {
+    await addDoc(collection(db, "eventUser"), {
+      eventId: event.id,
+      userId: user.id,
+    });
+  } catch (err) {
+    console.error("Error adding document: ", err);
   }
 };
 
@@ -35,7 +44,6 @@ export const getUserByEmail = async (email: string) => {
     console.log("Document data:", docSnap.data());
     return docSnap.data();
   } else {
-    // doc.data() will be undefined in this case
     console.log("No such document!");
     return {};
   }
@@ -43,75 +51,60 @@ export const getUserByEmail = async (email: string) => {
 
 export const getEvents = async () => {
   const querySnapshot = await getDocs(collection(db, "events"));
-  const events = [];
-  querySnapshot.forEach((doc: any) => {
-    // doc.data() is never undefined for query doc snapshots
-    //console.log(doc.id, " => ", doc.data());
-    events.push({ id: doc.id, data: doc.data() });
+  const events: Event[] = [];
+  querySnapshot.forEach((document) => {
+    const eventDoc = document.data();
+    events.push({
+      id: eventDoc.id,
+      title: eventDoc.title,
+      description: eventDoc.description,
+      location: eventDoc.location,
+      itinerary: eventDoc.itinerary,
+      photoPaths: eventDoc.photoPaths,
+      date: eventDoc.date,
+      bannerUrl: eventDoc.bannerUrl,
+      hostIds: eventDoc.hostIds,
+    });
   });
 
   return events;
 };
 
-export const addImage = async (image: string) => {
+export const addPhotoToEvent = async (event: Event, photoPath: string) => {
   try {
-    console.log(image);
-    const docRef = await setDoc(doc(db, "images", image), {
-      name: image,
+    if (!event.id) {
+      throw new Error("Error, event id is undefined");
+    }
+    const eventRef = doc(db, "events", event.id);
+    await updateDoc(eventRef, {
+      photoPaths: arrayUnion(photoPath),
     });
   } catch (err) {
     console.error("Error adding document: ", err);
-    return "";
   }
 };
 
-export const addEvent = async (eventToAdd: Event) => {
+export const addEvent = async (event: Event) => {
   try {
-    const docRef = await setDoc(doc(db, "events", Math.random().toString()), {
-      title: eventToAdd.title,
-      description: eventToAdd.description,
-      location: eventToAdd.location,
-      itinerary: [],
-      guests: [eventToAdd.hosts],
-      photos: [],
-      date: eventToAdd.date,
-      banner: eventToAdd.banner,
-      hosts: [eventToAdd.hosts],
-    });
+    await addDoc(collection(db, "events"), event);
   } catch (err) {
     console.error("Error adding new event: ", err);
-    return "";
   }
 };
 
-export const addEventToUser = async (email, event) => {
-
-  const userRef = doc(db, "users", email);
-  
-  await updateDoc(userRef, {
-    events: arrayUnion(event)
-  });
-}
-
-export const addItineraryItem = async (itineryItem: ItineraryItems) => {
+export const addItineraryItemToEvent = async (
+  itineraryItem: ItineraryItem,
+  event: Event
+) => {
   try {
-    const docRef = await setDoc(doc(db, "itinery", Math.random().toString()), {
-      title: itineryItem.title,
-      description: itineryItem.description,
-      location: itineryItem.location,
-      time: itineryItem.time,
-      event: "??? Need to change this"
+    if (!event.id) {
+      throw new Error("Error, event id is undefined");
+    }
+    const eventRef = doc(db, "events", event.id);
+    await updateDoc(eventRef, {
+      itinerary: arrayUnion(itineraryItem),
     });
   } catch (err) {
     console.error("Error adding new event: ", err);
-    return "";
-  }  
-} 
-
-export const addUserToEvent = async (email, event) => {
-const eventRef = doc(db,"events",event)
-await updateDoc(eventRef, {
-  guests: arrayUnion(email)
-})
-
-}
+  }
+};
