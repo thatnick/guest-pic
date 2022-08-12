@@ -10,7 +10,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import EventCard from "./EventCard";
+import EventCard from "./Event";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import GuestListModal from "./GuestListModal";
