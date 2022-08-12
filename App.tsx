@@ -7,45 +7,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { UserContext } from "./contexts/UserContext";
 import CameraScreen from "./components/CameraScreen";
 import HomeScreen from "./components/HomeScreen";
-
+import Login from "./components/Login/Login";
 
 const Stack = createNativeStackNavigator();
-
-// const App = () => {
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
-//   const [addEventForm, setAddEventForm] = useState(false);
-//   const [user, setUser] = useState({});
-
-//   return (
-//     <UserContext.Provider value={{ user, setUser }}>
-//       {/* <CameraFunc /> */}
-//       <SafeAreaView>
-//         <View style={tw`pt-6 bg-green-100`}>
-//           {isLoggedIn ? (
-//             <View>
-//               <UserCard />
-//               {addEventForm ? (
-//                 <CreateEvent setAddEventForm={setAddEventForm} />
-//               ) : (
-//                 <View>
-//                 <EventList />
-//                 <Button
-//                   title="CreateEvent"
-//                   onPress={() => setAddEventForm(true)}
-//                 ></Button>
-//                 </View>
-//               )}
-//             </View>
-//           ) : (
-//             <View>
-//               <Login setIsLoggedIn={setIsLoggedIn} />
-//               <SignUp setIsLoggedIn={setIsLoggedIn} />
-//             </View>
-//           )}
-//         </View>
-//       </SafeAreaView>
-//     </UserContext.Provider>
-
 
 const App = () => {
   const [user, setUser] = useState({});
@@ -53,9 +17,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <UserContext.Provider value={{ user, setUser }}>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Camera" component={CameraScreen} />
+          <Stack.Screen name="Login" component={Login} />
+
         </Stack.Navigator>
       </UserContext.Provider>
     </NavigationContainer>

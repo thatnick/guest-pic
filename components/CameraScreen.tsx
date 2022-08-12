@@ -1,9 +1,5 @@
 import React, { useRef, useState } from "react";
-<<<<<<< HEAD
-import { Button, StyleSheet, Text, View } from "react-native";
-=======
 import { StyleSheet, Text, View } from "react-native";
->>>>>>> e23410781347b10ff51bc937e2c16a2b7996869f
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import { requestCameraPermissions } from "../utilities/permissions";
 import PhotoPreview from "./camera/PhotoPreview";
@@ -20,9 +16,7 @@ export default function CameraScreen() {
   if (device == null) return <Text>Loading...</Text>;
   return (
     <View style={styles.camContainer}>
-      {photoPreview ? (
-        <PhotoPreview photo={photo} />
-      ) : (
+   
         <Camera
           style={StyleSheet.absoluteFill}
           device={device}
@@ -30,7 +24,7 @@ export default function CameraScreen() {
           isActive={true}
           photo={true}
         />
-      )}
+      
       <PhotoActionButtons
         style={styles.captureButton}
         camera={camera}

@@ -64,12 +64,12 @@ const styles = StyleSheet.create({
 },
 retake:{display:'flex',
 flexDirection:'row',
-justifycontent:'center',
+justifyContent:'center',
 alignSelf:"flex-start"
 },
 save:{display:'flex',
 flexDirection:'row',
-justifycontent:'center',
+justifyContent:'center',
 alignSelf:"flex-end"
 },
 });

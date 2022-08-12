@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { View, Button, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-
-export default function HomeScreen({ navigation }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
 import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
 import UserCard from "./User/UserCard";
 import CreateEvent from "./Events/CreateEvent";
 import EventList from "./Events/EventList";
+
 
 export default function HomeScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -20,17 +16,13 @@ export default function HomeScreen({ navigation }) {
     <View>
       {isLoggedIn ? (
         <View>
-          {/* <Button
-            title="Open Camera"
-            onPress={() => navigation.navigate("Camera")}
-          /> */}
           <UserCard />
            <TouchableOpacity
-   style={styles.content}
+  //  style={styles.content}
   >
    <Icon name={"camera"}  size={50} color="blue" onPress={() => navigation.navigate("Camera")}/>
  </TouchableOpacity>
-          {/* {addEventForm ? (
+          {addEventForm ? (
             <CreateEvent setAddEventForm={setAddEventForm} />
           ) : (
             <View>
@@ -40,7 +32,7 @@ export default function HomeScreen({ navigation }) {
                 onPress={() => setAddEventForm(true)}
               ></Button>
             </View>
-          )} */}
+          )}
         </View>
       ) : (
         <View>
