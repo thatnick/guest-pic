@@ -10,24 +10,21 @@ import HomeScreen from "./components/HomeScreen";
 import Login from "./components/Login/Login";
 import { LoginContext } from "./contexts/LoginContext";
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState({});
-  const [login, setLogin] = useState(false)
+  const [login, setLogin] = useState(false);
 
   return (
     <NavigationContainer>
       <UserContext.Provider value={{ user, setUser }}>
-        <LoginContext.Provider value={{login, setLogin}}>
-
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Camera" component={CameraScreen} />
-          <Stack.Screen name="Login" component={Login} />
-
-        </Stack.Navigator>
+        <LoginContext.Provider value={{ login, setLogin }}>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Camera" component={CameraScreen} />
+            <Stack.Screen name="Login" component={Login} />
+          </Stack.Navigator>
         </LoginContext.Provider>
       </UserContext.Provider>
     </NavigationContainer>

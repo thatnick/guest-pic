@@ -6,16 +6,16 @@ import {
   View,
   Alert,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
-import React, {useState} from "react";
-import EventCard from './EventCard'
+import React, { useState } from "react";
+import EventCard from "./EventCard";
+import UserCard from "../User/UserCard";
 
 // import colors from "../config/colors";
 // import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // TODO: add the rest of the props here satisfy eslint rule
-
 
 interface Props {
   title: string;
@@ -29,56 +29,52 @@ export default function ListItem({
   renderRightActions,
   ImageComponent,
   data,
-})
-
-
-{
-  const setEvent = ()=>{
-    console.log(data)
-    setModalVisible(true)
-  }
+}) {
+  const setEvent = () => {
+    console.log(data);
+    setModalVisible(true);
+  };
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     // <Swipeable renderRightActions={renderRightActions}>
     <View>
-
-    <Modal
+      <Modal
         animationType="slide"
-        transparent={true}
+        transparent={false}
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
-        >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+      >
+        <View>
+          <View>
+            <EventCard data={data} />
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
-              >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+            >
+              <Text style={styles.textStyle}>Close</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
-    <TouchableHighlight underlayColor="red" onPress={setEvent}>
-      <View style={[styles.container, styles.shadowProp]}>
-        {/* {ImageComponent} */}
-        <ImageBackground
-          style={styles.image}
-          source={{
-            uri: image,
-          }}
+      <TouchableHighlight underlayColor="red" onPress={setEvent}>
+        <View style={[styles.container, styles.shadowProp]}>
+          {/* {ImageComponent} */}
+          <ImageBackground
+            style={styles.image}
+            source={{
+              uri: image,
+            }}
           />
-        <View style={styles.details}>
-          <Text style={styles.title}> {title}</Text>
-          {/* {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>} */}
+          <View style={styles.details}>
+            <Text style={styles.title}> {title}</Text>
+            {/* {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>} */}
+          </View>
         </View>
-      </View>
-    </TouchableHighlight>
+      </TouchableHighlight>
     </View>
     // </Swipeable>
   );
@@ -89,50 +85,49 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: 15,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 100,
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   title: {
     fontWeight: "500",
-    backgroundColor: 'pink',
-    overflow: 'hidden',
+    backgroundColor: "pink",
+    overflow: "hidden",
     borderRadius: 8,
-    width: '50%',
-    textAlign: 'center'   
-    
+    width: "50%",
+    textAlign: "center",
   },
   subTitle: {
     color: "red",
     margin: 10,
   },
   details: {
-    position: 'absolute', 
-    top: 0, 
-    left: 0, 
-    right: 0, 
-    bottom: 0, 
-    justifyContent: 'center', 
-    alignItems: 'center'
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
   shadowProp: {
     shadowOffset: { width: 10, height: 10 },
-  shadowColor: 'grey',
-  shadowOpacity: 1,
-  elevation: 3,
-  backgroundColor : "#0000"
+    shadowColor: "grey",
+    shadowOpacity: 1,
+    elevation: 3,
+    backgroundColor: "#0000",
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -143,16 +138,16 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -163,10 +158,10 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
