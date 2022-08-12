@@ -60,12 +60,3 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
-
-// setTodos ((currTodos) => f
-// cost nerTodos = [...currTodosl;
-// newTodostpush(f
-// id: currTodos. length + 1,
-// text: 'code is love, code is life'
-//
-// return newTodos;
-//
