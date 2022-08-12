@@ -15,7 +15,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import GuestListModal from "./GuestListModal";
 
-export default function ListItem({ title, image, data }) {
+export default function EventCard({ title, image, data }) {
   const setEvent = () => {
     console.log(data);
     setEventCardModalVisible(true);
