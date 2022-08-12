@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import DatePicker from "react-native-datepicker";
+import { addItineraryItem } from "../../firebase/db";
 
 const IteninaryForm = () => {
   const [time, setTime] = useState();
@@ -15,8 +16,16 @@ const IteninaryForm = () => {
   const [location, setlocation] = useState("");
   const [description, setDescription] = useState("");
 
+  const newItinerary = {
+    time: time.toString(),
+    title: title,
+    location: location,
+    description: description,
+    event: "??? Need to change this",
+  }
+
   function formSubmitHandler() {
-    console.log(time, title, location, description);
+    addItineraryItem(newItinerary)
   }
 
   return (
