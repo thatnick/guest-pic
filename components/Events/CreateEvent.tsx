@@ -1,23 +1,14 @@
 import React, { useState, useContext } from "react";
-import {
-  Text,
-  FlatList,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Button,
-} from "react-native";
+import { Text, View, TextInput, Button } from "react-native";
 import { UserContext } from "../../contexts/UserContext";
-import { newEvent } from "../../dataTypes";
 import { addEvent } from "../../firebase/db";
 
-export default function CreateEvent({setAddEventForm}) {
+export default function CreateEvent({ setAddEventForm }) {
   const [eventTitle, setEventTitle] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [banner, setBanner] = useState("");
-
 
   const { user } = useContext(UserContext);
 

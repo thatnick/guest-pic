@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, List } from "react-native";
+import { Image, Text, View } from "react-native";
 import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -9,7 +9,7 @@ export default function UserCard() {
   console.log(user);
   return (
     <View>
-      <View >
+      <View>
         <Image
           style={tw`w-15 h-15 rounded-full shadow-2xl`}
           source={{ uri: user.avatar }}

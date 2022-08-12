@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   TouchableOpacity,
@@ -9,14 +9,12 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import InviteGuest from "./InviteGuest";
+import AddGuest from "./AddGuest";
 
 export default function GuestListModal({
   visible,
   setVisible,
   setEventCardModalVisible,
-  setEventCardVisible,
-  setEventCardVisibleCallback,
   event,
 }) {
   return (
@@ -45,7 +43,7 @@ export default function GuestListModal({
           >
             <Text style={styles.textStyle}>Close</Text>
           </Pressable>
-          <InviteGuest event={event} />
+          <AddGuest event={event} />
           <TouchableOpacity
           //  style={styles.content}
           ></TouchableOpacity>
