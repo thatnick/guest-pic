@@ -19,11 +19,11 @@ export interface Event {
 }
 
 export interface ItineraryItems {
-  startTime: Date;
-  endTime: Date;
-  title: string;
-  description: string;
-  location: [number, number];
+  title: string,
+  description: string,
+  location: string,
+  time: string,
+  event: string,
 }
 
 export interface Photos {

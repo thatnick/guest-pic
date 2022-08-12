@@ -9,7 +9,7 @@ import {
   updateDoc,
   arrayUnion
 } from "firebase/firestore";
-import { newEvent, User } from "../dataTypes";
+import { ItineraryItems, newEvent, User } from "../dataTypes";
 
 const db = getFirestore(app);
 
@@ -92,6 +92,21 @@ export const addEventToUser = async (email, event) => {
     events: arrayUnion(event)
   });
 }
+
+export const addItineraryItem = async (itineryItem: ItineraryItems) => {
+  try {
+    const docRef = await setDoc(doc(db, "itinery", Math.random().toString()), {
+      title: itineryItem.title,
+      description: itineryItem.description,
+      location: itineryItem.location,
+      time: itineryItem.time,
+      event: "??? Need to change this"
+    });
+  } catch (err) {
+    console.error("Error adding new event: ", err);
+    return "";
+  }  
+} 
 
 export const addUserToEvent = async (email, event) => {
 const eventRef = doc(db,"events",event)

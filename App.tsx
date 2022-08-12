@@ -11,11 +11,13 @@ import Login from "./components/Login/Login";
 import ListItem from "./components/Events/ListItem";
 import { LoginContext } from "./contexts/LoginContext";
 
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState({});
   const [login, setLogin] = useState(false);
+
 
   return (
     <NavigationContainer>
