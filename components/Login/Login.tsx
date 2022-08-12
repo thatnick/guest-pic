@@ -3,17 +3,20 @@ import { View, Text, TextInput, Button } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts/UserContext";
+import {LoginContext} from '../../contexts/LoginContext'
 
-interface Props {
-  setIsLoggedIn: (loggedIn: boolean) => void;
-}
+// interface Props {
+//   setIsLoggedIn: (loggedIn: boolean) => void;
+// }
 
-export default function Login({ setIsLoggedIn }: Props) {
+export default function Login({ navigation }) {
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUser } = useContext(UserContext);
+  const { setLogin } = useContext(LoginContext);
+
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
   };
@@ -26,7 +29,8 @@ export default function Login({ setIsLoggedIn }: Props) {
     setEmail("");
 
     setPassword("");
-    setIsLoggedIn(true);
+    setLogin(true);
+    navigation.navigate("Home")
     console.log(`${email} is logged in`);
   };
 
