@@ -17,9 +17,13 @@ const PhotoGallery = () => {
       Promise.all(promises).then((data) => setLocations(data));
     });
 
-    console.log(locations);
   }, []);
-  return <View></View>;
+  return (
+  <View >
+    <FlatList data={locations} renderItem={({item}) => {
+      return  <Image source={{ uri: item }} style={{width: 100, height: 100 }}/>
+    }}/>
+  </View>);
 };
 export default PhotoGallery;
 

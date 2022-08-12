@@ -23,6 +23,5 @@ export const uploadPhoto = async (path: string) => {
 };
 
 export const imageByUri = (location) => {
-  console.log(location);
   return getDownloadURL(ref(storage, location));
 };
