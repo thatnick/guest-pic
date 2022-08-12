@@ -14,12 +14,11 @@ const PhotoGallery = () => {
       images.forEach((image) => {
         promises.push(imageByUri(image));
       });
-      console.log("<<<<<<<<<<<<<<<<<<<<<n HEELLLLL");
-      Promise.all(promises).then((data) => console.log(data));
-    }, []);
+      Promise.all(promises).then((data) => setLocations(data));
+    });
 
     console.log(locations);
-  });
+  }, []);
   return <View></View>;
 };
 export default PhotoGallery;
