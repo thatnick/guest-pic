@@ -22,6 +22,8 @@ export const uploadPhoto = async (path: string) => {
   return imageName;
 };
 
-export const imagesByUri = () => {
-  return getDownloadURL(ref(storage, "test/images-10.jpeg"));
+export const imageByUri = (location) => {
+  console.log(location, "<<<location in imageByUrl");
+  
+  return getDownloadURL(ref(storage, location));
 };
