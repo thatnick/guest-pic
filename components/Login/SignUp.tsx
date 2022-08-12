@@ -31,7 +31,10 @@ export default function SignUp({ setIsLoggedIn }: Props) {
       documentID: email,
     };
 
+    // TODO check if email is in auth db, if not ask to create password
+    // and then createUserAccount
     await createUserAccount(email, password);
+
     await addUser(newUser);
 
     setUser(newUser);
