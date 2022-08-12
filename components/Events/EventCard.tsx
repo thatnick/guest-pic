@@ -12,8 +12,6 @@ export default function EventCard({ data }) {
   console.log("DATA", data);
   console.log("banner", data.banner);
   return (
-    //   <View style={[styles.container, styles.shadowProp]}>
-    //   {ImageComponent}
     <View>
       <Image
         style={styles.image}
@@ -27,11 +25,6 @@ export default function EventCard({ data }) {
         <Text>{guest.name}</Text>
       ))}
     </View>
-    //   <View style={styles.details}>
-    //     <Text style={styles.title}> {title}</Text>
-    //     {/* {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>} */}
-    //   </View>
-    // </View>
   );
 }
 

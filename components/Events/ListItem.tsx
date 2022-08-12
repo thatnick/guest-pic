@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
   Alert,
   Modal,
@@ -11,6 +12,8 @@ import {
 import React, { useState } from "react";
 import EventCard from "./EventCard";
 import UserCard from "../User/UserCard";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
 // import colors from "../config/colors";
 // import Swipeable from "react-native-gesture-handler/Swipeable";
@@ -35,7 +38,7 @@ export default function ListItem({
     setModalVisible(true);
   };
   const [modalVisible, setModalVisible] = useState(false);
-
+  const navigation = useNavigation();
   return (
     // <Swipeable renderRightActions={renderRightActions}>
     <View>
@@ -57,6 +60,19 @@ export default function ListItem({
             >
               <Text style={styles.textStyle}>Close</Text>
             </Pressable>
+            <TouchableOpacity
+            //  style={styles.content}
+            >
+              <Icon
+                name={"camera"}
+                size={50}
+                color="blue"
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  navigation.navigate("Camera");
+                }}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>

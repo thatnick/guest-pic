@@ -8,6 +8,7 @@ import { UserContext } from "./contexts/UserContext";
 import CameraScreen from "./components/CameraScreen";
 import HomeScreen from "./components/HomeScreen";
 import Login from "./components/Login/Login";
+import ListItem from "./components/Events/ListItem";
 import { LoginContext } from "./contexts/LoginContext";
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ const App = () => {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Camera" component={CameraScreen} />
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="ListItem" component={ListItem} />
           </Stack.Navigator>
         </LoginContext.Provider>
       </UserContext.Provider>
