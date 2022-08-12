@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import InviteGuest from "./InviteGuest";
 
 export default function GuestListModal({
   visible,
@@ -16,6 +17,7 @@ export default function GuestListModal({
   setEventCardModalVisible,
   setEventCardVisible,
   setEventCardVisibleCallback,
+  event,
 }) {
   return (
     <Modal
@@ -31,7 +33,7 @@ export default function GuestListModal({
         <View>
           <Icon name={"user-plus"} size={50} color="blue" onPress={() => {}}>
             <Text style={{ fontFamily: "Arial", fontSize: 15 }}>
-              Invite Guest
+              Invite guest
             </Text>
           </Icon>
           <Pressable
@@ -43,6 +45,7 @@ export default function GuestListModal({
           >
             <Text style={styles.textStyle}>Close</Text>
           </Pressable>
+          <InviteGuest event={event} />
           <TouchableOpacity
           //  style={styles.content}
           ></TouchableOpacity>

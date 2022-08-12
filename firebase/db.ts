@@ -35,6 +35,7 @@ export const getUserByEmail = async (email: string) => {
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
+    return {};
   }
 };
 
@@ -44,8 +45,9 @@ export const getEvents = async () => {
   querySnapshot.forEach((doc: any) => {
     // doc.data() is never undefined for query doc snapshots
     //console.log(doc.id, " => ", doc.data());
-    events.push(doc.data());
+    events.push({ id: doc.id, data: doc.data() });
   });
+
   return events;
 };
 
@@ -78,5 +80,4 @@ export const addEvent = async (eventToAdd: Event) => {
     console.error("Error adding new event: ", err);
     return "";
   }
-}
-
+};

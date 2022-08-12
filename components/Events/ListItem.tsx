@@ -48,6 +48,7 @@ export default function ListItem({
         visible={guestListModalVisible}
         setVisible={setGuestListModalVisible}
         setEventCardModalVisible={setEventCardModalVisible}
+        event={data}
       />
       <Modal
         animationType="slide"
@@ -60,7 +61,7 @@ export default function ListItem({
       >
         <View>
           <View>
-            <EventCard data={data} />
+            <EventCard event={data} />
             <TouchableOpacity
             //  style={styles.content}
             >

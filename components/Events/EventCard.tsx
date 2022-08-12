@@ -8,20 +8,20 @@ import {
 } from "react-native";
 import React from "react";
 
-export default function EventCard({ data }) {
-  console.log("DATA", data);
-  console.log("banner", data.banner);
+export default function EventCard({ event }) {
+  console.log(event, "EVENT IN EVENT CARD");
+
   return (
     <View>
       <Image
         style={styles.image}
         source={{
-          uri: data.banner,
+          uri: event.data.banner,
         }}
       />
-      <Text>{data.title}</Text>
+      <Text>{event.data.title}</Text>
       <Text>Guest list:</Text>
-      {data.guests.map((guest) => (
+      {event.data.guests.map((guest) => (
         <Text>{guest.name}</Text>
       ))}
     </View>
