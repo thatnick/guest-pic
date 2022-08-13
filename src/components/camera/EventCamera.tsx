@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, Button } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { requestCameraPermissions } from "../../utilities/permissions";
@@ -35,9 +35,11 @@ export default function EventCamera() {
         isActive={true}
         photo={true}
       />
+
       <TouchableOpacity style={styles.content}>
         <Icon name={"square-o"} size={80} color="red" onPress={capturePhoto} />
       </TouchableOpacity>
+      <Button title="Close" onPress={() => navigation.goBack()} />
     </View>
   );
 }
