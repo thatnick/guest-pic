@@ -5,57 +5,108 @@ import {
   setDoc,
   addDoc,
   doc,
-  collection,
   getDocs,
   updateDoc,
   arrayUnion,
+  collection,
+  deleteDoc,
+  where,
+  query,
+  documentId,
 } from "firebase/firestore";
-import { ItineraryItem, User, Event } from "../types";
+import { User, Event } from "../utilities/types";
 
 const db = getFirestore(app);
 
-export const addUser = async (user: User) => {
+export const addUser = async ({ email, name, avatarUrl }) => {
   try {
-    await setDoc(doc(db, "users", user.id), {
-      name: user.name,
-      avatarUrl: user.avatarUrl,
+    const docRef = doc(db, "users", email);
+    await setDoc(docRef, {
+      name,
+      avatarUrl,
     });
+    const user: User = { email, name, avatarUrl };
+    return user;
   } catch (err) {
     console.error("Error adding document: ", err);
   }
 };
 
-const addUserEvent = async (event: Event, user: User) => {
-  try {
-    await addDoc(collection(db, "eventUser"), {
-      eventId: event.id,
-      userId: user.id,
-    });
-  } catch (err) {
-    console.error("Error adding document: ", err);
-  }
-};
-
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email) => {
   const docRef = doc(db, "users", email);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data());
-    return docSnap.data();
+    return { ...docSnap.data(), email: docRef.id };
   } else {
     console.log("No such document!");
     return {};
   }
 };
 
-export const getEvents = async () => {
-  const querySnapshot = await getDocs(collection(db, "events"));
+export const getUsers = async (emails: string[]) => {
+  let q;
+  const usersRef = collection(db, "users");
+  if (emails) {
+    q = query(usersRef, where(documentId(), "in", emails));
+  } else {
+    q = usersRef;
+  }
+
+  const querySnapshot = await getDocs(q);
+  const users: User[] = [];
+  querySnapshot.forEach((document) => {
+    const userDoc = document.data();
+    users.push({
+      email: document.id,
+      name: userDoc.name,
+      avatarUrl: userDoc.avatarUrl,
+    });
+  });
+};
+
+export const addEvent = async ({
+  title,
+  description,
+  location,
+  date,
+  bannerUrl,
+}) => {
+  const event: Event = {
+    title,
+    description,
+    location,
+    itinerary: [],
+    photoPaths: [],
+    date,
+    bannerUrl,
+  };
+  try {
+    const docRef = await addDoc(collection(db, "events"), event);
+    event.id = docRef.id;
+    return event;
+  } catch (err) {
+    console.error("Error adding new event: ", err);
+  }
+};
+
+export const getEvents = async (eventIds: string[]) => {
+  let q;
+  const eventsRef = collection(db, "events");
+  if (eventIds) {
+    q = query(eventsRef, where(documentId(), "in", eventIds));
+  } else {
+    q = eventsRef;
+  }
+
+  const querySnapshot = await getDocs(q);
   const events: Event[] = [];
   querySnapshot.forEach((document) => {
     const eventDoc = document.data();
+
     events.push({
-      id: eventDoc.id,
+      id: document.id,
       title: eventDoc.title,
       description: eventDoc.description,
       location: eventDoc.location,
@@ -63,19 +114,58 @@ export const getEvents = async () => {
       photoPaths: eventDoc.photoPaths,
       date: eventDoc.date,
       bannerUrl: eventDoc.bannerUrl,
-      hostIds: eventDoc.hostIds,
     });
   });
 
   return events;
 };
 
-export const addPhotoToEvent = async (event: Event, photoPath: string) => {
+export const getEventsByGuestEmail = async (email: string) => {
+  const eventIds: string[] = [];
+
+  const guestsRef = collection(db, "guests");
+  const q = query(guestsRef, where("email", "==", email));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    eventIds.push(data.eventId);
+  });
+  return getEvents(eventIds);
+};
+
+export const getGuestUsersByEventId = async (eventID: string) => {
+  const emails: string[] = [];
+
+  const guestsRef = collection(db, "guests");
+  const q = query(guestsRef, where("eventId", "==", eventID));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    emails.push(data.email);
+  });
+  return getUsers(emails);
+};
+
+export const addGuestToEvent = async ({ eventId, email, isHost }) => {
   try {
-    if (!event.id) {
-      throw new Error("Error, event id is undefined");
-    }
-    const eventRef = doc(db, "events", event.id);
+    const docRef = await addDoc(collection(db, "guests"), {
+      email,
+      eventId,
+      isHost,
+      attending: isHost,
+    });
+    return docRef.id;
+  } catch (err) {
+    console.error("Error adding document: ", err);
+  }
+};
+
+export const addPhotoToEvent = async ({ eventId, photoPath }) => {
+  // TODO: add to the itinerary item within the event?
+  try {
+    const eventRef = doc(db, "events", eventId);
     await updateDoc(eventRef, {
       photoPaths: arrayUnion(photoPath),
     });
@@ -84,27 +174,27 @@ export const addPhotoToEvent = async (event: Event, photoPath: string) => {
   }
 };
 
-export const addEvent = async (event: Event) => {
+export const addItineraryItemToEvent = async ({ eventId, itineraryItem }) => {
   try {
-    await addDoc(collection(db, "events"), event);
-  } catch (err) {
-    console.error("Error adding new event: ", err);
-  }
-};
-
-export const addItineraryItemToEvent = async (
-  itineraryItem: ItineraryItem,
-  event: Event
-) => {
-  try {
-    if (!event.id) {
-      throw new Error("Error, event id is undefined");
-    }
-    const eventRef = doc(db, "events", event.id);
+    const eventRef = doc(db, "events", eventId);
     await updateDoc(eventRef, {
       itinerary: arrayUnion(itineraryItem),
     });
   } catch (err) {
     console.error("Error adding new event: ", err);
   }
+};
+
+export const deleteAllDocsInCollection = async (collectionName: string) => {
+  const querySnapshot = await getDocs(collection(db, collectionName));
+
+  const toDelete: Promise<void>[] = [];
+
+  querySnapshot.forEach((doc) => {
+    toDelete.push(deleteDoc(doc.ref));
+  });
+
+  Promise.all(toDelete).then(() =>
+    console.log(`documents in ${collectionName} deleted`)
+  );
 };

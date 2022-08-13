@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, Button } from "react-native";
-import { addUser, getUserByEmail } from "../../firebase/db";
-import { Event, Props } from "../types";
+import { addGuestToEvent, getUserByEmail, addUser } from "../../firebase/db";
+import { Event } from "../../utilities/types";
 
 interface Props {
   event: Event;
@@ -13,16 +13,16 @@ export default function AddGuestForm({ event }: Props) {
 
   const handleAddGuestPress = () => {
     getUserByEmail(email).then((user) => {
-      if (!user.hasOwnProperty("name")) {
+      if (user.name === undefined) {
         addUser({
+          email,
           name,
           avatarUrl:
             "https://openpsychometrics.org/tests/characters/test-resources/pics/S/3.jpg",
         });
-        addUserToEvent(email, event.id);
+        addGuestToEvent({ email, eventId: event.id, isHost: false });
       } else {
-        addEventToUser(email, event.id);
-        addUserToEvent(email, event.id);
+        addGuestToEvent({ email, eventId: event.id, isHost: false });
       }
     });
 
