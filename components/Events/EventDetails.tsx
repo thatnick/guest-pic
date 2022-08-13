@@ -5,7 +5,7 @@ interface Props {
   event: Event;
 }
 
-export default function EventCard({ event }: Props) {
+export default function EventDetails({ event }: Props) {
   return (
     <View>
       <Image

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import tw from "twrnc";
 
-export default function UserCard() {
+export default function UserHeader() {
   const { user } = useContext(UserContext);
   console.log(user);
   return (

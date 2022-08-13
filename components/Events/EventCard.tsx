@@ -10,10 +10,10 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import EventCard from "./Event";
+import EventDetails from "./EventDetails";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-import GuestListModal from "./GuestListModal";
+import GuestList from "./GuestList";
 
 export default function EventCard({ title, image, data }) {
   const setEvent = () => {
@@ -26,7 +26,7 @@ export default function EventCard({ title, image, data }) {
   return (
     // <Swipeable renderRightActions={renderRightActions}>
     <View>
-      <GuestListModal
+      <GuestList
         visible={guestListModalVisible}
         setVisible={setGuestListModalVisible}
         setEventCardModalVisible={setEventCardModalVisible}

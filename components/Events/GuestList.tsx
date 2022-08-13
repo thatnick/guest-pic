@@ -9,9 +9,9 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import AddGuest from "./AddGuest";
+import AddGuestForm from "./AddGuestForm";
 
-export default function GuestListModal({
+export default function GuestList({
   visible,
   setVisible,
   setEventCardModalVisible,
@@ -43,7 +43,7 @@ export default function GuestListModal({
           >
             <Text style={styles.textStyle}>Close</Text>
           </Pressable>
-          <AddGuest event={event} />
+          <AddGuestForm event={event} />
           <TouchableOpacity
           //  style={styles.content}
           ></TouchableOpacity>

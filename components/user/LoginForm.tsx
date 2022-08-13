@@ -9,7 +9,7 @@ import { LoggedInContext } from "../../contexts/LoginContext";
 //   setIsLoggedIn: (loggedIn: boolean) => void;
 // }
 
-export default function Login({ navigation }) {
+export default function LoginForm({ navigation }) {
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

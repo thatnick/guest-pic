@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
-import { requestCameraPermissions } from "../utilities/permissions";
-import PhotoActionButtons from "./camera/PhotoActionButtons";
+import { requestCameraPermissions } from "../../utilities/permissions";
+import PhotoActionButtons from "./PhotoActionButtons";
 
 export default function CameraScreen() {
   requestCameraPermissions();

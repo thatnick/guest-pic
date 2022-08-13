@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import DatePicker from "react-native-datepicker";
 import { addItineraryItem } from "../../firebase/db";
 
-const ItineraryForm = () => {
+const ItineraryItemForm = () => {
   const [time, setTime] = useState();
   const [title, setTitle] = useState("");
   const [location, setlocation] = useState("");
@@ -76,7 +76,7 @@ const ItineraryForm = () => {
   );
 };
 
-export default ItineraryForm;
+export default ItineraryItemForm;
 
 const styles = StyleSheet.create({
   form: {

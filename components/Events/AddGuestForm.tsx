@@ -7,7 +7,7 @@ interface Props {
   event: Event;
 }
 
-export default function AddGuest({ event }: Props) {
+export default function AddGuestForm({ event }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
