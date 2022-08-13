@@ -5,31 +5,32 @@ import {
   Text,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DatePicker from "react-native-datepicker";
-import { addItineraryItem } from "../../firebase/db";
+import { addItineraryItemToEvent } from "../../firebase/db";
+import { ItineraryItem } from "../../utilities/types";
+import { EventContext } from "../../contexts";
 
 const ItineraryItemForm = () => {
-  const [time, setTime] = useState();
+  const { event } = useContext(EventContext);
+  const [time, setTime] = useState(new Date());
   const [title, setTitle] = useState("");
-  const [location, setlocation] = useState("");
+  const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
 
-  const newItinerary = {
-    time: time.toString(),
+  const itineraryItem: ItineraryItem = {
+    time: time,
     title: title,
     location: location,
     description: description,
-    event: "??? Need to change this",
   };
 
   function formSubmitHandler() {
-    addItineraryItem(newItinerary);
+    addItineraryItemToEvent({ eventId: event.id, itineraryItem });
   }
 
   return (
     <SafeAreaView style={styles.form}>
-      {/* <Button title="Set time" onPress={() => setOpen(true)} /> */}
       <DatePicker
         style={{ width: 200 }}
         date={time}
@@ -50,24 +51,24 @@ const ItineraryItemForm = () => {
           },
         }}
         onDateChange={(confirmTime) => {
-          setTime(confirmTime);
+          setTime(new Date(confirmTime));
         }}
       />
       <Text>Title</Text>
       <TextInput
-        style={styles.Text}
+        style={styles.text}
         value={title}
         onChangeText={(iteninaryTitle) => setTitle(iteninaryTitle)}
       />
       <Text>Location</Text>
       <TextInput
-        style={styles.Text}
+        style={styles.text}
         value={location}
-        onChangeText={(selectedLocation) => setlocation(selectedLocation)}
+        onChangeText={(selectedLocation) => setLocation(selectedLocation)}
       />
       <Text>Description </Text>
       <TextInput
-        style={styles.Text}
+        style={styles.text}
         value={description}
         onChangeText={(userDescription) => setDescription(userDescription)}
       />
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     textAlign: "center",
   },
-  Text: {
+  text: {
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },

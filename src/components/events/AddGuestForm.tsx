@@ -13,6 +13,7 @@ export default function AddGuestForm({ event }: Props) {
 
   const handleAddGuestPress = () => {
     getUserByEmail(email).then((user) => {
+      if (!user) throw new Error("User not found");
       if (user.name === undefined) {
         addUser({
           email,

@@ -1,17 +1,19 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState, useContext } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import { UserContext } from "../../contexts";
 import { addEvent, addGuestToEvent } from "../../firebase/db";
 import { Event } from "../../utilities/types";
 
-export default function CreateEvent({ setAddEventForm }) {
+export default function CreateEventForm() {
+  const navigation = useNavigation();
+  const { user } = useContext(UserContext);
   const [eventTitle, setEventTitle] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
   const [banner, setBanner] = useState("");
 
-  const { user } = useContext(UserContext);
   const handleRegisterPress = async () => {
     const eventToAdd: Event = {
       title: eventTitle,
@@ -24,13 +26,12 @@ export default function CreateEvent({ setAddEventForm }) {
     };
 
     const newEvent = await addEvent(eventToAdd);
+    if (!newEvent) throw new Error("Cannot add guest to event");
     await addGuestToEvent({
       eventId: newEvent.id,
       isHost: true,
       email: user.email,
     });
-
-    setAddEventForm(false);
 
     setEventTitle("");
     setLocation("");
@@ -41,6 +42,8 @@ export default function CreateEvent({ setAddEventForm }) {
 
   return (
     <View>
+      <Button title="Create event" onPress={handleRegisterPress}></Button>
+      <Button title="Cancel" onPress={() => navigation.goBack()}></Button>
       <Text>Event Title:</Text>
       <TextInput onChangeText={(newText) => setEventTitle(newText)}></TextInput>
 
@@ -61,9 +64,6 @@ export default function CreateEvent({ setAddEventForm }) {
 
       <Text>Banner url:</Text>
       <TextInput onChangeText={(newText) => setBanner(newText)}></TextInput>
-
-      <Button title="Create" onPress={handleRegisterPress}></Button>
-      <Button title="X" onPress={() => setAddEventForm(false)}></Button>
     </View>
   );
 }

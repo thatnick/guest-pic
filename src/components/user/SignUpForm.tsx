@@ -1,4 +1,3 @@
-import tw from "twrnc";
 import { View, Text, TextInput, Button } from "react-native";
 import React, { useState, useContext } from "react";
 import { createUserAccount } from "../../firebase/auth";
@@ -6,11 +5,7 @@ import { UserContext } from "../../contexts";
 import { addUser } from "../../firebase/db";
 import { User } from "../../utilities/types";
 
-interface Props {
-  setIsLoggedIn: (loggedIn: boolean) => void;
-}
-
-export default function SignUpForm({ setIsLoggedIn }: Props) {
+export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -20,18 +15,13 @@ export default function SignUpForm({ setIsLoggedIn }: Props) {
   const { setUser } = useContext(UserContext);
 
   const handleRegisterPress = async () => {
-    // TODO: Handle email / password validation
-
     const newUser: User = {
       email: email,
       avatarUrl: avatarUrl,
       name: name,
     };
 
-    // TODO check if email is in auth db, if not ask to create password
-    // and then createUserAccount
     await createUserAccount(email, password);
-
     await addUser(newUser);
 
     setUser(newUser);
@@ -41,14 +31,13 @@ export default function SignUpForm({ setIsLoggedIn }: Props) {
     setShowPassword(true);
     setName("");
     setAvatarUrl("");
-    setIsLoggedIn(true);
   };
 
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <View style={tw`pt-6 bg-green-100`}>
+    <View>
       <Text>Email:</Text>
       <TextInput
         placeholder="email"

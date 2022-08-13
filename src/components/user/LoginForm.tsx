@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { Text, TextInput, Button } from "react-native";
 import { signIn } from "../../firebase/auth";
-import { deleteAllDocsInCollection, getUserByEmail } from "../../firebase/db";
+import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
 import { LoggedInContext } from "../../contexts";
 import {
@@ -9,18 +9,17 @@ import {
   seedDb,
   seedUserAccounts,
 } from "../../firebase/testdata";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { User } from "../../utilities/types";
+import { useNavigation } from "@react-navigation/native";
 
-// interface Props {
-//   setIsLoggedIn: (loggedIn: boolean) => void;
-// }
-
-export default function LoginForm({ navigation }) {
+export default function LoginForm() {
+  const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUser } = useContext(UserContext);
-  const { setLogin } = useContext(LoggedInContext);
 
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
@@ -28,15 +27,13 @@ export default function LoginForm({ navigation }) {
 
   const handleLogin = async () => {
     await signIn(email, password);
-    const user = await getUserByEmail(email);
+    const user: User = await getUserByEmail(email);
     setUser(user);
 
     setEmail("");
 
     setPassword("");
-    setLogin(true);
-    navigation.navigate("Home");
-    console.log(`${email} is logged in`);
+    navigation.navigate("EventList");
   };
 
   const handleLoginAs = async (email: string, password: string) => {
@@ -47,13 +44,11 @@ export default function LoginForm({ navigation }) {
     setEmail("");
 
     setPassword("");
-    setLogin(true);
-    navigation.navigate("Home");
-    console.log(`${email} is logged in`);
+    navigation.navigate("EventList");
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Email:</Text>
       <TextInput
         placeholder="email"
@@ -97,6 +92,6 @@ export default function LoginForm({ navigation }) {
         title="Delete all docs in the database"
         onPress={() => deleteAllDocsInDb()}
       ></Button>
-    </View>
+    </SafeAreaView>
   );
 }
