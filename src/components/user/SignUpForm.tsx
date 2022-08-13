@@ -2,7 +2,7 @@ import tw from "twrnc";
 import { View, Text, TextInput, Button } from "react-native";
 import React, { useState, useContext } from "react";
 import { createUserAccount } from "../../firebase/auth";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts";
 import { addUser } from "../../firebase/db";
 import { User } from "../../types";
 

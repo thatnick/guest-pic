@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Button } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
-import { UserContext } from "../contexts/UserContext";
-import { LoggedInContext } from "../contexts/LoginContext";
+import { UserContext } from "../../contexts";
+import { LoggedInContext } from "../../contexts";
 
 // interface Props {
 //   setIsLoggedIn: (loggedIn: boolean) => void;

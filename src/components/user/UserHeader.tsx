@@ -1,7 +1,7 @@
 import { Image, Text, View } from "react-native";
 import React from "react";
 import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts";
 import tw from "twrnc";
 
 export default function UserHeader() {
