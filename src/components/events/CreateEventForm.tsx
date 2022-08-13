@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Text, View, TextInput, Button } from "react-native";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 import { addEvent } from "../../firebase/db";
 
 export default function CreateEvent({ setAddEventForm }) {

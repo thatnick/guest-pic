@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { UserContext } from "./contexts/UserContext";
+import { UserContext } from "./components/contexts/UserContext";
 import CameraScreen from "./components/camera/CameraScreen";
 import EventScreen from "./components/events/EventScreen";
 import LoginForm from "./components/user/LoginForm";
 import EventCard from "./components/events/EventCard";
-import { LoggedInContext } from "./contexts/LoginContext";
+import { LoggedInContext } from "./components/contexts/LoginContext";
 
 const Stack = createNativeStackNavigator();
 
