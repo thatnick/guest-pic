@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import { createUserAccount } from "../../firebase/auth";
 import { UserContext } from "../../contexts";
 import { addUser } from "../../firebase/db";
-import { User } from "../../types";
+import { User } from "../../utilities/types";
 
 interface Props {
   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -23,7 +23,7 @@ export default function SignUpForm({ setIsLoggedIn }: Props) {
     // TODO: Handle email / password validation
 
     const newUser: User = {
-      id: email,
+      email: email,
       avatarUrl: avatarUrl,
       name: name,
     };
