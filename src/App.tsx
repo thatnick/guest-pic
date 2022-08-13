@@ -2,21 +2,32 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { UserContext } from "./contexts/UserContext";
-import CameraScreen from "./components/CameraScreen";
-import HomeScreen from "./components/HomeScreen";
-import PhotoGallery from "./components/Gallery /PhotoGallery";
-import { SafeAreaView } from "react-native";
+import { UserContext } from "./contexts";
+import CameraScreen from "./components/camera/CameraScreen";
+import EventScreen from "./components/events/EventScreen";
+import LoginForm from "./components/user/LoginForm";
+import EventCard from "./components/events/EventCard";
+import { LoggedInContext } from "./contexts";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState({});
+  const [login, setLogin] = useState(false);
 
   return (
-    <SafeAreaView>
-      <PhotoGallery />
-    </SafeAreaView>
+    <NavigationContainer>
+      <UserContext.Provider value={{ user, setUser }}>
+        <LoggedInContext.Provider value={{ login, setLogin }}>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Home" component={EventScreen} />
+            <Stack.Screen name="Camera" component={CameraScreen} />
+            <Stack.Screen name="Login" component={LoginForm} />
+            <Stack.Screen name="EventCard" component={EventCard} />
+          </Stack.Navigator>
+        </LoggedInContext.Provider>
+      </UserContext.Provider>
+    </NavigationContainer>
   );
 };
 
