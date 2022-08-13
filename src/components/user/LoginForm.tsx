@@ -1,9 +1,14 @@
 import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Button } from "react-native";
 import { signIn } from "../../firebase/auth";
-import { getUserByEmail } from "../../firebase/db";
+import { deleteAllDocsInCollection, getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
 import { LoggedInContext } from "../../contexts";
+import {
+  deleteAllDocsInDb,
+  seedDb,
+  seedUserAccounts,
+} from "../../firebase/testdata";
 
 // interface Props {
 //   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -34,6 +39,19 @@ export default function LoginForm({ navigation }) {
     console.log(`${email} is logged in`);
   };
 
+  const handleLoginAs = async (email: string, password: string) => {
+    await signIn(email, password);
+    const user = await getUserByEmail(email);
+    setUser(user);
+
+    setEmail("");
+
+    setPassword("");
+    setLogin(true);
+    navigation.navigate("Home");
+    console.log(`${email} is logged in`);
+  };
+
   return (
     <View>
       <Text>Email:</Text>
@@ -52,6 +70,33 @@ export default function LoginForm({ navigation }) {
       ></TextInput>
       <Button title="show password" onPress={handleShowPasswordPress}></Button>
       <Button title="Login" onPress={handleLogin}></Button>
+
+      <Button
+        title="Login as Homer"
+        onPress={() => handleLoginAs("homer@s.com", "test123")}
+      ></Button>
+      <Button
+        title="Login as Marge"
+        onPress={() => handleLoginAs("marge@s.com", "test123")}
+      ></Button>
+      <Button
+        title="Login as Lisa"
+        onPress={() => handleLoginAs("lisa@s.com", "test123")}
+      ></Button>
+      <Button
+        title="Login as Bart"
+        onPress={() => handleLoginAs("bart@s.com", "test123")}
+      ></Button>
+      <Button
+        title="Seed user accounts"
+        onPress={() => seedUserAccounts()}
+      ></Button>
+      <Button title="Seed the database" onPress={() => seedDb()}></Button>
+      <Button
+        color="red"
+        title="Delete all docs in the database"
+        onPress={() => deleteAllDocsInDb()}
+      ></Button>
     </View>
   );
 }
