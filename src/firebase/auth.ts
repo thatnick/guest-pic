@@ -1,11 +1,13 @@
 import { app } from "./firebaseApp";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { User } from "../types";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
-export const createUserAccount = (user: User, password: string) => {
+export const createUserAccount = (email: string, password: string) => {
   const auth = getAuth(app);
-  return createUserWithEmailAndPassword(auth, user.id, password)
+  return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       console.log(`signed in as ${userCredential.user.email}`);
