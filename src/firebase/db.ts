@@ -32,20 +32,24 @@ export const addUser = async ({ email, name, avatarUrl }) => {
   }
 };
 
-export const getUserByEmail = async (email) => {
+export const getUserByEmail = async (email: string) => {
   const docRef = doc(db, "users", email);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-    return { ...docSnap.data(), email: docRef.id };
+    const userDoc = docSnap.data();
+    const user: User = {
+      name: userDoc.name,
+      avatarUrl: userDoc.avatarUrl,
+      email: docRef.id,
+    };
+    return user;
   } else {
     console.log("No such document!");
-    return {};
   }
 };
 
-export const getUsers = async (emails: string[]) => {
+export const getUsers = async (emails?: string[]) => {
   let q;
   const usersRef = collection(db, "users");
   if (emails) {
@@ -91,7 +95,7 @@ export const addEvent = async ({
   }
 };
 
-export const getEvents = async (eventIds: string[]) => {
+export const getEvents = async (eventIds?: string[]) => {
   let q;
   const eventsRef = collection(db, "events");
   if (eventIds) {
