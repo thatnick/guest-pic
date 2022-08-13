@@ -1,5 +1,5 @@
 export interface User {
-  id?: string;
+  email: string;
   name: string;
   avatarUrl: string;
 }
@@ -13,7 +13,6 @@ export interface Event {
   photoPaths: string[];
   date: Date;
   bannerUrl: string;
-  hostIds: string[];
 }
 
 export interface ItineraryItem {
