@@ -38,7 +38,7 @@ export const getUserByEmail = async (email) => {
 
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data());
-    return { ...docSnap.data(), email: docRef.id };
+     return { ...docSnap.data(), email: docRef.id };
   } else {
     console.log("No such document!");
     return {};
@@ -198,3 +198,26 @@ export const deleteAllDocsInCollection = async (collectionName: string) => {
     console.log(`documents in ${collectionName} deleted`)
   );
 };
+
+// TODO: rewrite these for new data structure
+export const addImage = async (image: string) => {
+  try {
+    console.log(image);
+    const docRef = await setDoc(doc(db, "images", image), {
+      name: image,
+    });
+  } catch (err) {
+    console.error("Error adding document: ", err);
+    return "";
+  }
+};
+
+export const getAllImages = async () => {
+  const querySnapshot = await getDocs(collection(db, "images"));
+  const images = [];
+  querySnapshot.forEach((doc: any) => {
+    images.push(doc.data().location);
+  });
+
+  return images;
+}
