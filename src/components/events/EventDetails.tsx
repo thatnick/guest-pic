@@ -1,69 +1,51 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import React, { useContext } from "react";
+import { EventContext } from "../../contexts";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-interface Props {
-  event: Event;
-}
+export default function EventDetails() {
+  const navigation = useNavigation();
+  const { event } = useContext(EventContext);
 
-export default function EventDetails({ event }: Props) {
   return (
     <View>
+      <Button title="Close" onPress={() => navigation.goBack()}></Button>
       <Image
         style={styles.image}
         source={{
-          uri: event.data.banner,
+          uri: event.bannerUrl,
         }}
       />
-      <Text>{event.data.title}</Text>
-      <Text>Guest list:</Text>
-      {event.data.guests.map((guest) => (
-        <Text>{guest.name}</Text>
-      ))}
+      <Text>{event.title}</Text>
+      <TouchableOpacity
+      //  style={styles.content}
+      >
+        <Icon
+          name={"camera"}
+          size={50}
+          color="blue"
+          onPress={() => {
+            navigation.navigate("EventCamera");
+          }}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    padding: 15,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-  },
   image: {
     width: "100%",
     height: 100,
     borderRadius: 8,
     overflow: "hidden",
-  },
-  title: {
-    fontWeight: "500",
-    backgroundColor: "pink",
-    overflow: "hidden",
-    borderRadius: 8,
-    width: "50%",
-    textAlign: "center",
-  },
-  subTitle: {
-    color: "red",
-    margin: 10,
-  },
-  details: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  shadowProp: {
-    shadowOffset: { width: 10, height: 10 },
-    shadowColor: "grey",
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#0000",
   },
 });

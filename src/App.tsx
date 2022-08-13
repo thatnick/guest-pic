@@ -1,33 +1,87 @@
+import "react-native-gesture-handler";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 
-import { UserContext } from "./contexts";
-import CameraScreen from "./components/camera/CameraScreen";
+import EventCamera from "./components/camera/EventCamera";
 import EventScreen from "./components/events/EventScreen";
 import LoginForm from "./components/user/LoginForm";
-import EventCard from "./components/events/EventCard";
-import { LoggedInContext } from "./contexts";
-
-const Stack = createNativeStackNavigator();
+import EventDetails from "./components/events/EventDetails";
+import { LoggedInContext, UserContext, EventContext } from "./contexts";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import CreateEventForm from "./components/events/CreateEventForm";
+import PhotoPreview from "./components/camera/PhotoPreview";
+import EventList from "./components/events/EventList";
+const Stack = createStackNavigator();
 
 const App = () => {
-  const [user, setUser] = useState({});
-  const [login, setLogin] = useState(false);
+  const [user, setUser] = useState(undefined);
+  const [event, setEvent] = useState(undefined);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
 
   return (
-    <NavigationContainer>
-      <UserContext.Provider value={{ user, setUser }}>
-        <LoggedInContext.Provider value={{ login, setLogin }}>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Home" component={EventScreen} />
-            <Stack.Screen name="Camera" component={CameraScreen} />
-            <Stack.Screen name="Login" component={LoginForm} />
-            <Stack.Screen name="EventCard" component={EventCard} />
-          </Stack.Navigator>
-        </LoggedInContext.Provider>
-      </UserContext.Provider>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <UserContext.Provider value={{ user, setUser }}>
+          <EventContext.Provider value={{ event, setEvent }}>
+            <Stack.Navigator
+              initialRouteName="LoginForm"
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen
+                name="EventList"
+                component={EventList}
+                options={{
+                  cardStyleInterpolator: forFade,
+                }}
+              />
+              <Stack.Screen
+                name="EventCamera"
+                component={EventCamera}
+                options={{
+                  cardStyleInterpolator: forFade,
+                }}
+              />
+              <Stack.Screen
+                name="PhotoPreview"
+                component={PhotoPreview}
+                options={{
+                  cardStyleInterpolator: forFade,
+                }}
+              />
+              <Stack.Screen name="LoginForm" component={LoginForm} />
+              <Stack.Screen
+                name="EventDetails"
+                component={EventDetails}
+                options={{
+                  cardStyleInterpolator:
+                    CardStyleInterpolators.forModalPresentationIOS,
+                }}
+              />
+              <Stack.Screen
+                name="CreateEventForm"
+                component={CreateEventForm}
+                options={{
+                  cardStyleInterpolator:
+                    CardStyleInterpolators.forModalPresentationIOS,
+                }}
+              />
+            </Stack.Navigator>
+          </EventContext.Provider>
+        </UserContext.Provider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
