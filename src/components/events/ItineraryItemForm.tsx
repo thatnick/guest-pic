@@ -4,13 +4,12 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
 } from "react-native";
 import React, { useState } from "react";
 import DatePicker from "react-native-datepicker";
 import { addItineraryItem } from "../../firebase/db";
 
-const IteninaryForm = () => {
+const ItineraryItemForm = () => {
   const [time, setTime] = useState();
   const [title, setTitle] = useState("");
   const [location, setlocation] = useState("");
@@ -22,10 +21,10 @@ const IteninaryForm = () => {
     location: location,
     description: description,
     event: "??? Need to change this",
-  }
+  };
 
   function formSubmitHandler() {
-    addItineraryItem(newItinerary)
+    addItineraryItem(newItinerary);
   }
 
   return (
@@ -77,7 +76,7 @@ const IteninaryForm = () => {
   );
 };
 
-export default IteninaryForm;
+export default ItineraryItemForm;
 
 const styles = StyleSheet.create({
   form: {

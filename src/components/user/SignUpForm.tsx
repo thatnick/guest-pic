@@ -2,19 +2,19 @@ import tw from "twrnc";
 import { View, Text, TextInput, Button } from "react-native";
 import React, { useState, useContext } from "react";
 import { createUserAccount } from "../../firebase/auth";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts";
 import { addUser } from "../../firebase/db";
-import { User } from "../../dataTypes";
+import { User } from "../../utilities/types";
 
 interface Props {
   setIsLoggedIn: (loggedIn: boolean) => void;
 }
 
-export default function SignUp({ setIsLoggedIn }: Props) {
+export default function SignUpForm({ setIsLoggedIn }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const [showPassword, setShowPassword] = useState(true);
   const { setUser } = useContext(UserContext);
@@ -22,13 +22,10 @@ export default function SignUp({ setIsLoggedIn }: Props) {
   const handleRegisterPress = async () => {
     // TODO: Handle email / password validation
 
-    const newUser = {
+    const newUser: User = {
       email: email,
-      avatar: avatar,
+      avatarUrl: avatarUrl,
       name: name,
-      events: [],
-      reference: "",
-      documentID: email,
     };
 
     // TODO check if email is in auth db, if not ask to create password
@@ -43,7 +40,7 @@ export default function SignUp({ setIsLoggedIn }: Props) {
     setPassword("");
     setShowPassword(true);
     setName("");
-    setAvatar("");
+    setAvatarUrl("");
     setIsLoggedIn(true);
   };
 
@@ -55,11 +52,14 @@ export default function SignUp({ setIsLoggedIn }: Props) {
       <Text>Email:</Text>
       <TextInput
         placeholder="email"
+        textContentType="emailAddress"
+        autoCapitalize="none"
         onChangeText={(newText) => setEmail(newText)}
       ></TextInput>
       <Text>Password:</Text>
       <TextInput
         placeholder="password"
+        textContentType="newPassword"
         secureTextEntry={showPassword}
         onChangeText={(newText) => setPassword(newText)}
       ></TextInput>
@@ -71,7 +71,7 @@ export default function SignUp({ setIsLoggedIn }: Props) {
       <Text>Avatar:</Text>
       <TextInput
         placeholder="image URL"
-        onChangeText={(newText) => setAvatar(newText)}
+        onChangeText={(newText) => setAvatarUrl(newText)}
       ></TextInput>
       <Button title="show password" onPress={handleShowPasswordPress}></Button>
       <Button title="Register" onPress={handleRegisterPress}></Button>

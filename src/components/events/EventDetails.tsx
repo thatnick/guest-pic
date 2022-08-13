@@ -1,16 +1,11 @@
-import {
-  ImageBackground,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-export default function EventCard({ event }) {
-  console.log(event, "EVENT IN EVENT CARD");
+interface Props {
+  event: Event;
+}
 
+export default function EventDetails({ event }: Props) {
   return (
     <View>
       <Image

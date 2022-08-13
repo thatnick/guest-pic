@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { View, Button, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Button } from "react-native";
 
-import Login from "./Login/Login";
-import SignUp from "./Login/SignUp";
-import UserCard from "./User/UserCard";
-import CreateEvent from "./Events/CreateEvent";
-import EventList from "./Events/EventList";
+import LoginForm from "../user/LoginForm";
+import SignUpForm from "../user/SignUpForm";
+import UserHeader from "../user/UserHeader";
+import CreateEvent from "./CreateEventForm";
+import EventList from "./EventList";
 
-export default function HomeScreen({ navigation }) {
+export default function EventScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [addEventForm, setAddEventForm] = useState(false);
 
@@ -15,7 +15,7 @@ export default function HomeScreen({ navigation }) {
     <View>
       {isLoggedIn ? (
         <View>
-          <UserCard />
+          <UserHeader />
 
           {addEventForm ? (
             <CreateEvent setAddEventForm={setAddEventForm} />
@@ -31,8 +31,8 @@ export default function HomeScreen({ navigation }) {
         </View>
       ) : (
         <View>
-          <Login setIsLoggedIn={setIsLoggedIn} />
-          <SignUp setIsLoggedIn={setIsLoggedIn} />
+          <LoginForm setIsLoggedIn={setIsLoggedIn} />
+          <SignUpForm setIsLoggedIn={setIsLoggedIn} />
         </View>
       )}
     </View>

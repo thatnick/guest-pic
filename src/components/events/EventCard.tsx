@@ -10,30 +10,12 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import EventCard from "./EventCard";
-import UserCard from "../User/UserCard";
+import EventDetails from "./EventDetails";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-import GuestListModal from "./GuestListModal";
+import GuestList from "./GuestList";
 
-// import colors from "../config/colors";
-// import Swipeable from "react-native-gesture-handler/Swipeable";
-
-// TODO: add the rest of the props here satisfy eslint rule
-
-interface Props {
-  title: string;
-}
-
-export default function ListItem({
-  title,
-  subTitle,
-  image,
-  onPress,
-  renderRightActions,
-  ImageComponent,
-  data,
-}) {
+export default function EventCard({ title, image, data }) {
   const setEvent = () => {
     console.log(data);
     setEventCardModalVisible(true);
@@ -44,7 +26,7 @@ export default function ListItem({
   return (
     // <Swipeable renderRightActions={renderRightActions}>
     <View>
-      <GuestListModal
+      <GuestList
         visible={guestListModalVisible}
         setVisible={setGuestListModalVisible}
         setEventCardModalVisible={setEventCardModalVisible}
