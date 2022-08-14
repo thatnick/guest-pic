@@ -1,15 +1,21 @@
-import React, { useRef ,useState} from "react";
+import React, { useRef ,useState, useCallback} from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Button } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { requestCameraPermissions } from "../../utilities/permissions";
+import IonIcon from 'react-native-vector-icons/Ionicons';import { requestCameraPermissions } from "../../utilities/permissions";
 import { useNavigation } from "@react-navigation/native";
 
 export default function EventCamera() {
   const navigation = useNavigation();
   const devices = useCameraDevices();
-  let device = devices.back;
+  const [cameraPosition, setCameraPosition] = useState<'front' | 'back'>('back')
+  const device = devices[cameraPosition];
   const camera = useRef<Camera>(null);
+  const [flash, setFlash] = useState<'off' | 'on'>('off');
+
+  const onFlashPressed = useCallback(() => {
+    setFlash((f) => (f === 'off' ? 'on' : 'off'));
+  }, []);
 
   const capturePhoto = async () => {
     try {
@@ -23,9 +29,9 @@ export default function EventCamera() {
     }
   };
 
-  const flipCamera = ()=>{
-  navigation.navigate("ReverseCamera")
-  }
+  const flipCamera = useCallback(()=>{
+    setCameraPosition((position)=>(position === 'back' ? 'front' : 'back'))
+  },[])
 
   requestCameraPermissions();
 
@@ -38,15 +44,18 @@ export default function EventCamera() {
         ref={camera}
         isActive={true}
         photo={true}
+        flash={flash}
       />
-
-      <TouchableOpacity style={styles.flipCamera}>
-        <Icon name={"refresh"} size={40} color={"white"} onPress={flipCamera}/>
-      </TouchableOpacity>
+<View style={styles.buttons}>
+         <TouchableOpacity onPress={onFlashPressed}>
+            <IonIcon name={flash === 'on' ? 'flash' : 'flash-off'} color="white" size={30} />
+            <IonIcon name={"camera-reverse-sharp"} size={30} color={"white"} onPress={flipCamera}/>
+      </TouchableOpacity>        
+</View>
 
       <TouchableOpacity style={styles.content}>
-        <Icon name={"square-o"} size={80} color="red" onPress={capturePhoto} />
-        <Icon name={"rotate-left"} size={35} color="white" onPress={() => navigation.goBack()} />
+        <IonIcon name={"scan-outline"} size={80} color="red" onPress={capturePhoto} />
+        <IonIcon name={"ios-arrow-undo-outline"} size={35} color="white" onPress={() => navigation.goBack()} />
       </TouchableOpacity>
     </View>
   );
@@ -60,11 +69,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding:40
   },
-  flipCamera: {
+  buttons: {
     flex:1,
     flexDirection:'column',
     alignItems:'flex-end',
-    padding:30,
-    marginTop:30
-  }
+    padding:10,
+    marginTop:50
+  },
 });

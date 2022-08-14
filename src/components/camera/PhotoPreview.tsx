@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import { EventContext } from "../../contexts";
 import { addPhotoToEvent } from "../../firebase/db";
 import { uploadPhoto } from "../../firebase/storage";
@@ -26,16 +27,16 @@ export default function PhotoPreview({ route }) {
     >
       <View style={styles.content}>
         <TouchableOpacity>
-          <Icon
-            name={"remove"}
+          <IonIcon
+            name={"trash-outline"}
             size={50}
             color="red"
             onPress={() => navigation.goBack()}
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Icon
-            name={"check"}
+          <IonIcon
+            name={"ios-checkmark-outline"}
             size={50}
             color="green"
             onPress={async () => {

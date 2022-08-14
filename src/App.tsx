@@ -52,14 +52,6 @@ const App = () => {
                   cardStyleInterpolator: forFade,
                 }}
               />
-                            <Stack.Screen
-                name="ReverseCamera"
-                component={ReverseCamera}
-                options={{
-                  cardStyleInterpolator: forFade,
-                }}
-              />
-
               <Stack.Screen
                 name="PhotoPreview"
                 component={PhotoPreview}
