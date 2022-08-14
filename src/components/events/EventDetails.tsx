@@ -6,18 +6,33 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { EventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import PhotoGallery from "../gallery/PhotoGallery";
+import {
+  getItineraryItemsByEventId,
+  getPhotosByEventAndItineraryItemId,
+} from "../../firebase/db";
+import { ItineraryItem, Photo } from "../../utilities/types";
+import { FlatList } from "react-native-gesture-handler";
 
 export default function EventDetails() {
   const navigation = useNavigation();
   const { event } = useContext(EventContext);
+  const [items, setItems] = useState<ItineraryItem[]>();
+
+  useEffect(() => {
+    getItineraryItemsByEventId(event.id).then((items) => {
+      setItems(items);
+    });
+  }, []);
 
   return (
-    <View>
+    <View style={{ height: "100%" }}>
       <Button title="Close" onPress={() => navigation.goBack()}></Button>
+
       <Image
         style={styles.image}
         source={{
@@ -25,9 +40,8 @@ export default function EventDetails() {
         }}
       />
       <Text>{event.title}</Text>
-      <TouchableOpacity
-      //  style={styles.content}
-      >
+
+      <TouchableOpacity>
         <Icon
           name={"camera"}
           size={50}
@@ -37,6 +51,25 @@ export default function EventDetails() {
           }}
         />
       </TouchableOpacity>
+      <Text>Itinerary:</Text>
+      <FlatList
+        style={{
+          flex: 1,
+        }}
+        data={items}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.time.toDate().toTimeString()}</Text>
+            <Text>{item.title}</Text>
+            <Text>{item.location}</Text>
+            <PhotoGallery
+              photosCallback={() =>
+                getPhotosByEventAndItineraryItemId(event.id, item.id)
+              }
+            />
+          </View>
+        )}
+      />
     </View>
   );
 }

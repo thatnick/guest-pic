@@ -1,32 +1,28 @@
 import { FlatList, Image, StyleSheet, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getAllImages } from "../../firebase/db";
-import { imageByUri } from "../../firebase/storage";
 import FakeGalleryBox from "./FakeGalleryBox";
+import { Photo } from "../../utilities/types";
 
-const PhotoGallery = () => {
-  const [locations, setLocations] = useState([]);
+interface Props {
+  photosCallback: () => Promise<Photo[]>;
+}
+const PhotoGallery = ({ photosCallback }: Props) => {
+  const [photos, setPhotos] = useState<Photo[]>([]);
 
   useEffect(() => {
-    getAllImages().then((images) => {
-      const promises = [];
-
-      images.forEach((image) => {
-        promises.push(imageByUri(image));
-      });
-      Promise.all(promises).then((data) => setLocations(data));
-    });
+    photosCallback().then((photos) => setPhotos(photos));
   }, []);
+
   return (
     <View>
       <FlatList
         style={{ display: "flex", flexWrap: "wrap" }}
-        data={locations}
-        renderItem={({ item }) => {
-          if (locations.length > 2) {
+        data={photos}
+        renderItem={({ item: photo }) => {
+          if (photos.length > 2) {
             return (
               <Image
-                source={{ uri: item }}
+                source={{ uri: photo.downloadUrl }}
                 style={{ height: 100, width: 100, margin: 2 }}
               />
             );
