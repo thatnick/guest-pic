@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Text, TextInput, Button } from "react-native";
+import { Text, TextInput, Button, StyleSheet } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
+import * as Yup from "yup";
 import { LoggedInContext } from "../../contexts";
 import {
   deleteAllDocsInDb,
@@ -12,6 +13,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
+import { Formik } from "formik";
+import AppFormField from "./AppFormField";
+import SubmitButton from "./SubmitButton";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+});
 
 export default function LoginForm() {
   const navigation = useNavigation();
@@ -48,8 +57,41 @@ export default function LoginForm() {
   };
 
   return (
-    <SafeAreaView>
-      <Text>Email:</Text>
+    <SafeAreaView style={styles.form}>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={handleLogin}
+        validationSchema={validationSchema}
+      >
+        {() => (
+          <>
+            <AppFormField
+              placeholder="email"
+              name="email"
+              icon="mail"
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyBoardType="email-address"
+              textContentType="emailAddress"
+            />
+            <AppFormField
+              placeholder="password"
+              name="password"
+              icon="lock-closed"
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry
+              textContentType="password"
+            />
+            <SubmitButton title="submit" />
+          </>
+        )}
+      </Formik>
+
+      {/* <Text>Email:</Text>
       <TextInput
         placeholder="email"
         textContentType="emailAddress"
@@ -91,7 +133,13 @@ export default function LoginForm() {
         color="red"
         title="Delete all docs in the database"
         onPress={() => deleteAllDocsInDb()}
-      ></Button>
+      ></Button> */}
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  form: {
+    margin: 10,
+  },
+});

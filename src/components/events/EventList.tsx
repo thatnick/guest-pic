@@ -1,34 +1,34 @@
-import { FlatList, View, Button } from "react-native";
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, FlatList, TouchableOpacity, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { getEvents } from "../../firebase/db";
-import EventCard from "./EventCard";
-import UserHeader from "../user/UserHeader";
+import ListItem from "./ListItem";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function EventList() {
-  const navigation = useNavigation();
-  const [events, setEvents] = useState<Event[]>([]);
+  const { user } = useContext(UserContext);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    getEvents().then((events) => {
-      setEvents(events);
-    });
+    getEvents().then((events) => setEvents(events));
   }, []);
 
   return (
-    <SafeAreaView>
-      <UserHeader />
-      <Button
-        title="Create Event"
-        onPress={() => navigation.navigate("CreateEventForm")}
-      ></Button>
-      <View style={{ height: "85%" }}>
-        <FlatList
-          data={events}
-          renderItem={({ item }) => <EventCard event={item} />}
-        />
-      </View>
-    </SafeAreaView>
+    <View>
+      <FlatList
+        data={events}
+        // keyExtractor={(e) => e.id.toString()}
+        renderItem={({ item }) => (
+          <ListItem
+            title={item.title}
+            // subTitle={item.description}
+            image={item.banner}
+            // onPress={() => console.log("message selected", item)}
+            // renderRightActions={() => (
+            //   <ListItemDeleteActions onPress={() => handleDelete(item)} />
+            // )}
+          />
+        )}
+      />
+    </View>
   );
 }

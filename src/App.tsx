@@ -5,16 +5,24 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-
-import EventCamera from "./components/camera/EventCamera";
-import EventScreen from "./components/events/EventScreen";
-import LoginForm from "./components/user/LoginForm";
-import EventDetails from "./components/events/EventDetails";
-import { LoggedInContext, UserContext, EventContext } from "./contexts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import CreateEventForm from "./components/events/CreateEventForm";
+import { EventContext, UserContext } from "./contexts";
+import EventList from "./components/Events/EventList";
+import EventCamera from "./components/camera/EventCamera";
 import PhotoPreview from "./components/camera/PhotoPreview";
-import EventList from "./components/events/EventList";
+import LoginForm from "./components/User/LoginForm";
+import EventDetails from "./components/Events/EventDetails";
+import CreateEventForm from "./components/Events/CreateEventForm";
+
+// import EventCamera from "./components/camera/EventCamera";
+// import EventScreen from "./components/events/EventScreen";
+// import LoginForm from "./components/user/LoginForm";
+// import EventDetails from "./components/events/EventDetails";
+// import { LoggedInContext, UserContext, EventContext } from "./contexts";
+// import { SafeAreaProvider } from "react-native-safe-area-context";
+// import CreateEventForm from "./components/events/CreateEventForm";
+// import PhotoPreview from "./components/camera/PhotoPreview";
+// import EventList from "./components/events/EventList";
 const Stack = createStackNavigator();
 
 const App = () => {
