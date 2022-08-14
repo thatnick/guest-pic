@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
@@ -89,24 +89,6 @@ export default function LoginForm() {
           </>
         )}
       </Formik>
-
-      {/* <Text>Email:</Text>
-      <TextInput
-        placeholder="email"
-        textContentType="emailAddress"
-        autoCapitalize="none"
-        onChangeText={(newText) => setEmail(newText)}
-      ></TextInput>
-      <Text>Password:</Text>
-      <TextInput
-        placeholder="password"
-        textContentType="password"
-        secureTextEntry={showPassword}
-        onChangeText={(newText) => setPassword(newText)}
-      ></TextInput>
-      <Button title="show password" onPress={handleShowPasswordPress}></Button>
-      <Button title="Login" onPress={handleLogin}></Button>
-
       <Button
         title="Login as Homer"
         onPress={() => handleLoginAs("homer@s.com", "test123")}
@@ -132,7 +114,7 @@ export default function LoginForm() {
         color="red"
         title="Delete all docs in the database"
         onPress={() => deleteAllDocsInDb()}
-      ></Button> */}
+      ></Button>
     </SafeAreaView>
   );
 }
