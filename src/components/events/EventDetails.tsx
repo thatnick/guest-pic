@@ -62,6 +62,8 @@ export default function EventDetails() {
             <Text>{item.time.toDate().toTimeString()}</Text>
             <Text>{item.title}</Text>
             <Text>{item.location}</Text>
+            {/* This isn't working yet because photos aren't saved in the
+           correct itinerary item - see th TODO in PhotoPreview.tsx*/}
             <PhotoGallery
               photosCallback={() =>
                 getPhotosByEventAndItineraryItemId(event.id, item.id)
