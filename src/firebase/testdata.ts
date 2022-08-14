@@ -100,30 +100,24 @@ export const seedDb = async () => {
 
   addItineraryItemToEvent({
     eventId: event1.id,
-    itineraryItem: {
-      title: "Buffet",
-      description: "A buffet",
-      location: "A table in your house",
-      time: new Date(),
-    },
+    title: "Buffet",
+    description: "A buffet",
+    location: "A table in your house",
+    time: new Date(),
   });
   addItineraryItemToEvent({
     eventId: event1.id,
-    itineraryItem: {
-      title: "Karaoke",
-      description: "Singing",
-      location: "On a table in your house",
-      time: new Date(),
-    },
+    title: "Karaoke",
+    description: "Singing",
+    location: "On a table in your house",
+    time: new Date(),
   });
   addItineraryItemToEvent({
     eventId: event2.id,
-    itineraryItem: {
-      title: "Arrive",
-      description: "File starts",
-      location: "Multiplex",
-      time: new Date(),
-    },
+    title: "Arrive",
+    description: "File starts",
+    location: "Multiplex",
+    time: new Date(),
   });
   console.log("seeding complete");
 };
