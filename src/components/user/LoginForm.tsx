@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
 import * as Yup from "yup";
-import { LoggedInContext } from "../../contexts";
 import {
   deleteAllDocsInDb,
   seedDb,
