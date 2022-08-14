@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { EventContext, UserContext } from "../../contexts";
-import { addPhotoToItineraryItemAndUpload } from "../../firebase/db";
+import { addPhotoToItineraryItem } from "../../firebase/db";
 
 export default function PhotoPreview({ route }) {
   const { photoFile } = route.params;
@@ -40,7 +40,7 @@ export default function PhotoPreview({ route }) {
             color="green"
             onPress={async () => {
               console.log("PATH" + photoFile.path);
-              await addPhotoToItineraryItemAndUpload({
+              await addPhotoToItineraryItem({
                 eventId: event.id,
                 // TODO: don't hardcode the itemid -
                 // decide how to determine what the

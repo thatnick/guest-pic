@@ -198,7 +198,7 @@ export const addGuestToEvent = async ({
   }
 };
 
-export const addPhotoToItineraryItemAndUpload = async ({
+export const addPhotoToItineraryItem = async ({
   eventId,
   itemId,
   userEmail,
@@ -267,7 +267,7 @@ export const addItineraryItemToEvent = async ({
   }
 };
 
-export const getItineraryItemsByEventId = async (eventId: string) => {
+export const getItineraryItemsByEvent = async (eventId: string) => {
   const items: ItineraryItem[] = [];
   const eventRef = doc(db, "events", eventId);
   const itemsRef = collection(eventRef, "itineraryItems");
@@ -285,10 +285,7 @@ export const getItineraryItemsByEventId = async (eventId: string) => {
   return items;
 };
 
-export const getItineraryItemByEventandItemId = async (
-  eventId: string,
-  itemId: string
-) => {
+export const getItineraryItemById = async (eventId: string, itemId: string) => {
   const itemRef = doc(db, "events", eventId, "itineraryItems", itemId);
   const docSnap = await getDoc(itemRef);
 
@@ -305,7 +302,7 @@ export const getItineraryItemByEventandItemId = async (
   }
 };
 
-export const getPhotosByEventAndItineraryItemId = async (
+export const getPhotosByItineraryItem = async (
   eventId: string,
   itemId: string
 ) => {
@@ -331,7 +328,7 @@ export const getPhotosByEventAndItineraryItemId = async (
   return photos;
 };
 
-export const getPhotoByEventItemAndPhotoId = async (
+export const getPhotoByPhotoId = async (
   eventId: string,
   itemId: string,
   photoId: string
@@ -374,12 +371,9 @@ export const deleteAllDocsInCollection = async (collectionName: string) => {
 export const deleteAllItineraryItemsAndPhotos = async () => {
   const events = await getEvents();
   events.forEach(async (event) => {
-    const items = await getItineraryItemsByEventId(event.id);
+    const items = await getItineraryItemsByEvent(event.id);
     items.forEach(async (item) => {
-      const photos = await getPhotosByEventAndItineraryItemId(
-        event.id,
-        item.id
-      );
+      const photos = await getPhotosByItineraryItem(event.id, item.id);
       photos.forEach(async (photo) => {
         const photoRef = doc(
           db,

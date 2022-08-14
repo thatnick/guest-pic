@@ -12,8 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
-  getItineraryItemsByEventId,
-  getPhotosByEventAndItineraryItemId,
+  getItineraryItemsByEvent,
+  getPhotosByItineraryItem,
 } from "../../firebase/db";
 import { ItineraryItem, Photo } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
@@ -24,7 +24,7 @@ export default function EventDetails() {
   const [items, setItems] = useState<ItineraryItem[]>();
 
   useEffect(() => {
-    getItineraryItemsByEventId(event.id).then((items) => {
+    getItineraryItemsByEvent(event.id).then((items) => {
       setItems(items);
     });
   }, []);
@@ -65,9 +65,7 @@ export default function EventDetails() {
             {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
             <PhotoGallery
-              photosCallback={() =>
-                getPhotosByEventAndItineraryItemId(event.id, item.id)
-              }
+              photosCallback={() => getPhotosByItineraryItem(event.id, item.id)}
             />
           </View>
         )}
