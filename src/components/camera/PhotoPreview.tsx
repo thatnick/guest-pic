@@ -25,7 +25,7 @@ export default function PhotoPreview({ route }) {
       source={{ uri: photo.path }}
     >
       <View style={styles.content}>
-        <TouchableOpacity style={styles.retake}>
+        <TouchableOpacity>
           <Icon
             name={"remove"}
             size={50}
@@ -33,7 +33,7 @@ export default function PhotoPreview({ route }) {
             onPress={() => navigation.goBack()}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.save}>
+        <TouchableOpacity>
           <Icon
             name={"check"}
             size={50}
@@ -56,15 +56,9 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "flex-end",
-    padding: 50,
+    justifyContent:'space-around',
+    alignItems:'flex-end',
+    padding:40
   },
-  retake: {
-    display: "flex",
-    width: "50%",
-  },
-  save: {
-    display: "flex",
-    width: "50%",
-  },
+ 
 });

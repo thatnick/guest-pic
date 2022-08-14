@@ -38,8 +38,9 @@ export default function EventCamera() {
 
       <TouchableOpacity style={styles.content}>
         <Icon name={"square-o"} size={80} color="red" onPress={capturePhoto} />
+        <Icon name={"rotate-left"} size={50} color="white" onPress={() => navigation.goBack()} />
       </TouchableOpacity>
-      <Button title="Close" onPress={() => navigation.goBack()} />
+      {/* <Button title="Close" onPress={() => navigation.goBack()} /> */}
     </View>
   );
 }
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: 50,
+    padding:40
   },
   retake: {
     display: "flex",
