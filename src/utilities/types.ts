@@ -4,8 +4,16 @@ export interface User {
   avatarUrl: string;
 }
 
+export interface Guest {
+  id: string;
+  email: string;
+  eventId: string;
+  isHost: boolean;
+  attending: "yes" | "no" | "?";
+}
+
 export interface Event {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   location: string;
@@ -23,7 +31,7 @@ export interface ItineraryItem {
 
 export interface Photo {
   id: string;
-  path: string;
+  downloadUrl: string;
   userEmail: string;
 }
 
