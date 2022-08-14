@@ -1,12 +1,4 @@
-import {
-  Button,
-  FlatList,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Image, StyleSheet, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getAllImages } from "../../firebase/db";
 import { imageByUri } from "../../firebase/storage";
