@@ -7,20 +7,20 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { EventContext } from "../../contexts";
+import { SelectedEventContext } from "../../contexts";
 
 interface Props {
   event: Event;
 }
 export default function EventCard({ event }: Props) {
   const navigation = useNavigation();
-  const { setEvent } = useContext(EventContext);
+  const { setSelectedEvent } = useContext(SelectedEventContext);
 
   return (
     <TouchableHighlight
       underlayColor="red"
       onPress={() => {
-        setEvent(event);
+        setSelectedEvent(event);
         navigation.navigate("EventDetails");
       }}
     >

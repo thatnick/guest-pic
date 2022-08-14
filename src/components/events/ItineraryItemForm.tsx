@@ -9,10 +9,10 @@ import React, { useContext, useState } from "react";
 import DatePicker from "react-native-datepicker";
 import { addItineraryItemToEvent } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
-import { EventContext } from "../../contexts";
+import { SelectedEventContext } from "../../contexts";
 
 const ItineraryItemForm = () => {
-  const { event } = useContext(EventContext);
+  const { selectedEvent } = useContext(SelectedEventContext);
   const [time, setTime] = useState(new Date());
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -26,7 +26,7 @@ const ItineraryItemForm = () => {
   };
 
   function formSubmitHandler() {
-    addItineraryItemToEvent({ eventId: event.id, itineraryItem });
+    addItineraryItemToEvent({ eventId: selectedEvent.id, itineraryItem });
   }
 
   return (

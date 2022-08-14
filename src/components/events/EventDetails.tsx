@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { EventContext } from "../../contexts";
+import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import PhotoGallery from "../gallery/PhotoGallery";
@@ -20,11 +20,11 @@ import { FlatList } from "react-native-gesture-handler";
 
 export default function EventDetails() {
   const navigation = useNavigation();
-  const { event } = useContext(EventContext);
+  const { selectedEvent } = useContext(SelectedEventContext);
   const [items, setItems] = useState<ItineraryItem[]>();
 
   useEffect(() => {
-    getItineraryItemsByEvent(event.id).then((items) => {
+    getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
     });
   }, []);
@@ -36,10 +36,10 @@ export default function EventDetails() {
       <Image
         style={styles.image}
         source={{
-          uri: event.bannerUrl,
+          uri: selectedEvent.bannerUrl,
         }}
       />
-      <Text>{event.title}</Text>
+      <Text>{selectedEvent.title}</Text>
 
       <TouchableOpacity>
         <Icon
@@ -65,7 +65,9 @@ export default function EventDetails() {
             {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
             <PhotoGallery
-              photosCallback={() => getPhotosByItineraryItem(event.id, item.id)}
+              photosCallback={() =>
+                getPhotosByItineraryItem(selectedEvent.id, item.id)
+              }
             />
           </View>
         )}

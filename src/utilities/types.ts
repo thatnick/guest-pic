@@ -41,9 +41,16 @@ export interface Props<T> {
   object: T;
 }
 
-export interface EventContextType {
-  event: Event;
-  setEvent: (prevEvent: Event) => void;
+export interface SelectedEventContextType {
+  selectedEvent: Event;
+  setSelectedEvent: (prevEvent: Event) => void;
+}
+
+export interface InProgressEventContextType {
+  inProgressEvent: Event;
+  setInProgressEvent: (prevEvent: Event) => void;
+  inProgressItem: ItineraryItem;
+  setInProgressItem: (prevEvent: ItineraryItem) => void;
 }
 
 export interface UserContextType {

@@ -9,16 +9,24 @@ import {
 import EventCamera from "./components/camera/EventCamera";
 import LoginForm from "./components/user/LoginForm";
 import EventDetails from "./components/events/EventDetails";
-import { UserContext, EventContext } from "./contexts";
+import {
+  UserContext,
+  SelectedEventContext,
+  InProgressEventContext,
+} from "./contexts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
+import SetTestDateTime from "./utilities/SetTestDateTime";
+
 const Stack = createStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState(undefined);
-  const [event, setEvent] = useState(undefined);
+  const [selectedEvent, setSelectedEvent] = useState(undefined);
+  const [inProgressEvent, setInProgressEvent] = useState(undefined);
+  const [inProgressItem, setInProgressItem] = useState(undefined);
 
   const forFade = ({ current }) => ({
     cardStyle: {
@@ -26,57 +34,78 @@ const App = () => {
     },
   });
 
+  // TODO: set the in progress event and item here where the date / time changes?
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <UserContext.Provider value={{ user, setUser }}>
-          <EventContext.Provider value={{ event, setEvent }}>
-            <Stack.Navigator
-              initialRouteName="LoginForm"
-              screenOptions={{
-                headerShown: false,
+          <SelectedEventContext.Provider
+            value={{ selectedEvent, setSelectedEvent }}
+          >
+            <InProgressEventContext.Provider
+              value={{
+                inProgressEvent,
+                setInProgressEvent,
+                inProgressItem,
+                setInProgressItem,
               }}
             >
-              <Stack.Screen
-                name="EventList"
-                component={EventList}
-                options={{
-                  cardStyleInterpolator: forFade,
+              <Stack.Navigator
+                initialRouteName="LoginForm"
+                screenOptions={{
+                  headerShown: false,
                 }}
-              />
-              <Stack.Screen
-                name="EventCamera"
-                component={EventCamera}
-                options={{
-                  cardStyleInterpolator: forFade,
-                }}
-              />
-              <Stack.Screen
-                name="PhotoPreview"
-                component={PhotoPreview}
-                options={{
-                  cardStyleInterpolator: forFade,
-                }}
-              />
-              <Stack.Screen name="LoginForm" component={LoginForm} />
-              <Stack.Screen
-                name="EventDetails"
-                component={EventDetails}
-                options={{
-                  cardStyleInterpolator:
-                    CardStyleInterpolators.forModalPresentationIOS,
-                }}
-              />
-              <Stack.Screen
-                name="CreateEventForm"
-                component={CreateEventForm}
-                options={{
-                  cardStyleInterpolator:
-                    CardStyleInterpolators.forModalPresentationIOS,
-                }}
-              />
-            </Stack.Navigator>
-          </EventContext.Provider>
+              >
+                <Stack.Screen
+                  name="EventList"
+                  component={EventList}
+                  options={{
+                    cardStyleInterpolator: forFade,
+                  }}
+                />
+                <Stack.Screen
+                  name="EventCamera"
+                  component={EventCamera}
+                  options={{
+                    cardStyleInterpolator: forFade,
+                  }}
+                />
+                <Stack.Screen
+                  name="PhotoPreview"
+                  component={PhotoPreview}
+                  options={{
+                    cardStyleInterpolator: forFade,
+                  }}
+                />
+                <Stack.Screen name="LoginForm" component={LoginForm} />
+                <Stack.Screen
+                  name="EventDetails"
+                  component={EventDetails}
+                  options={{
+                    cardStyleInterpolator:
+                      CardStyleInterpolators.forModalPresentationIOS,
+                  }}
+                />
+                <Stack.Screen
+                  name="CreateEventForm"
+                  component={CreateEventForm}
+                  options={{
+                    cardStyleInterpolator:
+                      CardStyleInterpolators.forModalPresentationIOS,
+                  }}
+                />
+                <Stack.Screen
+                  name="SetTestDateTime"
+                  component={SetTestDateTime}
+                  options={{
+                    cardStyleInterpolator:
+                      CardStyleInterpolators.forModalPresentationIOS,
+                  }}
+                />
+              </Stack.Navigator>
+            </InProgressEventContext.Provider>
+          </SelectedEventContext.Provider>
         </UserContext.Provider>
       </NavigationContainer>
     </SafeAreaProvider>

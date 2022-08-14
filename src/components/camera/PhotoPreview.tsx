@@ -7,13 +7,13 @@ import {
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { EventContext, UserContext } from "../../contexts";
+import { SelectedEventContext, UserContext } from "../../contexts";
 import { addPhotoToItineraryItem } from "../../firebase/db";
 
 export default function PhotoPreview({ route }) {
   const { photoFile } = route.params;
   const navigation = useNavigation();
-  const { event } = useContext(EventContext);
+  const { selectedEvent } = useContext(SelectedEventContext);
   const { user } = useContext(UserContext);
 
   return (
@@ -41,7 +41,7 @@ export default function PhotoPreview({ route }) {
             onPress={async () => {
               console.log("PATH" + photoFile.path);
               await addPhotoToItineraryItem({
-                eventId: event.id,
+                eventId: selectedEvent.id,
                 // TODO: don't hardcode the itemid -
                 // decide how to determine what the
                 // correct itinerary item is...
