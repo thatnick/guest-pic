@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface User {
   email: string;
   name: string;
@@ -17,7 +19,7 @@ export interface Event {
   title: string;
   description: string;
   location: string;
-  date: Date;
+  date: Timestamp;
   bannerUrl: string;
 }
 
@@ -26,7 +28,7 @@ export interface ItineraryItem {
   title: string;
   description: string;
   location: string;
-  time: Date;
+  time: Timestamp;
 }
 
 export interface Photo {
