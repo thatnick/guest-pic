@@ -180,7 +180,7 @@ export const addItineraryItemToEvent = async ({ eventId, itineraryItem }) => {
   }
 };
 
-export const getItineraryItemsByEvent = async (eventId: string) => {
+export const getItineraryItemsByEventId = async (eventId: string) => {
   const items: ItineraryItem[] = [];
   const docRef = doc(db, "events", eventId);
   const colRef = collection(docRef, "itineraryItems");
@@ -218,7 +218,7 @@ export const getItineraryItemByEventandItemId = async (
   }
 };
 
-export const getPhotosByEventAndItineraryItem = async (
+export const getPhotosByEventAndItineraryItemId = async (
   eventId: string,
   itemId: string
 ) => {
@@ -287,9 +287,12 @@ export const deleteAllDocsInCollection = async (collectionName: string) => {
 export const deleteAllItineraryItemsAndPhotos = async () => {
   const events = await getEvents();
   events.forEach(async (event) => {
-    const items = await getItineraryItemsByEvent(event.id);
+    const items = await getItineraryItemsByEventId(event.id);
     items.forEach(async (item) => {
-      const photos = await getPhotosByEventAndItineraryItem(event.id, item.id);
+      const photos = await getPhotosByEventAndItineraryItemId(
+        event.id,
+        item.id
+      );
       photos.forEach(async (photo) => {
         const photoRef = doc(
           db,
