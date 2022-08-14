@@ -11,6 +11,7 @@ export default function EventList() {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
+    // TODO: get events by user (not all events)
     getEvents().then((events) => {
       setEvents(events);
     });
