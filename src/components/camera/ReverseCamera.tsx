@@ -1,14 +1,14 @@
-import React, { useRef ,useState} from "react";
+import React, { useRef } from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Button } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { requestCameraPermissions } from "../../utilities/permissions";
 import { useNavigation } from "@react-navigation/native";
 
-export default function EventCamera() {
+export default function ReverseCamera() {
   const navigation = useNavigation();
   const devices = useCameraDevices();
-  let device = devices.back;
+  let device = devices.front;
   const camera = useRef<Camera>(null);
 
   const capturePhoto = async () => {
@@ -24,7 +24,7 @@ export default function EventCamera() {
   };
 
   const flipCamera = ()=>{
-  navigation.navigate("ReverseCamera")
+        navigation.navigate("EventCamera")
   }
 
   requestCameraPermissions();
@@ -48,6 +48,7 @@ export default function EventCamera() {
         <Icon name={"square-o"} size={80} color="red" onPress={capturePhoto} />
         <Icon name={"rotate-left"} size={35} color="white" onPress={() => navigation.goBack()} />
       </TouchableOpacity>
+      {/* <Button title="Close" onPress={() => navigation.goBack()} /> */}
     </View>
   );
 }
