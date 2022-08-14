@@ -42,7 +42,9 @@ export default function PhotoPreview({ route }) {
               console.log("PATH" + photoFile.path);
               await addPhotoToItineraryItemAndUpload({
                 eventId: event.id,
-                // TODO: don't hardcode the itemid
+                // TODO: don't hardcode the itemid -
+                // decide how to determine what the
+                // correct itinerary item is...
                 itemId: "7egFFUO2Fd0BXwq0btfw",
                 filePath: photoFile.path,
                 userEmail: user.email,
