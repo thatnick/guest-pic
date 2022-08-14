@@ -9,17 +9,22 @@ export interface Event {
   title: string;
   description: string;
   location: string;
-  itinerary: ItineraryItem[];
-  photoPaths: string[];
   date: Date;
   bannerUrl: string;
 }
 
 export interface ItineraryItem {
+  id: string;
   title: string;
   description: string;
   location: string;
   time: Date;
+}
+
+export interface Photo {
+  id: string;
+  path: string;
+  userEmail: string;
 }
 
 export interface Props<T> {

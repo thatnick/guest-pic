@@ -4,9 +4,12 @@ import {
   addUser,
   addGuestToEvent,
   deleteAllDocsInCollection,
+  addItineraryItemToEvent,
+  deleteAllItineraryItemsAndPhotos,
 } from "./db";
 
 export const deleteAllDocsInDb = () => {
+  deleteAllItineraryItemsAndPhotos();
   deleteAllDocsInCollection("users");
   deleteAllDocsInCollection("events");
   deleteAllDocsInCollection("guests");
@@ -93,6 +96,34 @@ export const seedDb = async () => {
     eventId: event2.id,
     email: "lisa@s.com",
     isHost: false,
+  });
+
+  addItineraryItemToEvent({
+    eventId: event1.id,
+    itineraryItem: {
+      title: "Buffet",
+      description: "A buffet",
+      location: "A table in your house",
+      time: new Date(),
+    },
+  });
+  addItineraryItemToEvent({
+    eventId: event1.id,
+    itineraryItem: {
+      title: "Karaoke",
+      description: "Singing",
+      location: "On a table in your house",
+      time: new Date(),
+    },
+  });
+  addItineraryItemToEvent({
+    eventId: event2.id,
+    itineraryItem: {
+      title: "Arrive",
+      description: "File starts",
+      location: "Multiplex",
+      time: new Date(),
+    },
   });
   console.log("seeding complete");
 };
