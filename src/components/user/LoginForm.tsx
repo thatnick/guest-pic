@@ -3,7 +3,6 @@ import { Text, TextInput, Button } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
-import { LoggedInContext } from "../../contexts";
 import {
   deleteAllDocsInDb,
   seedDb,

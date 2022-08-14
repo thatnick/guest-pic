@@ -7,10 +7,9 @@ import {
 } from "@react-navigation/stack";
 
 import EventCamera from "./components/camera/EventCamera";
-import EventScreen from "./components/events/EventScreen";
 import LoginForm from "./components/user/LoginForm";
 import EventDetails from "./components/events/EventDetails";
-import { LoggedInContext, UserContext, EventContext } from "./contexts";
+import { UserContext, EventContext } from "./contexts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
@@ -20,7 +19,6 @@ const Stack = createStackNavigator();
 const App = () => {
   const [user, setUser] = useState(undefined);
   const [event, setEvent] = useState(undefined);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const forFade = ({ current }) => ({
     cardStyle: {

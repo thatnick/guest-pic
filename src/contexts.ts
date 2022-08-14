@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  User,
-  Event,
-  UserContextType,
-  EventContextType,
-} from "./utilities/types";
+import { UserContextType, EventContextType } from "./utilities/types";
 
 export const UserContext = React.createContext<UserContextType>({
   user: undefined,

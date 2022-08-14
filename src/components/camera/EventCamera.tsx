@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Button } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import Icon from "react-native-vector-icons/FontAwesome";
