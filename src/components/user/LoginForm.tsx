@@ -44,6 +44,7 @@ export default function LoginForm() {
     const user: User = await getUserByEmail(email);
     setUser(user);
     navigation.navigate("EventList");
+
   };
 
   const handleLoginAs = async (email: string, password: string) => {
@@ -55,8 +56,9 @@ export default function LoginForm() {
 
     setPassword("");
     navigation.navigate("EventList");
+    
   };
-
+const values = {email:"",password:""}
   return (
     <SafeAreaView style={styles.form}>
       <Formik
@@ -64,12 +66,17 @@ export default function LoginForm() {
           email: "",
           password: "",
         }}
-        onSubmit={(value) =>
-          handleLogin(value).catch((err) => setErrorInvalidUser(true))
+        onSubmit={(values, {resetForm}) => {
+          console.log(values,'<<<<<ON SUBMIT')
+
+          handleLogin(values).catch((err) => setErrorInvalidUser(true))
+          resetForm({values:{email:"",password:""}})
         }
+        }
+      
         validationSchema={validationSchema}
       >
-        {() => (
+        {({resetForm}) => (
           <>
             <AppFormField
               placeholder="email"
