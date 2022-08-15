@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, StyleSheet } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import AppFormField from "./AppFormField";
 import SubmitButton from "./SubmitButton";
+import ErrorMsg from "./ErrorMsg";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -24,8 +25,7 @@ const validationSchema = Yup.object().shape({
 export default function LoginForm() {
   const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [errorInvalidUser, setErrorInvalidUser] = useState(false);
 
   const { setUser } = useContext(UserContext);
 
@@ -59,7 +59,9 @@ export default function LoginForm() {
           email: "",
           password: "",
         }}
-        onSubmit={(value) => handleLogin(value)}
+        onSubmit={(value) =>
+          handleLogin(value).catch((err) => setErrorInvalidUser(true))
+        }
         validationSchema={validationSchema}
       >
         {() => (
@@ -86,6 +88,14 @@ export default function LoginForm() {
           </>
         )}
       </Formik>
+      {errorInvalidUser && (
+        <View style={{ alignItems: "center" }}>
+          <ErrorMsg
+            error="Invalid User Credentials"
+            visible={errorInvalidUser}
+          />
+        </View>
+      )}
       <Button
         title="Login as Homer"
         onPress={() => handleLoginAs("homer@s.com", "test123")}

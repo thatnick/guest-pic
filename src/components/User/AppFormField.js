@@ -6,7 +6,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 const AppFormField = ({ icon, name, ...props }) => {
   const { setFieldTouched, handleChange, errors, touched } = useFormikContext();
-
   return (
     <>
       <View style={styles.textInputContainer}>
