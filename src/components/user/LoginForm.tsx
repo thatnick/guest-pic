@@ -62,13 +62,18 @@ const values = {email:"",password:""}
   return (
     <SafeAreaView style={styles.form}>
       <Formik
-        initialValues={values}
+        initialValues={{
+          email: "",
+          password: "",
+        }}
         onSubmit={(values, {resetForm}) => {
-          resetForm(values)
-          handleLogin(values)
-          .catch((err) => setErrorInvalidUser(true))
+          console.log(values,'<<<<<ON SUBMIT')
+
+          handleLogin(values).catch((err) => setErrorInvalidUser(true))
+          resetForm({values:{email:"",password:""}})
         }
-      }
+        }
+      
         validationSchema={validationSchema}
       >
         {({resetForm}) => (
@@ -81,7 +86,6 @@ const values = {email:"",password:""}
               autoCorrect={false}
               keyBoardType="email-address"
               textContentType="emailAddress"
-              
             />
             <AppFormField
               placeholder="password"

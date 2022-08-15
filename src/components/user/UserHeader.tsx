@@ -5,6 +5,7 @@ import { UserContext, InProgressEventContext } from "../../contexts";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import { resetStack } from "./ResetStack";
 
 export default function UserHeader() {
   console.log("USER HEADER")
@@ -28,7 +29,7 @@ export default function UserHeader() {
           color="blue"
           onPress={() => {
             setUser({user:"",password:""})
-            navigation.navigate("LoginForm")
+            resetStack(navigation, "LoginForm")
           }
           
         }
