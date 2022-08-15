@@ -22,7 +22,7 @@ export default function EventDetails() {
     <View style={styles.content}>
       {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
       
-      <TouchableOpacity >
+      <TouchableOpacity style={styles.back} >
         <IonIcon name={"ios-arrow-undo-outline"} size={35} color="blue" onPress={() => navigation.goBack()} />
       </TouchableOpacity>
 
@@ -76,4 +76,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "#0000",
   },
+  back: {
+    padding:20
+  }
 });
