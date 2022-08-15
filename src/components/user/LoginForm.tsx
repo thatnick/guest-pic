@@ -2,9 +2,8 @@ import React, { useState, useContext } from "react";
 import { Text, TextInput, Button, StyleSheet } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
-import { UserContext } from "../../contexts";
 import * as Yup from "yup";
-import { LoggedInContext } from "../../contexts";
+import { UserContext } from "../../contexts";
 import {
   deleteAllDocsInDb,
   seedDb,
@@ -34,20 +33,21 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async ({ email, password }) => {
     await signIn(email, password);
-    const user: User = await getUserByEmail(email);
+    const user = await getUserByEmail(email);
     setUser(user);
 
-    setEmail("");
+    // setEmail("");
 
-    setPassword("");
+    // setPassword("");
     navigation.navigate("EventList");
   };
 
   const handleLoginAs = async (email: string, password: string) => {
     await signIn(email, password);
     const user = await getUserByEmail(email);
+
     setUser(user);
 
     setEmail("");
@@ -63,7 +63,7 @@ export default function LoginForm() {
           email: "",
           password: "",
         }}
-        onSubmit={handleLogin}
+        onSubmit={(value) => handleLogin(value)}
         validationSchema={validationSchema}
       >
         {() => (
@@ -73,12 +73,14 @@ export default function LoginForm() {
               name="email"
               icon="mail"
               autoCapitalize="none"
+              // setState={setEmail}
               autoCorrect={false}
               keyBoardType="email-address"
               textContentType="emailAddress"
             />
             <AppFormField
               placeholder="password"
+              // setState=
               name="password"
               icon="lock-closed"
               autoCapitalize="none"

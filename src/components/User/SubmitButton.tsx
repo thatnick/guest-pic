@@ -6,9 +6,7 @@ const SubmitButton = ({ title }) => {
   const { handleSubmit } = useFormikContext();
   return (
     <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-      <Text style={styles.text} onPress={handleSubmit}>
-        {title}
-      </Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
