@@ -28,6 +28,8 @@ export const addUser = async ({
   avatarUrl: string;
 }) => {
   try {
+    console.log("addUser");
+
     const userRef = doc(db, "users", email);
     await setDoc(userRef, {
       name,
@@ -43,6 +45,7 @@ export const addUser = async ({
 export const getUserByEmail = async (email: string) => {
   const userRef = doc(db, "users", email);
   const docSnap = await getDoc(userRef);
+  console.log("etUserByEmail");
 
   if (docSnap.exists()) {
     const userDoc = docSnap.data();
@@ -60,6 +63,7 @@ export const getUserByEmail = async (email: string) => {
 export const getUsers = async (emails?: string[]) => {
   let q;
   const usersRef = collection(db, "users");
+  console.log("getUsers");
   if (emails) {
     q = query(usersRef, where(documentId(), "in", emails));
   } else {
@@ -92,6 +96,7 @@ export const addEvent = async ({
   bannerUrl: string;
 }) => {
   try {
+    console.log("addEvent");
     const eventRef = await addDoc(collection(db, "events"), {
       title,
       description,
@@ -116,6 +121,7 @@ export const addEvent = async ({
 export const getEvents = async (eventIds?: string[]) => {
   let q;
   const eventsRef = collection(db, "events");
+  console.log("getEvents");
   if (eventIds) {
     q = query(eventsRef, where(documentId(), "in", eventIds));
   } else {
@@ -143,6 +149,8 @@ export const getEvents = async (eventIds?: string[]) => {
 export const getEventsByGuestEmail = async (email: string) => {
   const eventIds: string[] = [];
 
+  console.log("getEventsByGuestEmail");
+
   const guestsRef = collection(db, "guests");
   const q = query(guestsRef, where("email", "==", email));
   const querySnapshot = await getDocs(q);
@@ -156,6 +164,8 @@ export const getEventsByGuestEmail = async (email: string) => {
 
 export const getGuestUsersByEventId = async (eventId: string) => {
   const emails: string[] = [];
+
+  console.log("getGuestUsersByEventId");
 
   const guestsRef = collection(db, "guests");
   const q = query(guestsRef, where("eventId", "==", eventId));
@@ -178,6 +188,7 @@ export const addGuestToEvent = async ({
   isHost: boolean;
 }) => {
   try {
+    console.log("addGuestToEvent");
     const attending = isHost ? "yes" : "?";
     const guestRef = await addDoc(collection(db, "guests"), {
       email,
@@ -210,6 +221,7 @@ export const addPhotoToItineraryItem = async ({
   filePath: string;
 }) => {
   try {
+    console.log("addPhotoToItineraryItem");
     const photosRef = collection(
       db,
       "events",
@@ -246,6 +258,7 @@ export const addItineraryItemToEvent = async ({
   time: Date;
 }) => {
   try {
+    console.log("addItineraryItemToEvent");
     const eventsRef = doc(db, "events", eventId);
     const itemsRef = collection(eventsRef, "itineraryItems");
     const newDocRef = await addDoc(itemsRef, {
@@ -268,6 +281,7 @@ export const addItineraryItemToEvent = async ({
 };
 
 export const getItineraryItemsByEvent = async (eventId: string) => {
+  console.log("getItineraryItemsByEvent");
   const items: ItineraryItem[] = [];
   const eventRef = doc(db, "events", eventId);
   const itemsRef = collection(eventRef, "itineraryItems");
@@ -286,6 +300,7 @@ export const getItineraryItemsByEvent = async (eventId: string) => {
 };
 
 export const getItineraryItemById = async (eventId: string, itemId: string) => {
+  console.log("getItineraryItemById");
   const itemRef = doc(db, "events", eventId, "itineraryItems", itemId);
   const docSnap = await getDoc(itemRef);
 
@@ -314,7 +329,7 @@ export const getPhotosByItineraryItem = async (
     itemId,
     "photos"
   );
-
+  console.log("getPhotosByItineraryItem");
   const photos: Photo[] = [];
   const querySnapshot = await getDocs(photosRef);
   querySnapshot.forEach((document) => {
@@ -343,7 +358,7 @@ export const getPhotoByPhotoId = async (
     photoId
   );
   const docSnap = await getDoc(photoRef);
-
+  console.log("getPhotoByPhotoId");
   if (docSnap.exists()) {
     const photoDoc = docSnap.data();
     const item: Photo = {
@@ -355,6 +370,7 @@ export const getPhotoByPhotoId = async (
   }
 };
 export const deleteAllDocsInCollection = async (collectionName: string) => {
+  console.log("deleteAllDocsInCollection");
   const querySnapshot = await getDocs(collection(db, collectionName));
 
   const toDelete: Promise<void>[] = [];
@@ -369,6 +385,7 @@ export const deleteAllDocsInCollection = async (collectionName: string) => {
 };
 
 export const deleteAllItineraryItemsAndPhotos = async () => {
+  console.log("deleteAllItineraryItemsAndPhotos");
   const events = await getEvents();
   events.forEach(async (event) => {
     const items = await getItineraryItemsByEvent(event.id);
