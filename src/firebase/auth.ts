@@ -23,16 +23,11 @@ export const createUserAccount = (email: string, password: string) => {
 
 export const signIn = (email: string, password: string) => {
   const auth = getAuth(app);
-  signInWithEmailAndPassword(auth, email, password)
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       console.log(`signed in as ${userCredential.user.email}`);
       // TODO: get the users details from the user collection in the db
       // and add them to the user context
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
 };

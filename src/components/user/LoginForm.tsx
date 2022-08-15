@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Text, TextInput, Button } from "react-native";
+import { Text, TextInput, Button, StyleSheet, View, TouchableOpacity } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
+import * as Yup from "yup";
 import {
   deleteAllDocsInDb,
   seedDb,
@@ -11,12 +12,24 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
+import {Formik} from "formik";
+import AppFormField from "../user/AppFormField";
+import SubmitButton from "../user/SubmitButton";
+import ErrorMsg from "./ErrorMsg";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+});
+
+
 
 export default function LoginForm() {
   const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorInvalidUser, setErrorInvalidUser] = useState(false);
 
   const { setUser } = useContext(UserContext);
 
@@ -24,14 +37,10 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async ({ email, password }) => {
     await signIn(email, password);
     const user: User = await getUserByEmail(email);
     setUser(user);
-
-    setEmail("");
-
-    setPassword("");
     navigation.navigate("EventList");
   };
 
@@ -47,23 +56,52 @@ export default function LoginForm() {
   };
 
   return (
-    <SafeAreaView>
-      <Text>Email:</Text>
-      <TextInput
-        placeholder="email"
-        textContentType="emailAddress"
-        autoCapitalize="none"
-        onChangeText={(newText) => setEmail(newText)}
-      ></TextInput>
-      <Text>Password:</Text>
-      <TextInput
-        placeholder="password"
-        textContentType="password"
-        secureTextEntry={showPassword}
-        onChangeText={(newText) => setPassword(newText)}
-      ></TextInput>
-      <Button title="show password" onPress={handleShowPasswordPress}></Button>
-      <Button title="Login" onPress={handleLogin}></Button>
+    <SafeAreaView style={styles.form}>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={(value) =>
+          handleLogin(value).catch((err) => setErrorInvalidUser(true))
+        }
+        validationSchema={validationSchema}
+      >
+        {() => (
+          <>
+            <AppFormField
+              placeholder="email"
+              name="email"
+              icon="mail"
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyBoardType="email-address"
+              textContentType="emailAddress"
+            />
+            <AppFormField
+              placeholder="password"
+              name="password"
+              icon="lock-closed"
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry
+              textContentType="password"
+            />
+            <SubmitButton title="submit" />
+          </>
+        )}
+      </Formik>
+      {errorInvalidUser && (
+        <View style={{ alignItems: "center" }}>
+          <ErrorMsg
+            error="Invalid User Credentials"
+            visible={errorInvalidUser}
+          />
+        </View>
+      )}
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("SignUpForm")}>
+      <Text style={styles.text}>SIGN UP</Text>
+    </TouchableOpacity>
 
       <Button
         title="Login as Homer"
@@ -94,3 +132,23 @@ export default function LoginForm() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  form: {
+    margin: 10,
+  },
+  button: {
+    backgroundColor: "#AA9EE4",
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    width: "100%",
+    marginVertical: 10,
+  },
+  text: {
+    fontSize: 18,
+    textTransform: "uppercase",
+    fontWeight: "bold",
+  },
+});
