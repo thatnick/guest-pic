@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getEvents } from "../../firebase/db";
-import EventCard from "./EventCard";
-import UserHeader from "../User/UserHeader";
+import UserHeader from "../user/UserHeader";
+import EventCard from "../events/EventCard"
 
 export default function EventList() {
   const navigation = useNavigation();
