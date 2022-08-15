@@ -1,21 +1,24 @@
 import { FlatList, View, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getEvents } from "../../firebase/db";
 import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function EventList() {
   const navigation = useNavigation();
   const [events, setEvents] = useState<Event[]>([]);
 
-  useEffect(() => {
+  useFocusEffect(
     // TODO: get events by user (not all events)
-    getEvents().then((events) => {
-      setEvents(events);
-    });
-  }, []);
+    useCallback(() => {
+      getEvents().then((events) => {
+        setEvents(events);
+      });
+    }, [])
+  );
 
   return (
     <SafeAreaView>
