@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import DatePicker from "react-native-datepicker";
 import React, { useState, useContext } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import { UserContext } from "../../contexts";
@@ -11,15 +12,15 @@ export default function CreateEventForm() {
   const [eventTitle, setEventTitle] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState(new Date());
   const [banner, setBanner] = useState("");
+  const [eventDate, setEventDate] = useState("")
 
   const handleRegisterPress = async () => {
     const eventToAdd: Event = {
       title: eventTitle,
       description: description,
       location: location,
-      date: date,
+      date: eventDate,
       bannerUrl: banner,
       itinerary: [],
       photoPaths: [],
@@ -55,15 +56,31 @@ export default function CreateEventForm() {
         onChangeText={(newText) => setDescription(newText)}
       ></TextInput>
 
-      <Text>Date:</Text>
-      <TextInput
-        placeholder="dd/mm/yyyy"
-        // TODO: Add date picker here
-        onChangeText={() => setDate(new Date())}
-      ></TextInput>
-
       <Text>Banner url:</Text>
       <TextInput onChangeText={(newText) => setBanner(newText)}></TextInput>
+
+      <DatePicker
+        style={{ width: 200 }}
+        date={eventDate}
+        mode="date"
+        format="DD-MM-YYYY"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: "absolute",
+            left: 0,
+            top: 4,
+            marginLeft: 0,
+          },
+          dateInput: {
+            marginLeft: 30,
+          },
+        }}
+        onDateChange={(confirmTime) => {
+          setEventDate(confirmTime);
+        }}
+      />
     </View>
   );
 }
