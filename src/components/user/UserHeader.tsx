@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 
 export default function UserHeader() {
+  console.log("USER HEADER")
   const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
   const { inProgressEvent, inProgressItem } = useContext(
