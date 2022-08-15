@@ -7,15 +7,15 @@ import {
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { SelectedEventContext, UserContext } from "../../contexts";
+import { addPhotoToItineraryItem } from "../../firebase/db";
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import { EventContext } from "../../contexts";
-import { addPhotoToEvent } from "../../firebase/db";
-import { uploadPhoto } from "../../firebase/storage";
 
 export default function PhotoPreview({ route }) {
-  const { photo } = route.params;
+  const { photoFile } = route.params;
   const navigation = useNavigation();
-  const { event } = useContext(EventContext);
+  const { selectedEvent } = useContext(SelectedEventContext);
+  const { user } = useContext(UserContext);
 
   return (
     <ImageBackground
@@ -23,7 +23,7 @@ export default function PhotoPreview({ route }) {
         height: "100%",
         width: "100%",
       }}
-      source={{ uri: photo.path }}
+      source={{ uri: photoFile.path }}
     >
       <View style={styles.content}>
         <TouchableOpacity>
@@ -40,10 +40,17 @@ export default function PhotoPreview({ route }) {
             size={50}
             color="green"
             onPress={async () => {
-              console.log("PATH" + photo.path);
+              console.log("PATH" + photoFile.path);
+              await addPhotoToItineraryItem({
+                eventId: selectedEvent.id,
+                // TODO: don't hardcode the itemid -
+                // decide how to determine what the
+                // correct itinerary item is...
+                itemId: "7egFFUO2Fd0BXwq0btfw",
+                filePath: photoFile.path,
+                userEmail: user.email,
+              });
 
-              await uploadPhoto(photo.path);
-              addPhotoToEvent({ eventId: event, photoPath: photo.path });
               navigation.goBack();
             }}
           />

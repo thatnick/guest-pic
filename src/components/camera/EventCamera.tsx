@@ -20,10 +20,10 @@ export default function EventCamera() {
   const capturePhoto = async () => {
     try {
       console.log("Taking photo...");
-      const photo = await camera.current.takePhoto();
-      console.log(photo);
+      const photoFile = await camera.current.takePhoto();
+      console.log(photoFile);
 
-      navigation.navigate("PhotoPreview", { photo });
+      navigation.navigate("PhotoPreview", { photoFile });
     } catch (e) {
       console.error("Failed to take photo!", e);
     }

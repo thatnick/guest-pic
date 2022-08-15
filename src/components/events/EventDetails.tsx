@@ -7,16 +7,30 @@ import {
   TouchableOpacity,
   ShadowPropTypesIOS,
 } from "react-native";
-import React, { useContext } from "react";
-import { EventContext } from "../../contexts";
+import React, { useContext, useEffect, useState } from "react";
+import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import IonIcon from 'react-native-vector-icons/Ionicons';
 
+import PhotoGallery from "../gallery/PhotoGallery";
+import {
+  getItineraryItemsByEvent,
+  getPhotosByItineraryItem,
+} from "../../firebase/db";
+import { ItineraryItem, Photo } from "../../utilities/types";
+import { FlatList } from "react-native-gesture-handler";
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 export default function EventDetails() {
   const navigation = useNavigation();
-  const { event } = useContext(EventContext);
+  const { selectedEvent } = useContext(SelectedEventContext);
+  const [items, setItems] = useState<ItineraryItem[]>();
+
+  useEffect(() => {
+    getItineraryItemsByEvent(selectedEvent.id).then((items) => {
+      setItems(items);
+    });
+  }, []);
 
   return (
     <View style={styles.content}>
@@ -29,10 +43,10 @@ export default function EventDetails() {
  <Image
         style={styles.image}
         source={{
-          uri: event.bannerUrl,
+          uri: selectedEvent.bannerUrl,
         }}
       />
-      <Text>{event.title}</Text>
+      <Text>{selectedEvent.title}</Text>
       <TouchableOpacity
        style={styles.camera}
       >
@@ -46,6 +60,27 @@ export default function EventDetails() {
         />
         <Text> Take a Pic</Text>
       </TouchableOpacity>
+      <Text>Itinerary:</Text>
+      <FlatList
+        style={{
+          flex: 1,
+        }}
+        data={items}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.time.toDate().toTimeString()}</Text>
+            <Text>{item.title}</Text>
+            <Text>{item.location}</Text>
+            {/* This isn't working yet because photos aren't saved in the
+           correct itinerary item - see th TODO in PhotoPreview.tsx*/}
+            <PhotoGallery
+              photosCallback={() =>
+                getPhotosByItineraryItem(selectedEvent.id, item.id)
+              }
+            />
+          </View>
+        )}
+      />
     </View>
   );
 }

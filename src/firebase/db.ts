@@ -6,22 +6,30 @@ import {
   addDoc,
   doc,
   getDocs,
-  updateDoc,
-  arrayUnion,
   collection,
   deleteDoc,
   where,
   query,
   documentId,
+  updateDoc,
 } from "firebase/firestore";
-import { User, Event } from "../utilities/types";
+import { User, Event, ItineraryItem, Photo, Guest } from "../utilities/types";
+import { uploadPhoto } from "./storage";
 
 const db = getFirestore(app);
 
-export const addUser = async ({ email, name, avatarUrl }) => {
+export const addUser = async ({
+  email,
+  name,
+  avatarUrl,
+}: {
+  email: string;
+  name: string;
+  avatarUrl: string;
+}) => {
   try {
-    const docRef = doc(db, "users", email);
-    await setDoc(docRef, {
+    const userRef = doc(db, "users", email);
+    await setDoc(userRef, {
       name,
       avatarUrl,
     });
@@ -33,15 +41,15 @@ export const addUser = async ({ email, name, avatarUrl }) => {
 };
 
 export const getUserByEmail = async (email: string) => {
-  const docRef = doc(db, "users", email);
-  const docSnap = await getDoc(docRef);
+  const userRef = doc(db, "users", email);
+  const docSnap = await getDoc(userRef);
 
   if (docSnap.exists()) {
     const userDoc = docSnap.data();
     const user: User = {
       name: userDoc.name,
       avatarUrl: userDoc.avatarUrl,
-      email: docRef.id,
+      email: userRef.id,
     };
     return user;
   } else {
@@ -76,19 +84,29 @@ export const addEvent = async ({
   location,
   date,
   bannerUrl,
+}: {
+  title: string;
+  description: string;
+  location: string;
+  date: Date;
+  bannerUrl: string;
 }) => {
-  const event: Event = {
-    title,
-    description,
-    location,
-    itinerary: [],
-    photoPaths: [],
-    date,
-    bannerUrl,
-  };
   try {
-    const docRef = await addDoc(collection(db, "events"), event);
-    event.id = docRef.id;
+    const eventRef = await addDoc(collection(db, "events"), {
+      title,
+      description,
+      location,
+      date,
+      bannerUrl,
+    });
+    const event: Event = {
+      id: eventRef.id,
+      title,
+      description,
+      location,
+      date,
+      bannerUrl,
+    };
     return event;
   } catch (err) {
     console.error("Error adding new event: ", err);
@@ -114,8 +132,6 @@ export const getEvents = async (eventIds?: string[]) => {
       title: eventDoc.title,
       description: eventDoc.description,
       location: eventDoc.location,
-      itinerary: eventDoc.itinerary,
-      photoPaths: eventDoc.photoPaths,
       date: eventDoc.date,
       bannerUrl: eventDoc.bannerUrl,
     });
@@ -138,11 +154,11 @@ export const getEventsByGuestEmail = async (email: string) => {
   return getEvents(eventIds);
 };
 
-export const getGuestUsersByEventId = async (eventID: string) => {
+export const getGuestUsersByEventId = async (eventId: string) => {
   const emails: string[] = [];
 
   const guestsRef = collection(db, "guests");
-  const q = query(guestsRef, where("eventId", "==", eventID));
+  const q = query(guestsRef, where("eventId", "==", eventId));
   const querySnapshot = await getDocs(q);
 
   querySnapshot.forEach((doc) => {
@@ -152,43 +168,192 @@ export const getGuestUsersByEventId = async (eventID: string) => {
   return getUsers(emails);
 };
 
-export const addGuestToEvent = async ({ eventId, email, isHost }) => {
+export const addGuestToEvent = async ({
+  email,
+  eventId,
+  isHost,
+}: {
+  email: string;
+  eventId: string;
+  isHost: boolean;
+}) => {
   try {
-    const docRef = await addDoc(collection(db, "guests"), {
+    const attending = isHost ? "yes" : "?";
+    const guestRef = await addDoc(collection(db, "guests"), {
       email,
       eventId,
       isHost,
-      attending: isHost,
+      attending,
     });
-    return docRef.id;
+    const guest: Guest = {
+      id: guestRef.id,
+      email,
+      eventId,
+      isHost,
+      attending,
+    };
+    return guest;
   } catch (err) {
     console.error("Error adding document: ", err);
   }
 };
 
-export const addPhotoToEvent = async ({ eventId, photoPath }) => {
-  // TODO: add to the itinerary item within the event?
+export const addPhotoToItineraryItem = async ({
+  eventId,
+  itemId,
+  userEmail,
+  filePath,
+}: {
+  eventId: string;
+  itemId: string;
+  userEmail: string;
+  filePath: string;
+}) => {
   try {
-    const eventRef = doc(db, "events", eventId);
-    await updateDoc(eventRef, {
-      photoPaths: arrayUnion(photoPath),
+    const photosRef = collection(
+      db,
+      "events",
+      eventId,
+      "itineraryItems",
+      itemId,
+      "photos"
+    );
+
+    const photoRef = await addDoc(photosRef, { userEmail });
+    const downloadUrl = await uploadPhoto({
+      filePath,
+      eventId,
+      itemId,
+      photoId: photoRef.id,
     });
+    updateDoc(photoRef, { downloadUrl });
   } catch (err) {
     console.error("Error adding document: ", err);
   }
 };
 
-export const addItineraryItemToEvent = async ({ eventId, itineraryItem }) => {
+export const addItineraryItemToEvent = async ({
+  eventId,
+  title,
+  description,
+  location,
+  time,
+}: {
+  eventId: string;
+  title: string;
+  description: string;
+  location: string;
+  time: Date;
+}) => {
   try {
-    const eventRef = doc(db, "events", eventId);
-    await updateDoc(eventRef, {
-      itinerary: arrayUnion(itineraryItem),
+    const eventsRef = doc(db, "events", eventId);
+    const itemsRef = collection(eventsRef, "itineraryItems");
+    const newDocRef = await addDoc(itemsRef, {
+      title,
+      description,
+      location,
+      time,
     });
+    const item: ItineraryItem = {
+      id: newDocRef.id,
+      title,
+      description,
+      location,
+      time,
+    };
+    return item;
   } catch (err) {
-    console.error("Error adding new event: ", err);
+    console.error("Error adding new itinerary item: ", err);
   }
 };
 
+export const getItineraryItemsByEvent = async (eventId: string) => {
+  const items: ItineraryItem[] = [];
+  const eventRef = doc(db, "events", eventId);
+  const itemsRef = collection(eventRef, "itineraryItems");
+  const querySnapshot = await getDocs(itemsRef);
+  querySnapshot.forEach((document) => {
+    const itemDoc = document.data();
+    items.push({
+      id: document.id,
+      title: itemDoc.title,
+      description: itemDoc.description,
+      location: itemDoc.location,
+      time: itemDoc.time,
+    });
+  });
+  return items;
+};
+
+export const getItineraryItemById = async (eventId: string, itemId: string) => {
+  const itemRef = doc(db, "events", eventId, "itineraryItems", itemId);
+  const docSnap = await getDoc(itemRef);
+
+  if (docSnap.exists()) {
+    const itemDoc = docSnap.data();
+    const item: ItineraryItem = {
+      id: itemId,
+      title: itemDoc.title,
+      description: itemDoc.description,
+      location: itemDoc.location,
+      time: itemDoc.time,
+    };
+    return item;
+  }
+};
+
+export const getPhotosByItineraryItem = async (
+  eventId: string,
+  itemId: string
+) => {
+  const photosRef = collection(
+    db,
+    "events",
+    eventId,
+    "itineraryItems",
+    itemId,
+    "photos"
+  );
+
+  const photos: Photo[] = [];
+  const querySnapshot = await getDocs(photosRef);
+  querySnapshot.forEach((document) => {
+    const photoDoc = document.data();
+    photos.push({
+      id: document.id,
+      downloadUrl: photoDoc.downloadUrl,
+      userEmail: photoDoc.userEmail,
+    });
+  });
+  return photos;
+};
+
+export const getPhotoByPhotoId = async (
+  eventId: string,
+  itemId: string,
+  photoId: string
+) => {
+  const photoRef = doc(
+    db,
+    "events",
+    eventId,
+    "itineraryItems",
+    itemId,
+    "photos",
+    photoId
+  );
+  const docSnap = await getDoc(photoRef);
+
+  if (docSnap.exists()) {
+    const photoDoc = docSnap.data();
+    const item: Photo = {
+      id: itemId,
+      downloadUrl: photoDoc.downloadUrl,
+      userEmail: photoDoc.userEmail,
+    };
+    return item;
+  }
+};
 export const deleteAllDocsInCollection = async (collectionName: string) => {
   const querySnapshot = await getDocs(collection(db, collectionName));
 
@@ -203,25 +368,27 @@ export const deleteAllDocsInCollection = async (collectionName: string) => {
   );
 };
 
-// TODO: rewrite these for new data structure
-export const addImage = async (image: string) => {
-  try {
-    console.log(image);
-    const docRef = await setDoc(doc(db, "images", image), {
-      name: image,
+export const deleteAllItineraryItemsAndPhotos = async () => {
+  const events = await getEvents();
+  events.forEach(async (event) => {
+    const items = await getItineraryItemsByEvent(event.id);
+    items.forEach(async (item) => {
+      const photos = await getPhotosByItineraryItem(event.id, item.id);
+      photos.forEach(async (photo) => {
+        const photoRef = doc(
+          db,
+          "events",
+          event.id,
+          "itineraryItems",
+          item.id,
+          "photos",
+          photo.id
+        );
+        deleteDoc(photoRef);
+      });
+      const itemRef = doc(db, "events", event.id, "itineraryItems", item.id);
+      deleteDoc(itemRef);
     });
-  } catch (err) {
-    console.error("Error adding document: ", err);
-    return "";
-  }
-};
-
-export const getAllImages = async () => {
-  const querySnapshot = await getDocs(collection(db, "images"));
-  const images = [];
-  querySnapshot.forEach((doc: any) => {
-    images.push(doc.data().location);
+    console.log(`items and photos in event ${event.title} deleted`);
   });
-
-  return images;
-}
+};
