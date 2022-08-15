@@ -4,75 +4,62 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  View
 } from "react-native";
 import React, { useContext, useState } from "react";
-import DatePicker from "react-native-datepicker";
+import DatePicker from "react-native-date-picker";
 import { addItineraryItemToEvent } from "../../firebase/db";
-import { ItineraryItem } from "../../utilities/types";
-import { SelectedEventContext } from "../../contexts";
+import { SelectedEventContext, UserContext } from "../../contexts";
 
-const ItineraryItemForm = () => {
+const ItineraryItemForm = ({setAddItnerary}) => {
+  const { user } = useContext(UserContext);
   const { selectedEvent } = useContext(SelectedEventContext);
-  const [time, setTime] = useState(new Date());
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
 
-  const itineraryItem: ItineraryItem = {
-    time: time,
-    title: title,
-    location: location,
-    description: description,
-  };
+  const [itineraryTitle, setItineraryTitle] = useState("");
+  const [itineraryLocation, setItineraryLocation] = useState("");
+  const [itineraryDescription, setItineraryDescription] = useState("");
+  const [itineraryTime, setItineraryTime] = useState(selectedEvent.date.toDate())
 
-  function formSubmitHandler() {
-    addItineraryItemToEvent({ eventId: selectedEvent.id, itineraryItem });
+  const formSubmitHandler = async () => {
+    await addItineraryItemToEvent({
+      eventId: selectedEvent.id,
+      title: itineraryTitle,
+      location: itineraryLocation,
+      time: itineraryTime,
+      description: itineraryDescription,
+    });
+    setAddItnerary(false)
   }
 
   return (
     <SafeAreaView style={styles.form}>
-      <DatePicker
-        style={{ width: 200 }}
-        date={time}
-        mode="time"
-        is24Hour="true"
-        format="LT"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: "absolute",
-            left: 0,
-            top: 4,
-            marginLeft: 0,
-          },
-          dateInput: {
-            marginLeft: 30,
-          },
-        }}
-        onDateChange={(confirmTime) => {
-          setTime(new Date(confirmTime));
-        }}
-      />
-      <Text>Title</Text>
-      <TextInput
-        style={styles.text}
-        value={title}
-        onChangeText={(iteninaryTitle) => setTitle(iteninaryTitle)}
-      />
-      <Text>Location</Text>
-      <TextInput
-        style={styles.text}
-        value={location}
-        onChangeText={(selectedLocation) => setLocation(selectedLocation)}
-      />
-      <Text>Description </Text>
-      <TextInput
-        style={styles.text}
-        value={description}
-        onChangeText={(userDescription) => setDescription(userDescription)}
-      />
-      <Button title="Submit" onPress={formSubmitHandler} />
+     <View>
+          <Text>Add an Itinerary Item</Text>
+          <Text>Title:</Text>
+          <TextInput
+            onChangeText={(newText) => setItineraryTitle(newText)}
+          ></TextInput>
+
+          <Text>Location:</Text>
+          <TextInput
+            onChangeText={(newText) => setItineraryLocation(newText)}
+          ></TextInput>
+
+          <Text>Descrition:</Text>
+          <TextInput
+            onChangeText={(newText) => setItineraryDescription(newText)}
+          ></TextInput>
+
+          <Text>Start Time:</Text>
+          <DatePicker
+            date={itineraryTime}
+            onDateChange={setItineraryTime}
+            mode={"time"}
+          />
+        </View>
+        <Button title="Submit" onPress={formSubmitHandler} />
+        <Button title="close" onPress={() => setAddItnerary(false)} />
+        
     </SafeAreaView>
   );
 };

@@ -1,4 +1,14 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  Button,
+  SafeAreaView
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
@@ -11,11 +21,13 @@ import {
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import ItineraryItemForm from "./ItineraryItemForm";
 
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
   const [items, setItems] = useState<ItineraryItem[]>();
+  const [addItnerary, setAddItnerary] = useState(false);
 
   useEffect(() => {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
@@ -28,7 +40,7 @@ export default function EventDetails() {
   // ***********
 
   return (
-    <View style={styles.content}>
+    <SafeAreaView style={styles.content}>
       {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
 
       <TouchableOpacity style={styles.back}>
@@ -79,7 +91,21 @@ export default function EventDetails() {
           </View>
         )}
       />
-    </View>
+      <Button onPress={() => setAddItnerary(true)} title="Add itnerary item"></Button>
+      
+      <Modal
+      style={styles.centeredView}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        visible={addItnerary}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setAddItnerary(!addItnerary);
+        }}
+      >
+        <ItineraryItemForm setAddItnerary={setAddItnerary}/>
+      </Modal>
+    </SafeAreaView>
   );
 }
 
@@ -112,4 +138,45 @@ const styles = StyleSheet.create({
   back: {
     padding: 20,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
 });

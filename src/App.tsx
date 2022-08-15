@@ -20,6 +20,7 @@ import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
 import SignUpForm from "./components/user/SignUpForm";
+import ItineraryItemForm from "./components/events/ItineraryItemForm";
 
 const Stack = createStackNavigator();
 
