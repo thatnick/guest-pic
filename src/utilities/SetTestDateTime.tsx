@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
-import DatePicker from "react-native-datepicker";
+//import DatePicker from "react-native-datepicker";
 import { FlatList } from "react-native-gesture-handler";
 import { InProgressEventContext } from "../contexts";
 import { getEvents, getItineraryItemsByEvent } from "../firebase/db";
@@ -24,7 +24,7 @@ export default function SetTestDateTime() {
   return (
     <View>
       <Text>Set app date/time for testing:</Text>
-      <DatePicker
+      {/* <DatePicker
         style={{ width: 200 }}
         date={pickerDateTime}
         mode="datetime"
@@ -45,7 +45,7 @@ export default function SetTestDateTime() {
         onDateChange={(confirmDateTime) => {
           setDateTime(confirmDateTime);
         }}
-      />
+      /> */}
       <Button
         title="Save"
         onPress={() => {
