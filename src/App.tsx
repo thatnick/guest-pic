@@ -19,6 +19,7 @@ import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
+import SignUpForm from "./components/user/SignUpForm";
 
 const Stack = createStackNavigator();
 
@@ -101,6 +102,14 @@ const App = () => {
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
                 />
+                <Stack.Screen
+                name="SignUpForm"
+                component={SignUpForm}
+                options={{
+                  cardStyleInterpolator:
+                    CardStyleInterpolators.forModalPresentationIOS,
+                }}
+              />
               </Stack.Navigator>
             </InProgressEventContext.Provider>
           </SelectedEventContext.Provider>
