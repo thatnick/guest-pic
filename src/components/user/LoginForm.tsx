@@ -33,14 +33,14 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async ({ email, password }) => {
+  const handleLogin = async () => {
     await signIn(email, password);
     const user = await getUserByEmail(email);
     setUser(user);
 
-    // setEmail("");
+    setEmail("");
 
-    // setPassword("");
+    setPassword("");
     navigation.navigate("EventList");
   };
 
@@ -145,3 +145,5 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
+//comment
