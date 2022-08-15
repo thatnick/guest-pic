@@ -5,11 +5,13 @@ import {
   View,
   Button,
   TouchableOpacity,
+  ShadowPropTypesIOS,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
+
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
   getItineraryItemsByEvent,
@@ -17,6 +19,7 @@ import {
 } from "../../firebase/db";
 import { ItineraryItem, Photo } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 export default function EventDetails() {
   const navigation = useNavigation();
@@ -30,26 +33,32 @@ export default function EventDetails() {
   }, []);
 
   return (
-    <View style={{ height: "100%" }}>
-      <Button title="Close" onPress={() => navigation.goBack()}></Button>
+    <View style={styles.content}>
+      {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
+      
+      <TouchableOpacity style={styles.back} >
+        <IonIcon name={"ios-arrow-undo-outline"} size={35} color="blue" onPress={() => navigation.goBack()} />
+      </TouchableOpacity>
 
-      <Image
+ <Image
         style={styles.image}
         source={{
           uri: selectedEvent.bannerUrl,
         }}
       />
       <Text>{selectedEvent.title}</Text>
-
-      <TouchableOpacity>
-        <Icon
-          name={"camera"}
-          size={50}
+      <TouchableOpacity
+       style={styles.camera}
+      >
+        <IonIcon
+          name={"camera-outline"}
+          size={80}
           color="blue"
           onPress={() => {
             navigation.navigate("EventCamera");
           }}
         />
+        <Text> Take a Pic</Text>
       </TouchableOpacity>
       <Text>Itinerary:</Text>
       <FlatList
@@ -77,10 +86,32 @@ export default function EventDetails() {
 }
 
 const styles = StyleSheet.create({
+  content: {
+    flex:1,
+    flexDirection:'column',
+    alignItems:'center'
+  },
   image: {
-    width: "100%",
-    height: 100,
+    flex:0.25,
+    width: "95%",
     borderRadius: 8,
     overflow: "hidden",
   },
+  camera: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding:40 
+  },
+  shadowProp: {
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "grey",
+    shadowOpacity: 1,
+    elevation: 3,
+    backgroundColor: "#0000",
+  },
+  back: {
+    padding:20
+  }
 });

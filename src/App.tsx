@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/stack";
 
 import EventCamera from "./components/camera/EventCamera";
+import ReverseCamera from "./components/camera/ReverseCamera";
 import LoginForm from "./components/user/LoginForm";
 import EventDetails from "./components/events/EventDetails";
 import {
