@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getEvents } from "../../firebase/db";
 import EventCard from "./EventCard";
-import UserHeader from "../user/UserHeader";
+import UserHeader from "../User/UserHeader";
 
 export default function EventList() {
   const navigation = useNavigation();

@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Text, TextInput, Button, StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
-import * as Yup from "yup";
 import { UserContext } from "../../contexts";
+import * as Yup from "yup";
 import {
   deleteAllDocsInDb,
   seedDb,
@@ -33,21 +33,17 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async ({ email, password }) => {
     await signIn(email, password);
-    const user = await getUserByEmail(email);
+    const user: User = await getUserByEmail(email);
     setUser(user);
 
-    setEmail("");
-
-    setPassword("");
     navigation.navigate("EventList");
   };
 
   const handleLoginAs = async (email: string, password: string) => {
     await signIn(email, password);
     const user = await getUserByEmail(email);
-
     setUser(user);
 
     setEmail("");
@@ -73,14 +69,12 @@ export default function LoginForm() {
               name="email"
               icon="mail"
               autoCapitalize="none"
-              // setState={setEmail}
               autoCorrect={false}
               keyBoardType="email-address"
               textContentType="emailAddress"
             />
             <AppFormField
               placeholder="password"
-              // setState=
               name="password"
               icon="lock-closed"
               autoCapitalize="none"
@@ -92,24 +86,6 @@ export default function LoginForm() {
           </>
         )}
       </Formik>
-
-      {/* <Text>Email:</Text>
-      <TextInput
-        placeholder="email"
-        textContentType="emailAddress"
-        autoCapitalize="none"
-        onChangeText={(newText) => setEmail(newText)}
-      ></TextInput>
-      <Text>Password:</Text>
-      <TextInput
-        placeholder="password"
-        textContentType="password"
-        secureTextEntry={showPassword}
-        onChangeText={(newText) => setPassword(newText)}
-      ></TextInput>
-      <Button title="show password" onPress={handleShowPasswordPress}></Button>
-      <Button title="Login" onPress={handleLogin}></Button>
-
       <Button
         title="Login as Homer"
         onPress={() => handleLoginAs("homer@s.com", "test123")}
@@ -135,7 +111,7 @@ export default function LoginForm() {
         color="red"
         title="Delete all docs in the database"
         onPress={() => deleteAllDocsInDb()}
-      ></Button> */}
+      ></Button>
     </SafeAreaView>
   );
 }
@@ -145,5 +121,3 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
-//comment
