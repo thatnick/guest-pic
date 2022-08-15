@@ -33,14 +33,11 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async ({email,password}) => {
     await signIn(email, password);
     const user: User = await getUserByEmail(email);
     setUser(user);
 
-    setEmail("");
-
-    setPassword("");
     navigation.navigate("EventList");
   };
 
@@ -62,7 +59,7 @@ export default function LoginForm() {
           email: "",
           password: "",
         }}
-        onSubmit={handleLogin}
+        onSubmit={(value) => handleLogin(value)}
         validationSchema={validationSchema}
       >
         {() => (
