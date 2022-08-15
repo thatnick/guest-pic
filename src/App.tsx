@@ -103,13 +103,13 @@ const App = () => {
                   }}
                 />
                 <Stack.Screen
-                name="SignUpForm"
-                component={SignUpForm}
-                options={{
-                  cardStyleInterpolator:
-                    CardStyleInterpolators.forModalPresentationIOS,
-                }}
-              />
+                  name="SignUpForm"
+                  component={SignUpForm}
+                  options={{
+                    cardStyleInterpolator:
+                      CardStyleInterpolators.forModalPresentationIOS,
+                  }}
+                />
               </Stack.Navigator>
             </InProgressEventContext.Provider>
           </SelectedEventContext.Provider>
