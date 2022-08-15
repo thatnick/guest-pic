@@ -247,8 +247,8 @@ export const addItineraryItemToEvent = async ({
   time: Timestamp;
 }) => {
   try {
-    const eventsRef = doc(db, "events", eventId);
-    const itemsRef = collection(eventsRef, "itineraryItems");
+    const eventRef = doc(db, "events", eventId);
+    const itemsRef = collection(eventRef, "itineraryItems");
     const newDocRef = await addDoc(itemsRef, {
       title,
       description,
@@ -267,6 +267,8 @@ export const addItineraryItemToEvent = async ({
     console.error("Error adding new itinerary item: ", err);
   }
 };
+
+export const getItineraryItems;
 
 export const getItineraryItemsByEvent = async (eventId: string) => {
   const items: ItineraryItem[] = [];
@@ -301,6 +303,20 @@ export const getItineraryItemById = async (eventId: string, itemId: string) => {
     };
     return item;
   }
+};
+
+export const getInProgressEventsByDate = async (
+  dateTime: Date,
+  email: string
+) => {
+  const timestamp = Timestamp.fromDate(dateTime);
+  const eventsRef = collection(db, "events");
+
+  const q = query(eventsRef, where("date", "==", timestamp));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+  });
 };
 
 export const getPhotosByItineraryItem = async (

@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
@@ -19,6 +19,7 @@ import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
+import { getInProgressEventsByDate } from "./firebase/db";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,12 @@ const App = () => {
       opacity: current.progress,
     },
   });
+
+  useEffect(() => {
+    getInProgressEventsByDate(dateTime).then((event) => {
+      setInProgressEvent(event);
+    });
+  }, []);
 
   return (
     <SafeAreaProvider>

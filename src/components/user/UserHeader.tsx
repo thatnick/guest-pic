@@ -20,7 +20,12 @@ export default function UserHeader() {
       />
       <Text>{user.name}</Text>
       <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
-        <Text>Up next: IN PROGRESS EVENT TITLE HERE</Text>
+        <Text>
+          Up next:
+          {inProgressEvent
+            ? inProgressEvent.title
+            : "Error: in progress event is undefined"}
+        </Text>
       </Pressable>
     </View>
   );
