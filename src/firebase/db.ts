@@ -13,6 +13,7 @@ import {
   documentId,
   updateDoc,
   Timestamp,
+  collectionGroup,
 } from "firebase/firestore";
 import { User, Event, ItineraryItem, Photo, Guest } from "../utilities/types";
 import { uploadPhoto } from "./storage";
@@ -268,7 +269,21 @@ export const addItineraryItemToEvent = async ({
   }
 };
 
-export const getItineraryItems;
+export const getItineraryItems = async () => {
+  const items: ItineraryItem[] = [];
+  const itemsQuery = query(collectionGroup(db, "itineraryItems"));
+  const querySnapshot = await getDocs(itemsQuery);
+  querySnapshot.forEach((document) => {
+    const itemDoc = document.data();
+    items.push({
+      id: document.id,
+      title: itemDoc.title,
+      description: itemDoc.description,
+      location: itemDoc.location,
+      time: itemDoc.time,
+    });
+  });
+};
 
 export const getItineraryItemsByEvent = async (eventId: string) => {
   const items: ItineraryItem[] = [];
@@ -309,13 +324,27 @@ export const getInProgressEventsByDate = async (
   dateTime: Date,
   email: string
 ) => {
-  const timestamp = Timestamp.fromDate(dateTime);
-  const eventsRef = collection(db, "events");
+  const guestsEvents = await getEventsByGuestEmail(email);
+  const inProgressEvents: Event[] = [];
+  guestsEvents.forEach((event) => {
+    if (datesAreOnSameDay(event.date.toDate(), dateTime)) {
+      inProgressEvents.push(event);
+    }
+  });
+  return inProgressEvents;
+};
 
-  const q = query(eventsRef, where("date", "==", timestamp));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
+export const getPhotos = async () => {
+  const photos: Photo[] = [];
+  const photosQuery = query(collectionGroup(db, "photos"));
+  const querySnapshot = await getDocs(photosQuery);
+  querySnapshot.forEach((document) => {
+    const itemDoc = document.data();
+    photos.push({
+      id: document.id,
+      downloadUrl: itemDoc.downloadUrl,
+      userEmail: itemDoc.userEmail,
+    });
   });
 };
 
@@ -409,3 +438,8 @@ export const deleteAllItineraryItemsAndPhotos = async () => {
     console.log(`items and photos in event ${event.title} deleted`);
   });
 };
+
+const datesAreOnSameDay = (first: Date, second: Date) =>
+  first.getFullYear() === second.getFullYear() &&
+  first.getMonth() === second.getMonth() &&
+  first.getDate() === second.getDate();

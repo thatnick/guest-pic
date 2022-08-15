@@ -20,14 +20,15 @@ import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
 import { getInProgressEventsByDate } from "./firebase/db";
+import { Event, ItineraryItem, User } from "./utilities/types";
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [user, setUser] = useState(undefined);
-  const [selectedEvent, setSelectedEvent] = useState(undefined);
-  const [inProgressEvent, setInProgressEvent] = useState(undefined);
-  const [inProgressItem, setInProgressItem] = useState(undefined);
+  const [user, setUser] = useState<User>();
+  const [selectedEvent, setSelectedEvent] = useState<Event>();
+  const [inProgressEvent, setInProgressEvent] = useState<Event>();
+  const [inProgressItem, setInProgressItem] = useState<ItineraryItem>();
   const [dateTime, setDateTime] = useState(new Date());
 
   const forFade = ({ current }) => ({
@@ -37,8 +38,11 @@ const App = () => {
   });
 
   useEffect(() => {
-    getInProgressEventsByDate(dateTime).then((event) => {
-      setInProgressEvent(event);
+    if (!user) return;
+    getInProgressEventsByDate(dateTime, user.email).then((events) => {
+      // TODO: deal with multiple in progress events in a more sensible way
+      setInProgressEvent(events[0]);
+      console.log(inProgressEvent);
     });
   }, []);
 
