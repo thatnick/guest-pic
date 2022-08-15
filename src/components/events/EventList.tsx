@@ -5,17 +5,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { getEvents } from "../../firebase/db";
 import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function EventList() {
   const navigation = useNavigation();
   const [events, setEvents] = useState<Event[]>([]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     // TODO: get events by user (not all events)
     getEvents().then((events) => {
       setEvents(events);
     });
-  }, []);
+  });
 
   return (
     <SafeAreaView>

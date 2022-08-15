@@ -1,28 +1,45 @@
 import { useNavigation } from "@react-navigation/native";
+//import DatePicker from "react-native-datepicker";
+import DatePicker from "react-native-date-picker";
 import React, { useState, useContext } from "react";
-import { Text, View, TextInput, Button } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import { UserContext } from "../../contexts";
-import { addEvent, addGuestToEvent } from "../../firebase/db";
-import { Event } from "../../utilities/types";
+import {
+  addEvent,
+  addGuestToEvent,
+  addItineraryItemToEvent,
+} from "../../firebase/db";
 
 export default function CreateEventForm() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
+
+  // Event
   const [eventTitle, setEventTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [eventLocation, setEventLocation] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
   const [banner, setBanner] = useState("");
+  const [eventDate, setEventDate] = useState(new Date());
+
+  // Itinerary
+  const [itineraryTitle, setItineraryTitle] = useState("");
+  const [itineraryLocation, setItineraryLocation] = useState("");
+  const [itineraryDescription, setItineraryDescription] = useState("");
 
   const handleRegisterPress = async () => {
-    const eventToAdd: Event = {
+    const eventToAdd = {
       title: eventTitle,
-      description: description,
-      location: location,
-      date: date,
+      description: eventDescription,
+      location: eventLocation,
+      date: eventDate,
       bannerUrl: banner,
-      itinerary: [],
-      photoPaths: [],
     };
 
     const newEvent = await addEvent(eventToAdd);
@@ -33,37 +50,77 @@ export default function CreateEventForm() {
       email: user.email,
     });
 
-    setEventTitle("");
-    setLocation("");
-    setDescription("");
-    setDate(new Date());
-    setBanner("");
+    await addItineraryItemToEvent({
+      eventId: newEvent.id,
+      title: itineraryTitle,
+      location: itineraryLocation,
+      time: eventDate,
+      description: itineraryDescription,
+    });
+
+    navigation.goBack();
   };
 
   return (
-    <View>
-      <Button title="Create event" onPress={handleRegisterPress}></Button>
-      <Button title="Cancel" onPress={() => navigation.goBack()}></Button>
-      <Text>Event Title:</Text>
-      <TextInput onChangeText={(newText) => setEventTitle(newText)}></TextInput>
+    <SafeAreaView>
+      <ScrollView>
+        <Button title="Cancel" onPress={() => navigation.goBack()}></Button>
+        <View>
+          <Text>Event</Text>
+          <Text>Title:</Text>
+          <TextInput
+            onChangeText={(newText) => setEventTitle(newText)}
+          ></TextInput>
 
-      <Text>Location:</Text>
-      <TextInput onChangeText={(newText) => setLocation(newText)}></TextInput>
+          <Text>Location:</Text>
+          <TextInput
+            onChangeText={(newText) => setEventLocation(newText)}
+          ></TextInput>
 
-      <Text>Description:</Text>
-      <TextInput
-        onChangeText={(newText) => setDescription(newText)}
-      ></TextInput>
+          <Text>Description:</Text>
+          <TextInput
+            onChangeText={(newText) => setEventDescription(newText)}
+          ></TextInput>
 
-      <Text>Date:</Text>
-      <TextInput
-        placeholder="dd/mm/yyyy"
-        // TODO: Add date picker here
-        onChangeText={() => setDate(new Date())}
-      ></TextInput>
+          <Text>Banner url:</Text>
+          <TextInput onChangeText={(newText) => setBanner(newText)}></TextInput>
 
-      <Text>Banner url:</Text>
-      <TextInput onChangeText={(newText) => setBanner(newText)}></TextInput>
-    </View>
+          <Text>Event Date:</Text>
+          <DatePicker
+            date={eventDate}
+            onDateChange={setEventDate}
+            mode={"date"}
+            minimumDate={new Date()}
+          />
+        </View>
+
+        <View>
+          <Text>Add your first Itinerary Item</Text>
+          <Text>Title:</Text>
+          <TextInput
+            onChangeText={(newText) => setItineraryTitle(newText)}
+          ></TextInput>
+
+          <Text>Location:</Text>
+          <TextInput
+            onChangeText={(newText) => setItineraryLocation(newText)}
+          ></TextInput>
+
+          <Text>Descrition:</Text>
+          <TextInput
+            onChangeText={(newText) => setItineraryDescription(newText)}
+          ></TextInput>
+
+          <Text>Start Time:</Text>
+          <DatePicker
+            date={eventDate}
+            onDateChange={setEventDate}
+            mode={"time"}
+          />
+        </View>
+
+        <Button title="Create event" onPress={handleRegisterPress}></Button>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
