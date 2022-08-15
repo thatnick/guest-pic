@@ -12,6 +12,7 @@ import {
   query,
   documentId,
   updateDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { User, Event, ItineraryItem, Photo, Guest } from "../utilities/types";
 import { uploadPhoto } from "./storage";
@@ -88,7 +89,7 @@ export const addEvent = async ({
   title: string;
   description: string;
   location: string;
-  date: Date;
+  date: Timestamp;
   bannerUrl: string;
 }) => {
   try {
@@ -243,7 +244,7 @@ export const addItineraryItemToEvent = async ({
   title: string;
   description: string;
   location: string;
-  time: Date;
+  time: Timestamp;
 }) => {
   try {
     const eventsRef = doc(db, "events", eventId);
