@@ -15,7 +15,7 @@ export default function CreateEventForm() {
   const [eventLocation, setEventLocation] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [banner, setBanner] = useState("");
-  const [eventDate, setEventDate] = useState(new Date());
+  const [eventDate, setEventDate] = useState("");
   
   // Itinerary
   const [itineraryTitle, setItineraryTitle] = useState("");
@@ -32,6 +32,7 @@ export default function CreateEventForm() {
       bannerUrl: banner,
     };
     
+
     const newEvent = await addEvent(eventToAdd);
     if (!newEvent) throw new Error("Cannot add guest to event");
     await addGuestToEvent({
@@ -126,7 +127,7 @@ export default function CreateEventForm() {
           },
         }}
         onDateChange={(confirmTime) => {
-          setItineraryTime(moment(confirmTime).toDate());
+          setItineraryTime(confirmTime);
         }}
       />
       </View>
