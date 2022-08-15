@@ -20,6 +20,7 @@ import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
 import SignUpForm from "./components/user/SignUpForm";
+import GuestList from "./components/events/GuestList";
 
 const Stack = createStackNavigator();
 
@@ -105,6 +106,14 @@ const App = () => {
                 <Stack.Screen
                   name="SignUpForm"
                   component={SignUpForm}
+                  options={{
+                    cardStyleInterpolator:
+                      CardStyleInterpolators.forModalPresentationIOS,
+                  }}
+                />
+                <Stack.Screen
+                  name="GuestList"
+                  component={GuestList}
                   options={{
                     cardStyleInterpolator:
                       CardStyleInterpolators.forModalPresentationIOS,
