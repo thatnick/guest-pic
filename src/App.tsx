@@ -27,6 +27,7 @@ const App = () => {
   const [selectedEvent, setSelectedEvent] = useState(undefined);
   const [inProgressEvent, setInProgressEvent] = useState(undefined);
   const [inProgressItem, setInProgressItem] = useState(undefined);
+  const [dateTime, setDateTime] = useState(new Date());
 
   const forFade = ({ current }) => ({
     cardStyle: {
@@ -47,6 +48,8 @@ const App = () => {
                 setInProgressEvent,
                 inProgressItem,
                 setInProgressItem,
+                dateTime,
+                setDateTime,
               }}
             >
               <Stack.Navigator

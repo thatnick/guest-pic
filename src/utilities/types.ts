@@ -51,6 +51,8 @@ export interface InProgressEventContextType {
   setInProgressEvent: (prevEvent: Event) => void;
   inProgressItem: ItineraryItem;
   setInProgressItem: (prevEvent: ItineraryItem) => void;
+  dateTime: Date;
+  setDateTime: (prevDateTime: Date) => void;
 }
 
 export interface UserContextType {

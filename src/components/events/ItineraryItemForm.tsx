@@ -8,25 +8,26 @@ import {
 import React, { useContext, useState } from "react";
 import DatePicker from "react-native-datepicker";
 import { addItineraryItemToEvent } from "../../firebase/db";
-import { ItineraryItem } from "../../utilities/types";
 import { SelectedEventContext } from "../../contexts";
+import { Timestamp } from "firebase/firestore";
 
 const ItineraryItemForm = () => {
   const { selectedEvent } = useContext(SelectedEventContext);
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(Timestamp.fromDate(new Date()));
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
 
-  const itineraryItem: ItineraryItem = {
-    time: time,
-    title: title,
-    location: location,
-    description: description,
-  };
-
   function formSubmitHandler() {
-    addItineraryItemToEvent({ eventId: selectedEvent.id, itineraryItem });
+    // TODO: set the date to be the same as the event date (but keep
+    // the time from the time picker)
+    addItineraryItemToEvent({
+      eventId: selectedEvent.id,
+      time: time,
+      title: title,
+      location: location,
+      description: description,
+    });
   }
 
   return (

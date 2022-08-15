@@ -20,4 +20,6 @@ export const InProgressEventContext =
     setInProgressEvent: () => undefined,
     inProgressItem: undefined,
     setInProgressItem: () => undefined,
+    dateTime: undefined,
+    setDateTime: () => undefined,
   });
