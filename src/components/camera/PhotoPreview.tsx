@@ -6,10 +6,9 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { SelectedEventContext, UserContext } from "../../contexts";
 import { addPhotoToItineraryItem } from "../../firebase/db";
-import IonIcon from 'react-native-vector-icons/Ionicons';
+import IonIcon from "react-native-vector-icons/Ionicons";
 
 export default function PhotoPreview({ route }) {
   const { photoFile } = route.params;
@@ -64,9 +63,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "row",
-    justifyContent:'space-around',
-    alignItems:'flex-end',
-    padding:40
+    justifyContent: "space-around",
+    alignItems: "flex-end",
+    padding: 40,
   },
- 
 });

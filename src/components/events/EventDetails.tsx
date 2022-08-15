@@ -1,25 +1,16 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  ShadowPropTypesIOS,
-} from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
 } from "../../firebase/db";
-import { ItineraryItem, Photo } from "../../utilities/types";
+import { ItineraryItem } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
-import IonIcon from 'react-native-vector-icons/Ionicons';
+import IonIcon from "react-native-vector-icons/Ionicons";
 
 export default function EventDetails() {
   const navigation = useNavigation();
@@ -32,24 +23,31 @@ export default function EventDetails() {
     });
   }, []);
 
+  // ***********
+  // TODO: set the in progress event and item here where the date / time changes?
+  // ***********
+
   return (
     <View style={styles.content}>
       {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
-      
-      <TouchableOpacity style={styles.back} >
-        <IonIcon name={"ios-arrow-undo-outline"} size={35} color="blue" onPress={() => navigation.goBack()} />
+
+      <TouchableOpacity style={styles.back}>
+        <IonIcon
+          name={"ios-arrow-undo-outline"}
+          size={35}
+          color="blue"
+          onPress={() => navigation.goBack()}
+        />
       </TouchableOpacity>
 
- <Image
+      <Image
         style={styles.image}
         source={{
           uri: selectedEvent.bannerUrl,
         }}
       />
       <Text>{selectedEvent.title}</Text>
-      <TouchableOpacity
-       style={styles.camera}
-      >
+      <TouchableOpacity style={styles.camera}>
         <IonIcon
           name={"camera-outline"}
           size={80}
@@ -87,12 +85,12 @@ export default function EventDetails() {
 
 const styles = StyleSheet.create({
   content: {
-    flex:1,
-    flexDirection:'column',
-    alignItems:'center'
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
   },
   image: {
-    flex:0.25,
+    flex: 0.25,
     width: "95%",
     borderRadius: 8,
     overflow: "hidden",
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding:40 
+    padding: 40,
   },
   shadowProp: {
     shadowOffset: { width: 10, height: 10 },
@@ -112,6 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#0000",
   },
   back: {
-    padding:20
-  }
+    padding: 20,
+  },
 });
