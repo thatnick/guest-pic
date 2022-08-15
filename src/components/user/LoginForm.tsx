@@ -31,7 +31,9 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [errorInvalidUser, setErrorInvalidUser] = useState(false);
 
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  console.log(user,"<<<<<<login form")
 
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
