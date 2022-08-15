@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   Modal,
   Button,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useCallback, useEffect, useState } from "react";
 import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
@@ -33,7 +34,8 @@ export default function EventDetails() {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
     });
-  }, []);
+  }, [addItnerary]);
+
 
   // ***********
   // TODO: set the in progress event and item here where the date / time changes?
@@ -91,20 +93,24 @@ export default function EventDetails() {
           </View>
         )}
       />
-      <Button onPress={() => setAddItnerary(true)} title="Add itnerary item"></Button>
-      
+
+      <Button
+        onPress={() => setAddItnerary(true)}
+        title="Add itnerary item"
+      ></Button>
       <Modal
-      style={styles.centeredView}
+        style={styles.centeredView}
         animationType="slide"
-        presentationStyle="pageSheet"
+        transparent={true}
         visible={addItnerary}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           setAddItnerary(!addItnerary);
         }}
       >
-        <ItineraryItemForm setAddItnerary={setAddItnerary}/>
+        <ItineraryItemForm setAddItnerary={setAddItnerary} />
       </Modal>
+
     </SafeAreaView>
   );
 }
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -153,16 +159,16 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -173,10 +179,10 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });

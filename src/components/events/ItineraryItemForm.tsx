@@ -1,10 +1,12 @@
 import {
   Button,
+  Keyboard,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
-  View
+  ScrollView,
+  View,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import DatePicker from "react-native-date-picker";
@@ -32,48 +34,79 @@ const ItineraryItemForm = ({setAddItnerary}) => {
   }
 
   return (
-    <SafeAreaView style={styles.form}>
-     <View>
-          <Text>Add an Itinerary Item</Text>
-          <Text>Title:</Text>
-          <TextInput
+    <SafeAreaView style={styles.modalView} onPress={() => Keyboard.dismiss()}>
+     <ScrollView >
+          <Text style={styles.modalTitle}>Add an Itinerary Item</Text>
+          
+          <Text style={styles.modalSubtitle}>Title:</Text>
+          <TextInput style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryTitle(newText)}
           ></TextInput>
+        
 
-          <Text>Location:</Text>
-          <TextInput
+          <Text style={styles.modalSubtitle}>Location:</Text>
+          <TextInput style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryLocation(newText)}
           ></TextInput>
 
-          <Text>Descrition:</Text>
-          <TextInput
+          <Text style={styles.modalSubtitle}>Descrition:</Text>
+          <TextInput style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryDescription(newText)}
           ></TextInput>
 
-          <Text>Start Time:</Text>
+          <Text style={styles.modalSubtitle}>Start Time:</Text>
           <DatePicker
             date={itineraryTime}
             onDateChange={setItineraryTime}
             mode={"time"}
           />
-        </View>
-        <Button title="Submit" onPress={formSubmitHandler} />
+        
+        <Button style={styles.modalButton} title="Submit" onPress={formSubmitHandler} />
         <Button title="close" onPress={() => setAddItnerary(false)} />
         
+        </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default ItineraryItemForm;
 
+
 const styles = StyleSheet.create({
-  form: {
-    display: "flex",
-    flexDirection: "column",
+ 
+  modalView: {
     textAlign: "center",
+    height: "45%",
+    margin: 20,
+    marginTop: 100,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 30,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  text: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+  modalTitle: {
+    margin: 15,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center"
   },
-});
+  modalSubtitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  modalTextbox: {
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: "#EDEDED",
+    minHeight: 50,
+  },
+  
+})
