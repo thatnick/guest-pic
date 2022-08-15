@@ -4,6 +4,7 @@ import { createUserAccount } from "../../firebase/auth";
 import { UserContext } from "../../contexts";
 import { addUser } from "../../firebase/db";
 import { User } from "../../utilities/types";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -13,6 +14,8 @@ export default function SignUpForm() {
 
   const [showPassword, setShowPassword] = useState(true);
   const { setUser } = useContext(UserContext);
+
+  const navigation = useNavigation();
 
   const handleRegisterPress = async () => {
     const newUser: User = {
@@ -38,6 +41,7 @@ export default function SignUpForm() {
   };
   return (
     <View>
+       <Button title="Close" onPress={() => navigation.goBack()}></Button>
       <Text>Email:</Text>
       <TextInput
         placeholder="email"

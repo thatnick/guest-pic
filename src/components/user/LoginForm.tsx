@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
@@ -13,8 +13,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
-import AppFormField from "./AppFormField";
-import SubmitButton from "./SubmitButton";
+import AppFormField from "../user/AppFormField";
+import SubmitButton from "../user/SubmitButton";
 import ErrorMsg from "./ErrorMsg";
 
 const validationSchema = Yup.object().shape({
@@ -96,6 +96,9 @@ export default function LoginForm() {
           />
         </View>
       )}
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("SignUpForm")}>
+      <Text style={styles.text}>SIGN UP</Text>
+    </TouchableOpacity>
       <Button
         title="Login as Homer"
         onPress={() => handleLoginAs("homer@s.com", "test123")}
@@ -129,5 +132,19 @@ export default function LoginForm() {
 const styles = StyleSheet.create({
   form: {
     margin: 10,
+  },
+  button: {
+    backgroundColor: "#AA9EE4",
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    width: "100%",
+    marginVertical: 10,
+  },
+  text: {
+    fontSize: 18,
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
 });

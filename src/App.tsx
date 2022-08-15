@@ -13,6 +13,7 @@ import PhotoPreview from "./components/camera/PhotoPreview";
 import LoginForm from "./components/user/LoginForm";
 import EventDetails from "./components/events/EventDetails";
 import CreateEventForm from "./components/events/CreateEventForm";
+import SignUpForm from "./components/user/SignUpForm";
 
 // import EventCamera from "./components/camera/EventCamera";
 // import EventScreen from "./components/events/EventScreen";
@@ -80,6 +81,14 @@ const App = () => {
               <Stack.Screen
                 name="CreateEventForm"
                 component={CreateEventForm}
+                options={{
+                  cardStyleInterpolator:
+                    CardStyleInterpolators.forModalPresentationIOS,
+                }}
+              />
+              <Stack.Screen
+                name="SignUpForm"
+                component={SignUpForm}
                 options={{
                   cardStyleInterpolator:
                     CardStyleInterpolators.forModalPresentationIOS,
