@@ -5,6 +5,7 @@ import { Text, View, TextInput, Button } from "react-native";
 import { UserContext } from "../../contexts";
 import { addEvent, addGuestToEvent } from "../../firebase/db";
 import { Event } from "../../utilities/types";
+import tw from "twrnc";
 
 export default function CreateEventForm() {
   const navigation = useNavigation();
@@ -13,7 +14,7 @@ export default function CreateEventForm() {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [banner, setBanner] = useState("");
-  const [eventDate, setEventDate] = useState("")
+  const [eventDate, setEventDate] = useState("");
 
   const handleRegisterPress = async () => {
     const eventToAdd: Event = {
@@ -37,14 +38,14 @@ export default function CreateEventForm() {
     setEventTitle("");
     setLocation("");
     setDescription("");
-    setDate(new Date());
+    setEventDate("")
     setBanner("");
+    navigation.goBack();
   };
 
   return (
     <View>
-      <Button title="Create event" onPress={handleRegisterPress}></Button>
-      <Button title="Cancel" onPress={() => navigation.goBack()}></Button>
+      <Button title="Cancel" onPress={() => navigation.goBack()} ></Button>
       <Text>Event Title:</Text>
       <TextInput onChangeText={(newText) => setEventTitle(newText)}></TextInput>
 
@@ -81,6 +82,8 @@ export default function CreateEventForm() {
           setEventDate(confirmTime);
         }}
       />
+
+      <Button title="Create event" onPress={handleRegisterPress}></Button>
     </View>
   );
 }
