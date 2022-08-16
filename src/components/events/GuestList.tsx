@@ -42,7 +42,7 @@ export default function GuestList() {
         <IonIcon
           name={"ios-arrow-undo-outline"}
           size={35}
-          color="blue"
+          color="dodgerblue"
           onPress={() => navigation.goBack()}
         />
       </TouchableOpacity>
@@ -53,7 +53,7 @@ export default function GuestList() {
       />
 
       <TouchableOpacity style={styles.buttons}>
-        <IonIcon name={"person-add-outline"} size={35} color="blue">
+        <IonIcon name={"person-add-outline"} size={35} color="dodgerblue">
           <Text
             style={{ fontFamily: "Arial", fontSize: 15 }}
             onPress={() => {

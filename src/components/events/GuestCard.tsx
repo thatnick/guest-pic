@@ -12,11 +12,15 @@ const GuestCard = ({ item }) => {
   const { selectedEvent } = useContext(SelectedEventContext);
   const { user, setUser } = useContext(UserContext);
   
-  console.log(getGuestsByEventId(selectedEvent))
-  // getGuestsByEventId
+  getGuestsByEventId(selectedEvent.id).then((data)=>{console.log(data)})
 
   const attendingSwitch = useCallback(() => {
-      setIsAttending((position) => {attendingUserEvent})
+      setIsAttending(()=>{
+        getGuestsByEventId(selectedEvent.id).then((data)=>{
+         setIsAttending(data[0].attending) 
+        })
+
+      })
     }, []);
     
 
@@ -30,9 +34,9 @@ const GuestCard = ({ item }) => {
           }}
         />
         <Text>{item.name}</Text>
-      </View>
-      <View style={styles.switch}>
-        <Switch value={isAttending} onValueChange={attendingSwitch} disabled={user.email !== item.email || item.isHost === true}/>
+      {/* </View>
+      <View style={styles.switch}> */}
+        <Switch value={isAttending} onValueChange={attendingSwitch} disabled={user.email === item.email || item.isHost === true}/>
       </View>
     </View>
   );
@@ -50,13 +54,25 @@ const styles = StyleSheet.create({
   },
   alignLeft: {
     display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width:'96%',
+    padding:5,
+    backgroundColor:'dodgerblue',
+    borderRadius: 15,
+    margin:5,
+    
   },
   card: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "darkslategray",
+    shadowOpacity: 1,
+    elevation: 3,
+    backgroundColor: "#0000",
   },
   switch: {
     display: "flex",
