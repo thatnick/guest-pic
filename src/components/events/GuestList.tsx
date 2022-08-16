@@ -13,6 +13,7 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext } from "../../contexts";
 import { getGuestUsersByEventId } from "../../firebase/db";
 import AddGuestForm from "./AddGuestForm";
+import GuestCard from "./GuestCard";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -34,7 +35,7 @@ export default function GuestList() {
       setGuests(data);
     });
   }, [selectedEvent, modalVisible]);
-
+  console.log(guests);
   return (
     <View style={styles.content}>
       <TouchableOpacity style={styles.buttons}>
@@ -48,7 +49,7 @@ export default function GuestList() {
 
       <FlatList
         data={guests}
-        renderItem={({ item }) => <Text>{item.email}</Text>}
+        renderItem={({ item }) => <GuestCard item={item} />}
       />
 
       <TouchableOpacity style={styles.buttons}>

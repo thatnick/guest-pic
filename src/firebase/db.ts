@@ -498,3 +498,24 @@ const timeIsBetweenStartAndEnd = (
 
   return startNum <= timeNum && timeNum < endNum;
 };
+
+export const attendingUserEvent = async ({
+  avatarUrl,
+  userEmail,
+  name,
+}: {
+  avatarUrl: string;
+  userEmail: string;
+  name: string;
+}) => {
+  try {
+    console.log("attendingUserEvent");
+    const guestsRef = collection(db, "guests", guestId, "attending");
+
+    const guestRef = await addDoc(guestsRef, { userEmail });
+
+    updateDoc(guestRef, { attending: false });
+  } catch (err) {
+    console.error("Error adding document: ", err);
+  }
+};

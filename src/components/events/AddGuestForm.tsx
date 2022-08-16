@@ -61,10 +61,21 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
       </TouchableOpacity>
       <View style={styles.input}>
         <Text style={{ backgroundColor: "white" }}>Name:</Text>
-        <TextInput onChangeText={(newText) => setName(newText)}></TextInput>
+        <TextInput
+          value={name}
+          autoCapitalize="none"
+          placeholder="name"
+          onChangeText={(newText) => setName(newText)}
+        ></TextInput>
 
         <Text>Email:</Text>
-        <TextInput onChangeText={(newText) => setEmail(newText)}></TextInput>
+        <TextInput
+          textContentType="emailAddress"
+          value={email}
+          autoCapitalize="none"
+          placeholder="email"
+          onChangeText={(newText) => setEmail(newText)}
+        ></TextInput>
       </View>
 
       {/* <Button title="Add guest" onPress={handleAddGuestPress}></Button> */}
