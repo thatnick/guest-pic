@@ -1,11 +1,10 @@
 import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-
 import EventCamera from "./components/camera/EventCamera";
 import LoginForm from "./components/user/LoginForm";
 import EventDetails from "./components/events/EventDetails";
@@ -19,11 +18,9 @@ import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
-import { getInProgressEventsByGuest } from "./firebase/db";
 import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
-
 
 const Stack = createStackNavigator();
 
@@ -31,8 +28,8 @@ const App = () => {
   const [user, setUser] = useState<User>();
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [inProgressEvents, setInProgressEvents] = useState<Event[]>([]);
-  const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>();
-  const [dateTime, setDateTime] = useState(new Date("2022-08-19"));
+  const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>([]);
+  const [dateTime, setDateTime] = useState(new Date("2022-08-19T19:30"));
 
   const forFade = ({ current }) => ({
     cardStyle: {
@@ -97,7 +94,7 @@ const App = () => {
                   name="CreateEventForm"
                   component={CreateEventForm}
                   options={{
-                    presentation: 'transparentModal',
+                    presentation: "transparentModal",
                     cardStyleInterpolator:
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
@@ -126,7 +123,6 @@ const App = () => {
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
                 />
-                
               </Stack.Navigator>
             </InProgressEventsContext.Provider>
           </SelectedEventContext.Provider>
