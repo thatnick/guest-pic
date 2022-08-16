@@ -97,6 +97,7 @@ const App = () => {
                   name="CreateEventForm"
                   component={CreateEventForm}
                   options={{
+                    presentation: 'transparentModal',
                     cardStyleInterpolator:
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
@@ -125,6 +126,7 @@ const App = () => {
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
                 />
+                
               </Stack.Navigator>
             </InProgressEventsContext.Provider>
           </SelectedEventContext.Provider>

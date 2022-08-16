@@ -68,7 +68,6 @@ export default function LoginForm() {
           password: "",
         }}
         onSubmit={(values, { resetForm }) => {
-          console.log(values, "<<<<<ON SUBMIT");
 
           handleLogin(values).catch((err) => setErrorInvalidUser(true));
           resetForm({ values: { email: "", password: "" } });
