@@ -166,8 +166,8 @@ export const getEventsByGuestEmail = async (email: string) => {
   return getEvents(eventIds);
 };
 
-export const getGuestUsersByEventId = async (eventId: string) => {
-  console.log("getGuestUsersByEventId");
+export const getGuestsAsUsersByEventId = async (eventId: string) => {
+  console.log("getGuestsAsUsersByEventId");
 
   const emails: string[] = [];
   const guestsRef = collection(db, "guests");
@@ -179,6 +179,27 @@ export const getGuestUsersByEventId = async (eventId: string) => {
     emails.push(data.email);
   });
   return getUsers(emails);
+};
+
+export const getGuestsByEventId = async (eventId: string) => {
+  console.log("getGuestsByEventId");
+
+  const guests: Guest[] = [];
+  const guestsRef = collection(db, "guests");
+  const q = query(guestsRef, where("eventId", "==", eventId));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const guestData = doc.data();
+    guests.push({
+      id: doc.id,
+      email: guestData.email,
+      eventId: guestData.eventId,
+      isHost: guestData.isHost,
+      attending: guestData.attending,
+    });
+  });
+  return guests;
 };
 
 export const addGuestToEvent = async ({
@@ -210,6 +231,16 @@ export const addGuestToEvent = async ({
   } catch (err) {
     console.error("Error adding document: ", err);
   }
+};
+
+export const updateGuestAttending = async (
+  guestId: string,
+  attending: "yes" | "no" | "?"
+) => {
+  const guestRef = doc(db, "guests", guestId);
+  await updateDoc(guestRef, {
+    attending,
+  });
 };
 
 export const addPhotoToItineraryItem = async ({

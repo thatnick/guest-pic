@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext } from "../../contexts";
-import { getGuestUsersByEventId } from "../../firebase/db";
+import { getGuestsAsUsersByEventId } from "../../firebase/db";
 import AddGuestForm from "./AddGuestForm";
 
 export default function GuestList() {
@@ -30,7 +30,7 @@ export default function GuestList() {
   // );
 
   useEffect(() => {
-    getGuestUsersByEventId(selectedEvent.id).then((data) => {
+    getGuestsAsUsersByEventId(selectedEvent.id).then((data) => {
       setGuests(data);
     });
   }, [selectedEvent, modalVisible]);
