@@ -9,13 +9,12 @@ import {
 import React from "react";
 import { useContext } from "react";
 import { UserContext, InProgressEventsContext } from "../../contexts";
-import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
 
 export default function UserHeader() {
-  console.log("USER HEADER")
+  console.log("USER HEADER");
   const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
   const { inProgressEvents, inProgressItems } = useContext(
@@ -25,7 +24,7 @@ export default function UserHeader() {
   return (
     <View>
       <Image
-        style={tw`w-15 h-15 rounded-full shadow-2xl`}
+        style={{ width: 55, height: 55, borderRadius: 55 }}
         source={{ uri: user.avatarUrl }}
       />
       <Text>{user.name}</Text>
@@ -35,10 +34,9 @@ export default function UserHeader() {
           size={35}
           color="blue"
           onPress={() => {
-            setUser({user:"",password:""})
-            resetStack(navigation, "LoginForm")
-          }
-        }
+            setUser({ user: "", password: "" });
+            resetStack(navigation, "LoginForm");
+          }}
         />
         <Text>Log out</Text>
       </TouchableOpacity>
