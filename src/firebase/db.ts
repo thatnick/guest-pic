@@ -43,7 +43,7 @@ export const addUser = async ({
 };
 
 export const getUserByEmail = async (email: string) => {
-  console.log("etUserByEmail");
+  // console.log("etUserByEmail");
   const userRef = doc(db, "users", email);
   const docSnap = await getDoc(userRef);
 
@@ -57,6 +57,7 @@ export const getUserByEmail = async (email: string) => {
     return user;
   } else {
     console.log("No such document!");
+    return {};
   }
 };
 
@@ -497,5 +498,3 @@ const timeIsBetweenStartAndEnd = (
 
   return startNum <= timeNum && timeNum <= endNum;
 };
-
-
