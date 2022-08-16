@@ -1,34 +1,19 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Switch } from "react-native-gesture-handler";
-import { attendingUserEvent } from "../../firebase/db";
-import { SelectedEventContext } from "../../contexts";
+import { getGuestsByEventId } from "../../firebase/db";
+import { SelectedEventContext, UserContext } from "../../contexts";
 
-export const getGuestsByEventId = async (eventId: string) => {
-  console.log("getGuestsByEventId");
 
-  const guests: Guest[] = [];
-  const guestsRef = collection(db, "guests");
-  const q = query(guestsRef, where("eventId", "==", eventId));
-  const querySnapshot = await getDocs(q);
-
-  querySnapshot.forEach((doc) => {
-    const guestData = doc.data();
-    guests.push({
-      id: doc.id,
-      email: guestData.email,
-      eventId: guestData.eventId,
-      isHost: guestData.isHost,
-      attending: guestData.attending,
-    });
-  });
-  return guests;
-};
 
 const GuestCard = ({ item }) => {
   // console.log(item);
   const [isAttending, setIsAttending] = useState<"true" | "false">(false);
   const { selectedEvent } = useContext(SelectedEventContext);
+  const { user, setUser } = useContext(UserContext);
+  
+  console.log(getGuestsByEventId(selectedEvent))
+  // getGuestsByEventId
 
   const attendingSwitch = useCallback(() => {
       setIsAttending((position) => {attendingUserEvent})
@@ -47,7 +32,7 @@ const GuestCard = ({ item }) => {
         <Text>{item.name}</Text>
       </View>
       <View style={styles.switch}>
-        <Switch value={isAttending} onValueChange={attendingSwitch} />
+        <Switch value={isAttending} onValueChange={attendingSwitch} disabled={user.email !== item.email || item.isHost === true}/>
       </View>
     </View>
   );
