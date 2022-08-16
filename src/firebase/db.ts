@@ -357,7 +357,7 @@ export const getInProgressEventsByGuest = async (email: string, date: Date) => {
   return inProgressEvents;
 };
 
-export const getInProgressItemsByEvent = async (
+export const getInProgressItemsByEvents = async (
   events: Event[],
   time: Date
 ) => {
@@ -496,5 +496,5 @@ const timeIsBetweenStartAndEnd = (
   const endNum = endTime.getHours() * 60 + endTime.getMinutes();
   const timeNum = time.getHours() * 60 + time.getMinutes();
 
-  return startNum <= timeNum && timeNum <= endNum;
+  return startNum <= timeNum && timeNum < endNum;
 };

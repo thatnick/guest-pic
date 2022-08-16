@@ -8,7 +8,7 @@ import { Event, ItineraryItem } from "../utilities/types";
 
 export default function SetTestDateTime() {
   const navigation = useNavigation();
-  const { setDateTime } = useContext(InProgressEventsContext);
+  const { dateTime, setDateTime } = useContext(InProgressEventsContext);
   const [eventItems, setEventItems] = useState<
     [{ event: Event; items: ItineraryItem[] }]
   >([]);
@@ -18,7 +18,6 @@ export default function SetTestDateTime() {
       events.forEach((event) => {
         getItineraryItemsByEvent(event.id).then((items) => {
           setEventItems((prev) => [...prev, { event, items }]);
-          console.log(eventItems);
         });
       });
     });
@@ -26,6 +25,8 @@ export default function SetTestDateTime() {
 
   const handleItemPress = (startTime: Date) => {
     setDateTime(startTime);
+    console.log("APP DATE CHANGED TO: ", dateTime.toDateString());
+    console.log("APP TIME CHANGED TO: ", dateTime.toTimeString());
     navigation.goBack();
   };
 

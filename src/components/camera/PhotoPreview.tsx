@@ -6,7 +6,11 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { SelectedEventContext, UserContext } from "../../contexts";
+import {
+  InProgressEventsContext,
+  SelectedEventContext,
+  UserContext,
+} from "../../contexts";
 import { addPhotoToItineraryItem } from "../../firebase/db";
 import IonIcon from "react-native-vector-icons/Ionicons";
 
@@ -14,6 +18,7 @@ export default function PhotoPreview({ route }) {
   const { photoFile } = route.params;
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
+  const { inProgressItems } = useContext(InProgressEventsContext);
   const { user } = useContext(UserContext);
 
   return (
@@ -42,9 +47,8 @@ export default function PhotoPreview({ route }) {
               console.log("PATH" + photoFile.path);
               await addPhotoToItineraryItem({
                 eventId: selectedEvent.id,
-                // TODO: save to the currently selectedItem, not the inProgressItem
-                // (as many items can be in progress at once)
-                itemId: "7egFFUO2Fd0BXwq0btfw",
+                // TODO: do something cleverer than just choosing the first item
+                itemId: inProgressItems[0].id,
                 filePath: photoFile.path,
                 userEmail: user.email,
               });

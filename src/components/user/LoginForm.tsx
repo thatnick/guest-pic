@@ -38,8 +38,6 @@ export default function LoginForm() {
 
   const { user, setUser } = useContext(UserContext);
 
-  // console.log(user,"<<<<<<login form")
-
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
   };
@@ -70,7 +68,6 @@ export default function LoginForm() {
           password: "",
         }}
         onSubmit={(values, { resetForm }) => {
-          // console.log(values,'<<<<<ON SUBMIT')
 
           handleLogin(values).catch((err) => setErrorInvalidUser(true));
           resetForm({ values: { email: "", password: "" } });

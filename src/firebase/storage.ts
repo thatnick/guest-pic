@@ -20,6 +20,11 @@ export const uploadPhoto = async ({
   );
   const response = await fetch(filePath);
   const blob = await response.blob();
-  await uploadBytes(storageRef, blob);
+  try {
+    await uploadBytes(storageRef, blob);
+  } catch (error) {
+    console.log("upload error: " + error);
+  }
+
   return getDownloadURL(storageRef);
 };
