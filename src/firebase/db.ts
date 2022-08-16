@@ -81,6 +81,7 @@ export const getUsers = async (emails?: string[]) => {
       avatarUrl: userDoc.avatarUrl,
     });
   });
+  return users;
 };
 
 export const addEvent = async ({
@@ -496,3 +497,5 @@ const timeIsBetweenStartAndEnd = (
 
   return startNum <= timeNum && timeNum <= endNum;
 };
+
+
