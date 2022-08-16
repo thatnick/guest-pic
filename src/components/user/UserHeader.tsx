@@ -1,7 +1,14 @@
-import { Image, Pressable, Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Image,
+  Pressable,
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import React from "react";
 import { useContext } from "react";
-import { UserContext, InProgressEventContext } from "../../contexts";
+import { UserContext, InProgressEventsContext } from "../../contexts";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
@@ -9,8 +16,8 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 export default function UserHeader() {
   const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
-  const { inProgressEvent, inProgressItem } = useContext(
-    InProgressEventContext
+  const { inProgressEvents, inProgressItems } = useContext(
+    InProgressEventsContext
   );
 
   return (
@@ -26,20 +33,17 @@ export default function UserHeader() {
           size={35}
           color="blue"
           onPress={() => {
-            setUser({user:"",password:""})
-            navigation.navigate("LoginForm")
-          }
-          
-        }
+            setUser({ user: "", password: "" });
+            navigation.navigate("LoginForm");
+          }}
         />
         <Text>Log out</Text>
       </TouchableOpacity>
       <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
         <Text>
-          Up next:
-          {inProgressEvent
-            ? inProgressEvent.title
-            : "Error: in progress event is undefined"}
+          {inProgressEvents[0]
+            ? `Happening now: ${inProgressEvents[0].title}`
+            : "Nothing"}
         </Text>
       </Pressable>
     </View>
