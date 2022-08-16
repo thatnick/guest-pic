@@ -35,7 +35,7 @@ export default function GuestList() {
       setGuests(data);
     });
   }, [selectedEvent, modalVisible]);
-  console.log(guests);
+  // console.log(guests);
   return (
     <View style={styles.content}>
       <TouchableOpacity style={styles.buttons}>

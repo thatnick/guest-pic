@@ -499,23 +499,32 @@ const timeIsBetweenStartAndEnd = (
   return startNum <= timeNum && timeNum < endNum;
 };
 
-export const attendingUserEvent = async ({
-  avatarUrl,
-  userEmail,
-  name,
-}: {
-  avatarUrl: string;
-  userEmail: string;
-  name: string;
-}) => {
-  try {
-    console.log("attendingUserEvent");
-    const guestsRef = collection(db, "guests", guestId, "attending");
+// export const attendingUserEvent = async (email, eventId) => {
+  
+//   const guestsRef = collection(db, "guests");
+//   const q = query(guestsRef, where('email', "==", email),where('eventId', "==", eventId));
+//   const querySnapshot = await getDocs(q);
+//   const guests = []
+//   querySnapshot.forEach((document) => {
+//     console.log(document)
+//     guests.push(document.id)
+//   })
+//   const guestRef = doc(db, "guests", guests[0])
+//   console.log(guestRef)
+//   await updateDoc(guestRef, {
+//     attending: false
+//   })
+// }
 
-    const guestRef = await addDoc(guestsRef, { userEmail });
+export const attendingUserEvent = () => {
 
-    updateDoc(guestRef, { attending: false });
-  } catch (err) {
-    console.error("Error adding document: ", err);
-  }
-};
+  
+  const washingtonRef = doc(db, "guests", "6FONGdQsIxoeOQIHW6rB");
+  // Set the "capital" field of the city 'DC'
+  return updateDoc(washingtonRef, {
+    attending: true
+  })
+  // console.log(washingtonRef,"<<<<<ref")
+  // .then((data)=>{console.log(data,"<<<<<<<DATA")});
+  
+}

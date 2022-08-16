@@ -1,14 +1,39 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Switch } from "react-native-gesture-handler";
+import { attendingUserEvent } from "../../firebase/db";
+import { SelectedEventContext } from "../../contexts";
+
+export const getGuestsByEventId = async (eventId: string) => {
+  console.log("getGuestsByEventId");
+
+  const guests: Guest[] = [];
+  const guestsRef = collection(db, "guests");
+  const q = query(guestsRef, where("eventId", "==", eventId));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const guestData = doc.data();
+    guests.push({
+      id: doc.id,
+      email: guestData.email,
+      eventId: guestData.eventId,
+      isHost: guestData.isHost,
+      attending: guestData.attending,
+    });
+  });
+  return guests;
+};
 
 const GuestCard = ({ item }) => {
-  console.log(item.attending);
+  // console.log(item);
   const [isAttending, setIsAttending] = useState<"true" | "false">(false);
+  const { selectedEvent } = useContext(SelectedEventContext);
 
   const attendingSwitch = useCallback(() => {
-    setIsAttending((position) => (position === "false" ? "true" : "false"));
-  }, []);
+      setIsAttending((position) => {attendingUserEvent})
+    }, []);
+    
 
   return (
     <View style={styles.card}>
