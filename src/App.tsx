@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
@@ -19,20 +19,25 @@ import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
-import { getInProgressEventsByGuest } from "./firebase/db";
 import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
-
+import { observeAuth } from "./firebase/auth";
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User>({});
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [inProgressEvents, setInProgressEvents] = useState<Event[]>([]);
   const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>();
   const [dateTime, setDateTime] = useState(new Date("2022-08-19"));
+
+  observeAuth((user) => {
+    if (!user) {
+      setUser({});
+    }
+  });
 
   const forFade = ({ current }) => ({
     cardStyle: {
@@ -97,7 +102,7 @@ const App = () => {
                   name="CreateEventForm"
                   component={CreateEventForm}
                   options={{
-                    presentation: 'transparentModal',
+                    presentation: "transparentModal",
                     cardStyleInterpolator:
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
@@ -126,7 +131,6 @@ const App = () => {
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
                 />
-                
               </Stack.Navigator>
             </InProgressEventsContext.Provider>
           </SelectedEventContext.Provider>

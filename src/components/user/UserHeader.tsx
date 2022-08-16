@@ -15,12 +15,9 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
 
 export default function UserHeader() {
-  console.log("USER HEADER")
   const navigation = useNavigation();
-  const { user, setUser } = useContext(UserContext);
-  const { inProgressEvents, inProgressItems } = useContext(
-    InProgressEventsContext
-  );
+  const { user } = useContext(UserContext);
+  const { inProgressEvents } = useContext(InProgressEventsContext);
 
   return (
     <View>
@@ -35,10 +32,8 @@ export default function UserHeader() {
           size={35}
           color="blue"
           onPress={() => {
-            setUser({user:"",password:""})
-            resetStack(navigation, "LoginForm")
-          }
-        }
+            resetStack(navigation, "LoginForm");
+          }}
         />
         <Text>Log out</Text>
       </TouchableOpacity>
