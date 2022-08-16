@@ -5,10 +5,10 @@ const styles = StyleSheet.create({
     
     modalView: {
       textAlign: "center",
-      height: "45%",
+      height: "50%",
       width: "90%",
       margin: 20,
-      marginTop: 100,
+      marginTop: 50,
       backgroundColor: "white",
       borderRadius: 20,
       padding: 30,
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     },
     
     modalTitle: {
-      
       fontSize: 18,
       fontWeight: "bold",
       textAlign: "left",
@@ -54,6 +53,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 4,
         backgroundColor: 'black',
+    },
+    modalSubmit: {
+        width: 100,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 4,
+        backgroundColor: 'black',
+        margin: 5,
     },
     modalButtonText: {
         fontSize: 16,

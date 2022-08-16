@@ -21,14 +21,16 @@ const ItineraryItemForm = ({setAddItnerary}) => {
   const [itineraryTitle, setItineraryTitle] = useState("");
   const [itineraryLocation, setItineraryLocation] = useState("");
   const [itineraryDescription, setItineraryDescription] = useState("");
-  const [itineraryTime, setItineraryTime] = useState(selectedEvent.date.toDate())
+  const [itineraryTime, setItineraryTime] = useState(selectedEvent.date);
+  const [endTime, setEndTime] = useState(selectedEvent.date);
 
   const formSubmitHandler = async () => {
     await addItineraryItemToEvent({
       eventId: selectedEvent.id,
       title: itineraryTitle,
       location: itineraryLocation,
-      time: itineraryTime,
+      startTime: itineraryTime,
+      endTime: endTime,
       description: itineraryDescription,
     });
     setAddItnerary(false)
@@ -67,11 +69,22 @@ const ItineraryItemForm = ({setAddItnerary}) => {
             onDateChange={setItineraryTime}
             mode={"time"}
           />
-        
-        <Button title="Submit" onPress={formSubmitHandler} />
-        
+          <Text style={styles.modalSubtitle}>End Time:</Text>
+          <DatePicker
+            date={itineraryTime}
+            onDateChange={setEndTime}
+            mode={"time"}
+          />
         
         </ScrollView>
+        
+        <Pressable
+          style={styles.modalSubmit}
+          onPress={formSubmitHandler}
+        >
+          <Text style={styles.modalButtonText}>Submit</Text>
+        </Pressable>
+
     </SafeAreaView>
   );
 };
