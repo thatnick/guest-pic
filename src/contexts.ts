@@ -2,7 +2,7 @@ import React from "react";
 import {
   UserContextType,
   SelectedEventContextType,
-  InProgressEventContextType,
+  InProgressEventsContextType,
 } from "./utilities/types";
 
 export const UserContext = React.createContext<UserContextType>({
@@ -14,12 +14,12 @@ export const SelectedEventContext =
     selectedEvent: undefined,
     setEvent: () => undefined,
   });
-export const InProgressEventContext =
-  React.createContext<InProgressEventContextType>({
-    inProgressEvent: undefined,
-    setInProgressEvent: () => undefined,
-    inProgressItem: undefined,
-    setInProgressItem: () => undefined,
+export const InProgressEventsContext =
+  React.createContext<InProgressEventsContextType>({
+    inProgressEvents: undefined,
+    setInProgressEvents: () => undefined,
+    inProgressItems: undefined,
+    setInProgressItems: () => undefined,
     dateTime: undefined,
     setDateTime: () => undefined,
   });

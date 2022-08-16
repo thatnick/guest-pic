@@ -19,7 +19,7 @@ export interface Event {
   title: string;
   description: string;
   location: string;
-  date: Timestamp;
+  date: Date;
   bannerUrl: string;
 }
 
@@ -28,7 +28,8 @@ export interface ItineraryItem {
   title: string;
   description: string;
   location: string;
-  time: Timestamp;
+  startTime: Date;
+  endTime: Date;
 }
 
 export interface Photo {
@@ -46,11 +47,11 @@ export interface SelectedEventContextType {
   setSelectedEvent: (prevEvent: Event) => void;
 }
 
-export interface InProgressEventContextType {
-  inProgressEvent: Event;
-  setInProgressEvent: (prevEvent: Event) => void;
-  inProgressItem: ItineraryItem;
-  setInProgressItem: (prevEvent: ItineraryItem) => void;
+export interface InProgressEventsContextType {
+  inProgressEvents: Event[];
+  setInProgressEvents: (prevEvents: Event[]) => void;
+  inProgressItems: ItineraryItem[];
+  setInProgressItems: (prevItems: ItineraryItem[]) => void;
   dateTime: Date;
   setDateTime: (prevDateTime: Date) => void;
 }
