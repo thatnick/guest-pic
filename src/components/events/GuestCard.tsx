@@ -43,10 +43,11 @@ const GuestCard = ({ item, guests }) => {
             uri: item.avatarUrl,
           }}
         />
-        <Text>{item.name}</Text>
+        <Text style={styles.textFont}>{item.name}</Text>
         {/* </View>
       <View style={styles.switch}> */}
         <Switch
+          style={styles.switch}
           value={isAttending}
           onValueChange={attendingSwitch}
           disabled={user.email !== item.email || item.isHost === true}
@@ -88,8 +89,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#0000",
   },
   switch: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-end",
+    backgroundColor:'royalblue',
+    borderRadius:15
   },
+  textFont: {
+    fontFamily:'Rockwell',
+    fontSize:20,
+    color:'white',
+  }
 });

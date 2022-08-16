@@ -37,7 +37,7 @@ export default function GuestList() {
         <IonIcon
           name={"ios-arrow-undo-outline"}
           size={35}
-          color="dodgerblue"
+          color="royalblue"
           onPress={() => navigation.goBack()}
         />
       </TouchableOpacity>
@@ -48,9 +48,9 @@ export default function GuestList() {
       />
 
       <TouchableOpacity style={styles.buttons}>
-        <IonIcon name={"person-add-outline"} size={35} color="dodgerblue">
+        <IonIcon name={"person-add-outline"} size={35} color="royalblue">
           <Text
-            style={{ fontFamily: "Arial", fontSize: 15 }}
+            style={{ fontFamily: "Rockwell", fontSize: 15 }}
             onPress={() => {
               setModalVisible(true);
             }}
