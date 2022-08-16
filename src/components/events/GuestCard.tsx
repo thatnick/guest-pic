@@ -1,28 +1,37 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Switch } from "react-native-gesture-handler";
-import { getGuestsByEventId } from "../../firebase/db";
 import { SelectedEventContext, UserContext } from "../../contexts";
+import { updateGuestAttending } from "../../firebase/db";
 
+const GuestCard = ({ item, guests }) => {
+  console.log(guests, "<<<<");
 
+  function attendingHandler() {
+    for (let i in guests) {
+      if (guests[i].email === item.email) {
+        {
+          console.log(guests[i]["attending"], "hellllllooooo");
+          return guests[i].attending;
+        }
+      }
+      // return false;
+    }
+  }
 
-const GuestCard = ({ item }) => {
-  // console.log(item);
-  const [isAttending, setIsAttending] = useState<"true" | "false">(false);
-  const { selectedEvent } = useContext(SelectedEventContext);
-  const { user, setUser } = useContext(UserContext);
-  
-  getGuestsByEventId(selectedEvent.id).then((data)=>{console.log(data)})
+  const [isAttending, setIsAttending] = useState<"true" | "false">(
+    attendingHandler
+  );
+  const { user } = useContext(UserContext);
 
   const attendingSwitch = useCallback(() => {
-      setIsAttending(()=>{
-        getGuestsByEventId(selectedEvent.id).then((data)=>{
-         setIsAttending(data[0].attending) 
-        })
-
-      })
-    }, []);
-    
+    for (let i in guests) {
+      if (guests[i].email === item.email) {
+        updateGuestAttending(guests[i].id, !guests[i].attending);
+        setIsAttending(!isAttending);
+      }
+    }
+  }, []);
 
   return (
     <View style={styles.card}>
@@ -34,9 +43,13 @@ const GuestCard = ({ item }) => {
           }}
         />
         <Text>{item.name}</Text>
-      {/* </View>
+        {/* </View>
       <View style={styles.switch}> */}
-        <Switch value={isAttending} onValueChange={attendingSwitch} disabled={user.email === item.email || item.isHost === true}/>
+        <Switch
+          value={isAttending}
+          onValueChange={attendingSwitch}
+          disabled={user.email === item.email || item.isHost === true}
+        />
       </View>
     </View>
   );
@@ -54,15 +67,14 @@ const styles = StyleSheet.create({
   },
   alignLeft: {
     display: "flex",
-    flexDirection:'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width:'96%',
-    padding:5,
-    backgroundColor:'dodgerblue',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "96%",
+    padding: 5,
+    backgroundColor: "dodgerblue",
     borderRadius: 15,
-    margin:5,
-    
+    margin: 5,
   },
   card: {
     display: "flex",
