@@ -21,6 +21,7 @@ import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
 import SignUpForm from "./components/user/SignUpForm";
 
+
 const Stack = createStackNavigator();
 
 const App = () => {
