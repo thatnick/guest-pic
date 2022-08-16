@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext } from "../../contexts";
 import AddGuestForm from "./AddGuestForm";
 
@@ -8,13 +8,35 @@ export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
 
   return (
-    <View>
-      <Icon name={"user-plus"} size={50} color="blue" onPress={() => {}}>
-        <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Invite guest</Text>
-      </Icon>
+    <View style={styles.content}>
+       <TouchableOpacity style={styles.buttons}>
+        <View>
 
+        <IonIcon
+          name={"ios-arrow-undo-outline"}
+          size={35}
+          color="blue"
+          onPress={() => navigation.goBack()}
+          />
+          </View>
+
+      </TouchableOpacity>
       <AddGuestForm event={selectedEvent} />
       <TouchableOpacity></TouchableOpacity>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  
+  buttons: {
+    flex: 0.4,
+    flexDirection: "row",
+    justifyContent: 'center',
+    padding: 20,
+  },
+});

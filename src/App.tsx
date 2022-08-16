@@ -22,6 +22,8 @@ import SetTestDateTime from "./utilities/SetTestDateTime";
 import { getInProgressEventsByGuest } from "./firebase/db";
 import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
+import GuestList from "./components/events/GuestList";
+
 
 const Stack = createStackNavigator();
 
@@ -110,6 +112,14 @@ const App = () => {
                 <Stack.Screen
                   name="SignUpForm"
                   component={SignUpForm}
+                  options={{
+                    cardStyleInterpolator:
+                      CardStyleInterpolators.forModalPresentationIOS,
+                  }}
+                />
+                <Stack.Screen
+                  name="GuestList"
+                  component={GuestList}
                   options={{
                     cardStyleInterpolator:
                       CardStyleInterpolators.forModalPresentationIOS,

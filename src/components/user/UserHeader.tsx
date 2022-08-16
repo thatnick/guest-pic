@@ -12,8 +12,10 @@ import { UserContext, InProgressEventsContext } from "../../contexts";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import { resetStack } from "./ResetStack";
 
 export default function UserHeader() {
+  console.log("USER HEADER")
   const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
   const { inProgressEvents, inProgressItems } = useContext(
@@ -33,9 +35,10 @@ export default function UserHeader() {
           size={35}
           color="blue"
           onPress={() => {
-            setUser({ user: "", password: "" });
-            navigation.navigate("LoginForm");
-          }}
+            setUser({user:"",password:""})
+            resetStack(navigation, "LoginForm")
+          }
+        }
         />
         <Text>Log out</Text>
       </TouchableOpacity>
