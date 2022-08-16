@@ -1,10 +1,15 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import { SelectedEventContext } from "../../contexts";
-import { useNavigation } from "@react-navigation/native";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import {
+  InProgressEventsContext,
+  SelectedEventContext,
+  UserContext,
+} from "../../contexts";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
+  getInProgressEventsByGuest,
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
 } from "../../firebase/db";
@@ -15,6 +20,10 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
+  const { inProgressEvents, setInProgressEvents, dateTime } = useContext(
+    InProgressEventsContext
+  );
+  const { user } = useContext(UserContext);
   const [items, setItems] = useState<ItineraryItem[]>();
 
   useEffect(() => {
@@ -23,14 +32,8 @@ export default function EventDetails() {
     });
   }, []);
 
-  // ***********
-  // TODO: set the in progress event and item here where the date / time changes?
-  // ***********
-
   return (
     <View style={styles.content}>
-      {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
-
       <TouchableOpacity style={styles.back}>
         <IonIcon
           name={"ios-arrow-undo-outline"}
@@ -53,9 +56,10 @@ export default function EventDetails() {
           size={80}
           color="blue"
           onPress={() => {
-            navigation.navigate("EventCamera");
+            navigation.navigate("SetTestDateTime");
           }}
         />
+        {/* TODO: only display the camera button if this event is in inProgressEvents  */}
         <Text> Take a Pic</Text>
       </TouchableOpacity>
       <Text>Itinerary:</Text>
@@ -66,7 +70,7 @@ export default function EventDetails() {
         data={items}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.time.toDate().toTimeString()}</Text>
+            <Text>{item.startTime.toTimeString()}</Text>
             <Text>{item.title}</Text>
             <Text>{item.location}</Text>
             {/* This isn't working yet because photos aren't saved in the
