@@ -1,6 +1,5 @@
 import { FlatList, Image, StyleSheet, View } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
-import FakeGalleryBox from "./FakeGalleryBox";
 import { Photo } from "../../utilities/types";
 
 interface Props {
@@ -11,20 +10,28 @@ const PhotoGallery = ({ photosCallback }: Props) => {
 
   useEffect(() => {
     photosCallback().then((data) => {
+      const placeholder = {
+        downloadUrl:
+          "https://firebasestorage.googleapis.com/v0/b/guestpic.appspot.com/o/placeholder%2Fphotogallery.jpg?alt=media&token=28e5bbff-796b-4258-8c68-bb5962f94803",
+        id: "Placeholder",
+        userEmail: "Placeholder",
+      };
+
       const pairs = [];
 
-      if (data.length % 2 === 0) {
+      if (data.length === 0) {
+        let count = 0;
+        for (let i = 0; count < 4; i++) {
+          pairs.push([placeholder, placeholder]);
+          count++;
+        }
+      } else if (data.length % 2 === 0) {
         for (let i = 0; i < data.length; i + 2) {
           const pair = [data[i], data[i + 1]];
           pairs.push(pair);
         }
       } else {
-        data.push({
-          downloadUrl:
-            "https://firebasestorage.googleapis.com/v0/b/guestpic.appspot.com/o/photos%2Fimages-4.jpeg?alt=media&token=5460b2a7-ee3b-4840-bdb9-2c5e47be37b0",
-          id: "Test",
-          userEmail: "test@s.com",
-        });
+        data.push(placeholder);
         for (let i = 0; i < data.length; i += 2) {
           const pair = [data[i], data[i + 1]];
           pairs.push(pair);

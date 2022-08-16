@@ -7,6 +7,7 @@ const itinStyle = StyleSheet.create({
         marginTop: 15,
     },
     header: {
+        width: "100%",
         flexDirection: "row",
         flexWrap: "wrap",
         alignItems: "center",
