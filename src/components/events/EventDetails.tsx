@@ -9,32 +9,28 @@ import {
   Button,
   SafeAreaView,
 } from "react-native";
-import React, { useContext, useCallback, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   InProgressEventsContext,
   SelectedEventContext,
   UserContext,
 } from "../../contexts";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
-  getInProgressEventsByGuest,
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
+import CameraButton from "../camera/CameraButton";
 
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
-  const { inProgressEvents, setInProgressEvents, dateTime } = useContext(
-    InProgressEventsContext
-  );
   const { user } = useContext(UserContext);
   const [items, setItems] = useState<ItineraryItem[]>();
   const [addItnerary, setAddItnerary] = useState(false);
@@ -62,8 +58,6 @@ export default function EventDetails() {
             <Text>{item.startTime.toTimeString()}</Text>
             <Text>{item.title}</Text>
             <Text>{item.location}</Text>
-            {/* This isn't working yet because photos aren't saved in the
-           correct itinerary item - see th TODO in PhotoPreview.tsx*/}
 
             <PhotoGallery
               photosCallback={() =>
@@ -73,20 +67,9 @@ export default function EventDetails() {
           </View>
         )}
       />
-      
-      <TouchableOpacity style={styles.camera}>
-        <IonIcon
-          name={"camera-outline"}
-          size={80}
-          color="blue"
-          onPress={() => {
-            navigation.navigate("EventCamera");
-          }}
-        />
-        <Text> Take a Pic</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttons}>
 
+      <CameraButton />
+      <TouchableOpacity style={styles.buttons}>
         <IonIcon
           name={"people-outline"}
           size={35}
