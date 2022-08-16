@@ -12,14 +12,14 @@ import EventDetails from "./components/events/EventDetails";
 import {
   UserContext,
   SelectedEventContext,
-  InProgressEventContext,
+  InProgressEventsContext,
 } from "./contexts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
-import { getInProgressEventsByDate } from "./firebase/db";
+import { getInProgressEventsByGuest } from "./firebase/db";
 import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
 
@@ -28,24 +28,15 @@ const Stack = createStackNavigator();
 const App = () => {
   const [user, setUser] = useState<User>();
   const [selectedEvent, setSelectedEvent] = useState<Event>();
-  const [inProgressEvent, setInProgressEvent] = useState<Event>();
-  const [inProgressItem, setInProgressItem] = useState<ItineraryItem>();
-  const [dateTime, setDateTime] = useState(new Date());
+  const [inProgressEvents, setInProgressEvents] = useState<Event[]>([]);
+  const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>();
+  const [dateTime, setDateTime] = useState(new Date("2022-08-19"));
 
   const forFade = ({ current }) => ({
     cardStyle: {
       opacity: current.progress,
     },
   });
-
-  useEffect(() => {
-    if (!user) return;
-    getInProgressEventsByDate(dateTime, user.email).then((events) => {
-      // TODO: deal with multiple in progress events in a more sensible way
-      setInProgressEvent(events[0]);
-      console.log(inProgressEvent);
-    });
-  }, []);
 
   return (
     <SafeAreaProvider>
@@ -54,14 +45,14 @@ const App = () => {
           <SelectedEventContext.Provider
             value={{ selectedEvent, setSelectedEvent }}
           >
-            <InProgressEventContext.Provider
+            <InProgressEventsContext.Provider
               value={{
-                inProgressEvent,
-                setInProgressEvent,
-                inProgressItem,
-                setInProgressItem,
-                dateTime,
-                setDateTime,
+                inProgressEvents: inProgressEvents,
+                setInProgressEvents: setInProgressEvents,
+                inProgressItems: inProgressItems,
+                setInProgressItems: setInProgressItems,
+                dateTime: dateTime,
+                setDateTime: setDateTime,
               }}
             >
               <Stack.Navigator
@@ -125,7 +116,7 @@ const App = () => {
                   }}
                 />
               </Stack.Navigator>
-            </InProgressEventContext.Provider>
+            </InProgressEventsContext.Provider>
           </SelectedEventContext.Provider>
         </UserContext.Provider>
       </NavigationContainer>
