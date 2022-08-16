@@ -357,21 +357,21 @@ export const getInProgressEventsByGuest = async (email: string, date: Date) => {
   return inProgressEvents;
 };
 
-export const getInProgressItemsByEvents = async (
-  events: Event[],
-  time: Date
-) => {
-  console.log("getInProgressItemsByEvent");
+export const getInProgressItemsByEvents = (events: Event[], time: Date) => {
+  const promises: Promise<ItineraryItem[]>[] = [];
   const inProgressItems: ItineraryItem[] = [];
-  events.forEach(async (event) => {
-    const items = await getItineraryItemsByEvent(event.id);
-    items.forEach((item) => {
+  events.forEach((event) => {
+    promises.push(getItineraryItemsByEvent(event.id));
+  });
+  return Promise.all(promises).then((items) => {
+    items.flat().forEach((item) => {
       if (timeIsBetweenStartAndEnd(time, item.startTime, item.endTime)) {
         inProgressItems.push(item);
       }
     });
+
+    return inProgressItems;
   });
-  return inProgressItems;
 };
 
 export const getPhotos = async () => {

@@ -15,16 +15,26 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
 
 export default function UserHeader() {
-  console.log("USER HEADER")
   const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
   const { inProgressEvents, inProgressItems } = useContext(
     InProgressEventsContext
   );
 
+  const eventNow = `Happening now: ${
+    inProgressEvents[0] ? inProgressEvents[0].title : "No events"
+  }`;
+
+  const itemNow = ` - ${
+    inProgressItems[0]
+      ? inProgressItems[0].title
+      : "Nothing in itinerary right now"
+  }`;
+
   return (
     <View>
       <Image
+        // TODO: remove this tailwind
         style={tw`w-15 h-15 rounded-full shadow-2xl`}
         source={{ uri: user.avatarUrl }}
       />
@@ -35,19 +45,16 @@ export default function UserHeader() {
           size={35}
           color="blue"
           onPress={() => {
-            setUser({user:"",password:""})
-            resetStack(navigation, "LoginForm")
-          }
-        }
+            // TODO: this isn't a valid User
+            setUser({ user: "", password: "" });
+            resetStack(navigation, "LoginForm");
+            // TODO: we don't seem to be actually logging out from firebase here...
+          }}
         />
         <Text>Log out</Text>
       </TouchableOpacity>
       <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
-        <Text>
-          {inProgressEvents[0]
-            ? `Happening now: ${inProgressEvents[0].title}`
-            : "Nothing"}
-        </Text>
+        <Text>{eventNow + itemNow}</Text>
       </Pressable>
     </View>
   );
