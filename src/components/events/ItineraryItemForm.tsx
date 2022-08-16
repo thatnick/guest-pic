@@ -2,7 +2,7 @@ import {
   Button,
   Keyboard,
   SafeAreaView,
-  StyleSheet,
+  Pressable,
   Text,
   TextInput,
   ScrollView,
@@ -13,6 +13,7 @@ import DatePicker from "react-native-date-picker";
 import { addItineraryItemToEvent } from "../../firebase/db";
 
 import { SelectedEventContext, UserContext } from "../../contexts";
+import { styles } from "../../styles/forms";
 
 const ItineraryItemForm = ({setAddItnerary}) => {
   const { user } = useContext(UserContext);
@@ -35,9 +36,15 @@ const ItineraryItemForm = ({setAddItnerary}) => {
 
   return (
     <SafeAreaView style={styles.modalView} onPress={() => Keyboard.dismiss()}>
-     <ScrollView >
+        
+        <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}>Add an Itinerary Item</Text>
-          
+          <Pressable style={styles.modalCloseButton} onPress={() => setAddItnerary(false)} >
+            <Text style={styles.modalButtonText}>X</Text>
+          </Pressable>
+        </View>
+
+     <ScrollView >
           <Text style={styles.modalSubtitle}>Title:</Text>
           <TextInput style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryTitle(newText)}
@@ -61,8 +68,8 @@ const ItineraryItemForm = ({setAddItnerary}) => {
             mode={"time"}
           />
         
-        <Button style={styles.modalButton} title="Submit" onPress={formSubmitHandler} />
-        <Button title="close" onPress={() => setAddItnerary(false)} />
+        <Button title="Submit" onPress={formSubmitHandler} />
+        
         
         </ScrollView>
     </SafeAreaView>
@@ -72,41 +79,4 @@ const ItineraryItemForm = ({setAddItnerary}) => {
 export default ItineraryItemForm;
 
 
-const styles = StyleSheet.create({
- 
-  modalView: {
-    textAlign: "center",
-    height: "45%",
-    margin: 20,
-    marginTop: 100,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 30,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalTitle: {
-    margin: 15,
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalSubtitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  modalTextbox: {
-    padding: 5,
-    borderRadius: 10,
-    backgroundColor: "#EDEDED",
-    minHeight: 50,
-  },
-  
-})
+

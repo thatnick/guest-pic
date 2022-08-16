@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext } from "../../contexts";
 import AddGuestForm from "./AddGuestForm";
@@ -10,7 +10,7 @@ export default function GuestList() {
   return (
     <View style={styles.content}>
        <TouchableOpacity style={styles.buttons}>
-        <View>
+     
 
         <IonIcon
           name={"ios-arrow-undo-outline"}
@@ -18,11 +18,14 @@ export default function GuestList() {
           color="blue"
           onPress={() => navigation.goBack()}
           />
-          </View>
+      
 
       </TouchableOpacity>
-      <AddGuestForm event={selectedEvent} />
-      <TouchableOpacity></TouchableOpacity>
+      
+<FlatList>
+  
+</FlatList>
+   
     </View>
   );
 }
