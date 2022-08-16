@@ -43,26 +43,8 @@ export default function EventDetails() {
   // ***********
 
   return (
-
+    
     <SafeAreaView style={styles.content}>
-      {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
-
- <View style={styles.content}>
-      <View style={styles.top}>
-
-      <TouchableOpacity style={styles.buttons}>
-        <View>
-        <IonIcon
-          name={"ios-arrow-undo-outline"}
-          size={35}
-          color="blue"
-          onPress={() => navigation.goBack()}
-          />
-          </View>
-
-      </TouchableOpacity>
-          </View>
-      {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
 
 
       <Image
@@ -85,12 +67,7 @@ export default function EventDetails() {
             <Text>{item.location}</Text>
             {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
-           <TouchableOpacity style={styles.buttons}>
-   
-         <IonIcon name={"person-add-outline"} size={35} color="blue" onPress={() => {}}>
-         <Text style={{ fontFamily: "Arial", fontSize: 15 }} onPress={()=>{navigation.navigate("GuestList")}}>add guests</Text>
-       </IonIcon>
-           </TouchableOpacity>
+           
             <PhotoGallery
               photosCallback={() =>
                 getPhotosByItineraryItem(selectedEvent.id, item.id)
@@ -111,8 +88,24 @@ export default function EventDetails() {
              />
              <Text> Take a Pic</Text>
            </TouchableOpacity>
-    </View>
+           <TouchableOpacity style={styles.buttons}>
+   
+   <IonIcon  name={"people-outline"} size={35} color="blue" onPress={() => {}}>
+   <Text style={{ fontFamily: "Arial", fontSize: 15}} onPress={()=>{navigation.navigate("GuestList")}}>guest list</Text>
+ </IonIcon>
+     </TouchableOpacity>
+           <TouchableOpacity style={styles.buttons}>
+        <View>
+        <IonIcon
+          name={"ios-arrow-undo-outline"}
+          size={35}
+          color="blue"
+          onPress={() => navigation.goBack()}
+          />
+          </View>
 
+      </TouchableOpacity>
+      
       <Button
         onPress={() => setAddItnerary(true)}
         title="Add itnerary item"
@@ -151,7 +144,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: 40,
+    padding: 10,
   },
   shadowProp: {
     shadowOffset: { width: 10, height: 10 },
@@ -169,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 0.4,
     flexDirection: "row",
     justifyContent: 'center',
-    padding: 20,
+    padding: 10,
   },
   centeredView: {
     flex: 1,
