@@ -6,6 +6,7 @@ import { updateGuestAttending } from "../../firebase/db";
 
 const GuestCard = ({ item, guests }) => {
   console.log(guests, "<<<<");
+  console.log(item, "<<<<userrr");
 
   function attendingHandler() {
     for (let i in guests) {
@@ -24,14 +25,14 @@ const GuestCard = ({ item, guests }) => {
   );
   const { user } = useContext(UserContext);
 
-  const attendingSwitch = useCallback(() => {
+  const attendingSwitch = () => {
     for (let i in guests) {
       if (guests[i].email === item.email) {
         updateGuestAttending(guests[i].id, !guests[i].attending);
         setIsAttending(!isAttending);
       }
     }
-  }, []);
+  };
 
   return (
     <View style={styles.card}>
@@ -48,7 +49,7 @@ const GuestCard = ({ item, guests }) => {
         <Switch
           value={isAttending}
           onValueChange={attendingSwitch}
-          disabled={user.email === item.email || item.isHost === true}
+          disabled={user.email !== item.email || item.isHost === true}
         />
       </View>
     </View>
