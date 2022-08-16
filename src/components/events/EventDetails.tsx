@@ -25,7 +25,7 @@ import {
   getPhotosByItineraryItem,
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
@@ -48,12 +48,8 @@ export default function EventDetails() {
 
 
   return (
-
-    
     <SafeAreaView style={styles.content}>
-
-
-
+      
       <Image
         style={styles.image}
         source={{
@@ -63,9 +59,6 @@ export default function EventDetails() {
       <Text>{selectedEvent.title}</Text>
       <Text>Itinerary:</Text>
       <FlatList
-        style={{
-          flex: 1,
-        }}
         data={items}
         renderItem={({ item }) => (
           <View>
@@ -83,6 +76,7 @@ export default function EventDetails() {
           </View>
         )}
       />
+      
 
            <TouchableOpacity style={styles.camera}>
              <IonIcon
@@ -93,7 +87,7 @@ export default function EventDetails() {
                  navigation.navigate("EventCamera");
                }}
              />
-             <Text> Take a Pic</Text>
+             <Text>Take a Pic</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttons}>
    

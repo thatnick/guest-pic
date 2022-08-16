@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import FakeGalleryBox from "./FakeGalleryBox";
 import { Photo } from "../../utilities/types";
 
@@ -10,26 +10,22 @@ const PhotoGallery = ({ photosCallback }: Props) => {
   const [photos, setPhotos] = useState<Photo[]>([]);
 
   useEffect(() => {
-    photosCallback().then((photos) => setPhotos(photos));
+    photosCallback().then((data) => setPhotos(data));
   }, []);
 
   return (
+
     <View>
       <FlatList
-        style={{ display: "flex", flexWrap: "wrap" }}
+      horizontal={true}
         data={photos}
         renderItem={({ item: photo }) => {
-          if (photos.length > 2) {
-            return (
-              <Image
+              return <Image
                 source={{ uri: photo.downloadUrl }}
                 style={{ height: 100, width: 100, margin: 2 }}
               />
-            );
-          }
-          return <FakeGalleryBox />;
-        }}
-        numColumns={4}
+            }}
+        
       />
     </View>
   );
