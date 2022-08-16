@@ -1,70 +1,54 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
-//import DatePicker from "react-native-datepicker";
 import { FlatList } from "react-native-gesture-handler";
-import { InProgressEventContext } from "../contexts";
+import { InProgressEventsContext } from "../contexts";
 import { getEvents, getItineraryItemsByEvent } from "../firebase/db";
-import { ItineraryItem } from "./types";
+import { Event, ItineraryItem } from "../utilities/types";
 
 export default function SetTestDateTime() {
   const navigation = useNavigation();
-  const { dateTime, setDateTime } = useContext(InProgressEventContext);
-  const [pickerDateTime] = useState(dateTime);
-  const [items, setItems] = useState<ItineraryItem[]>([]);
+  const { setDateTime } = useContext(InProgressEventsContext);
+  const [eventItems, setEventItems] = useState<
+    [{ event: Event; items: ItineraryItem[] }]
+  >([]);
 
   useEffect(() => {
     getEvents().then((events) => {
       events.forEach((event) => {
-        getItineraryItemsByEvent(event.id).then((items) => setItems(items));
+        getItineraryItemsByEvent(event.id).then((items) => {
+          setEventItems((prev) => [...prev, { event, items }]);
+          console.log(eventItems);
+        });
       });
     });
   }, []);
 
+  const handleItemPress = (startTime: Date) => {
+    setDateTime(startTime);
+    navigation.goBack();
+  };
+
   return (
     <View>
       <Text>Set app date/time for testing:</Text>
-      {/* <DatePicker
-        style={{ width: 200 }}
-        date={pickerDateTime}
-        mode="datetime"
-        is24Hour="true"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: "absolute",
-            left: 0,
-            top: 4,
-            marginLeft: 0,
-          },
-          dateInput: {
-            marginLeft: 30,
-          },
-        }}
-        onDateChange={(confirmDateTime) => {
-          setDateTime(confirmDateTime);
-        }}
-      /> */}
-      <Button
-        title="Save"
-        onPress={() => {
-          // TODO: Save the date time here
-          navigation.goBack();
-        }}
-      ></Button>
       <View style={{ height: "85%" }}>
         <FlatList
-          data={items}
+          data={eventItems}
           renderItem={({ item }) => (
             <View>
-              <Text style={{ fontStyle: "italic" }}>
-                {item.title}{" "}
-                {item.time.constructor.name === "Timestamp"
-                  ? item.time.toDate().toDateString()
-                  : "Error: Time is not a timestamp"}
-              </Text>
-              <Text>{item.description}</Text>
+              <Text>Event: {item.event.title}</Text>
+              <FlatList
+                data={item.items}
+                renderItem={({ item }) => (
+                  <View>
+                    <Button
+                      onPress={() => handleItemPress(item.startTime)}
+                      title={`- ${item.title} ${item.startTime.toTimeString()}`}
+                    ></Button>
+                  </View>
+                )}
+              />
             </View>
           )}
         />
