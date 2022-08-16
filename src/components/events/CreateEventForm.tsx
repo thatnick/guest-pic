@@ -11,7 +11,7 @@ import {
   SafeAreaView,
   Pressable,
 } from "react-native";
-import { UserContext } from "../../contexts";
+import { UserContext, SelectedEventContext } from "../../contexts";
 import {
   addEvent,
   addGuestToEvent,
@@ -22,6 +22,7 @@ import { styles } from "../../styles/forms";
 export default function CreateEventForm() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
+  const { selectedEvent } = useContext(SelectedEventContext);
 
   // Event
   const [eventTitle, setEventTitle] = useState("");
@@ -34,6 +35,7 @@ export default function CreateEventForm() {
   const [itineraryTitle, setItineraryTitle] = useState("");
   const [itineraryLocation, setItineraryLocation] = useState("");
   const [itineraryDescription, setItineraryDescription] = useState("");
+  const [endTime, setEndTime] = useState(eventDate);
 
   const handleRegisterPress = async () => {
     const eventToAdd = {
@@ -66,34 +68,40 @@ export default function CreateEventForm() {
   return (
     <SafeAreaView style={styles.modalView}>
       <View style={styles.modalHeader}>
-          <Text style={styles.modalTitle}>Host an Event</Text>
-          <Pressable style={styles.modalCloseButton} onPress={() => navigation.goBack()}>
-            <Text style={styles.modalButtonText}>X</Text>
-          </Pressable>
-        </View>
+        <Text style={styles.modalTitle}>Host an Event</Text>
+        <Pressable
+          style={styles.modalCloseButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.modalButtonText}>X</Text>
+        </Pressable>
+      </View>
       <ScrollView>
-
-
-        
         <View>
           <Text style={styles.modalTitle}>Event</Text>
           <Text style={styles.modalSubtitle}>Title:</Text>
-          <TextInput style={styles.modalTextbox}
+          <TextInput
+            style={styles.modalTextbox}
             onChangeText={(newText) => setEventTitle(newText)}
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Location:</Text>
-          <TextInput style={styles.modalTextbox}
+          <TextInput
+            style={styles.modalTextbox}
             onChangeText={(newText) => setEventLocation(newText)}
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Description:</Text>
-          <TextInput style={styles.modalTextbox}
+          <TextInput
+            style={styles.modalTextbox}
             onChangeText={(newText) => setEventDescription(newText)}
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Banner url:</Text>
-          <TextInput style={styles.modalTextbox} onChangeText={(newText) => setBanner(newText)}></TextInput>
+          <TextInput
+            style={styles.modalTextbox}
+            onChangeText={(newText) => setBanner(newText)}
+          ></TextInput>
 
           <Text style={styles.modalSubtitle}>Event Date:</Text>
           <DatePicker
@@ -107,17 +115,20 @@ export default function CreateEventForm() {
         <View>
           <Text style={styles.modalTitle}>Add your first Itinerary Item</Text>
           <Text style={styles.modalSubtitle}>Title:</Text>
-          <TextInput style={styles.modalTextbox}
+          <TextInput
+            style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryTitle(newText)}
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Location:</Text>
-          <TextInput style={styles.modalTextbox}
+          <TextInput
+            style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryLocation(newText)}
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Descrition:</Text>
-          <TextInput style={styles.modalTextbox}
+          <TextInput
+            style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryDescription(newText)}
           ></TextInput>
 
@@ -127,10 +138,22 @@ export default function CreateEventForm() {
             onDateChange={setEventDate}
             mode={"time"}
           />
-        </View>
 
-        <Button title="Create event" onPress={handleRegisterPress}></Button>
+          <Text style={styles.modalSubtitle}>End Time:</Text>
+          <DatePicker
+            date={endTime}
+            onDateChange={setEndTime}
+            mode={"time"}
+          />
+        </View>
+        
       </ScrollView>
+        <Pressable
+          style={styles.modalSubmit}
+          onPress={handleRegisterPress}
+        >
+          <Text style={styles.modalButtonText}>Create event</Text>
+        </Pressable>
     </SafeAreaView>
   );
 }

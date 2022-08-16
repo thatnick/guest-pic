@@ -54,6 +54,15 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         backgroundColor: 'black',
     },
+    modalSubmit: {
+        width: 100,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 4,
+        backgroundColor: 'black',
+        margin: 5,
+    },
     modalButtonText: {
         fontSize: 16,
         lineHeight: 21,
