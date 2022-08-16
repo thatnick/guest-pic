@@ -1,7 +1,18 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  Button,
+  SafeAreaView,
+} from "react-native";
+import React, { useContext, useCallback, useEffect, useState } from "react";
 import { SelectedEventContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
@@ -12,29 +23,35 @@ import { ItineraryItem } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import GuestList from "./GuestList";
+import ItineraryItemForm from "./ItineraryItemForm";
 
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
   const [items, setItems] = useState<ItineraryItem[]>();
+  const [addItnerary, setAddItnerary] = useState(false);
 
   useEffect(() => {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
     });
-  }, []);
+  }, [addItnerary]);
+
 
   // ***********
   // TODO: set the in progress event and item here where the date / time changes?
   // ***********
 
   return (
-    <View style={styles.content}>
+
+    <SafeAreaView style={styles.content}>
+      {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
+
+ <View style={styles.content}>
       <View style={styles.top}>
 
       <TouchableOpacity style={styles.buttons}>
         <View>
-
         <IonIcon
           name={"ios-arrow-undo-outline"}
           size={35}
@@ -82,6 +99,7 @@ export default function EventDetails() {
           </View>
         )}
       />
+
            <TouchableOpacity style={styles.camera}>
              <IonIcon
                name={"camera-outline"}
@@ -94,6 +112,25 @@ export default function EventDetails() {
              <Text> Take a Pic</Text>
            </TouchableOpacity>
     </View>
+
+      <Button
+        onPress={() => setAddItnerary(true)}
+        title="Add itnerary item"
+      ></Button>
+      <Modal
+        style={styles.centeredView}
+        animationType="slide"
+        transparent={true}
+        visible={addItnerary}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setAddItnerary(!addItnerary);
+        }}
+      >
+        <ItineraryItemForm setAddItnerary={setAddItnerary} />
+      </Modal>
+
+    </SafeAreaView>
   );
 }
 
@@ -133,5 +170,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'center',
     padding: 20,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
   },
 });
