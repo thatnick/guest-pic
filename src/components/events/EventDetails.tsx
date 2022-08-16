@@ -16,6 +16,7 @@ import {
   UserContext,
 } from "../../contexts";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { itinStyle } from "../../styles/itineraryItem";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
@@ -54,26 +55,37 @@ export default function EventDetails() {
         }}
       />
       <Text>{selectedEvent.title}</Text>
+
       <Text>Itinerary:</Text>
       <FlatList
         data={items}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.startTime.toTimeString()}</Text>
-            <Text>{item.title}</Text>
-            <Text>{item.location}</Text>
+          <View style={itinStyle.container}>
+            <View style={itinStyle.header}>
+              <View style={itinStyle.time}>
+                <Text style={itinStyle.title}>
+                  {item.startTime.toTimeString().slice(0, 5)}
+                </Text>
+              </View>
+              <View style={itinStyle.info}>
+                <Text style={itinStyle.title}>{item.title}</Text>
+                <Text>{item.location}</Text>
+              </View>
+            </View>
             {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
 
-            <PhotoGallery
-              photosCallback={() =>
-                getPhotosByItineraryItem(selectedEvent.id, item.id)
-              }
-            />
+            <View style={itinStyle.gallery}>
+              <PhotoGallery
+                photosCallback={() =>
+                  getPhotosByItineraryItem(selectedEvent.id, item.id)
+                }
+              />
+            </View>
           </View>
         )}
       />
-      
+
       <TouchableOpacity style={styles.camera}>
         <IonIcon
           name={"camera-outline"}
@@ -86,7 +98,6 @@ export default function EventDetails() {
         <Text> Take a Pic</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttons}>
-
         <IonIcon
           name={"people-outline"}
           size={35}

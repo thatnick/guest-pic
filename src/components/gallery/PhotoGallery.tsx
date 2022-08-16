@@ -63,15 +63,3 @@ const PhotoGallery = ({ photosCallback }: Props) => {
 };
 export default PhotoGallery;
 
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  imageThumbnail: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 100,
-  },
-});
