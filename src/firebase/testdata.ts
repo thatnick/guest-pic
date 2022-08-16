@@ -52,7 +52,7 @@ export const seedDb = async () => {
     title: "Party",
     description: "All night long",
     location: "Your house",
-    date: new Date(),
+    date: new Date("2022-08-19T19:30"),
     bannerUrl:
       "https://cdn.shopify.com/s/files/1/0254/2030/0362/products/34624-Time-To-Party-Banner-2M_4400f2b6-f91b-4841-ad5f-2e65d53854cc_800x.jpg?v=1593828029",
   });
@@ -61,7 +61,7 @@ export const seedDb = async () => {
     title: "Film night",
     description: "Cinema Paradiso",
     location: "Drive in",
-    date: new Date(),
+    date: new Date("2022-08-27T18:30"),
     bannerUrl:
       "https://www.partyrama.co.uk/wp-content/uploads/2018/02/hollywood-film-reel-design-personalised-banner-product-image.jpg",
   });
@@ -103,21 +103,24 @@ export const seedDb = async () => {
     title: "Buffet",
     description: "A buffet",
     location: "A table in your house",
-    time: new Date(),
+    startTime: new Date("2022-08-19T19:30"),
+    endTime: new Date("2022-08-19T20:30"),
   });
   addItineraryItemToEvent({
     eventId: event1.id,
     title: "Karaoke",
     description: "Singing",
     location: "On a table in your house",
-    time: new Date(),
+    startTime: new Date("2022-08-19T20:30"),
+    endTime: new Date("2022-08-19T21:30"),
   });
   addItineraryItemToEvent({
     eventId: event2.id,
     title: "Arrive",
     description: "File starts",
     location: "Multiplex",
-    time: new Date(),
+    startTime: new Date("2022-08-27T18:30"),
+    endTime: new Date("2022-08-27T21:30"),
   });
   console.log("seeding complete");
 };
