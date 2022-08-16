@@ -126,6 +126,7 @@ const App = () => {
                       CardStyleInterpolators.forModalPresentationIOS,
                   }}
                 />
+                
               </Stack.Navigator>
             </InProgressEventsContext.Provider>
           </SelectedEventContext.Provider>

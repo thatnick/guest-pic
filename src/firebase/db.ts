@@ -43,7 +43,7 @@ export const addUser = async ({
 };
 
 export const getUserByEmail = async (email: string) => {
-  console.log("etUserByEmail");
+  // console.log("etUserByEmail");
   const userRef = doc(db, "users", email);
   const docSnap = await getDoc(userRef);
 
@@ -57,6 +57,7 @@ export const getUserByEmail = async (email: string) => {
     return user;
   } else {
     console.log("No such document!");
+    return {};
   }
 };
 
@@ -81,6 +82,7 @@ export const getUsers = async (emails?: string[]) => {
       avatarUrl: userDoc.avatarUrl,
     });
   });
+  return users;
 };
 
 export const addEvent = async ({

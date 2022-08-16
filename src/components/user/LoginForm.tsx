@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Text, TextInput, Button, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
@@ -12,7 +19,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
-import {Formik} from "formik";
+import { Formik } from "formik";
 import AppFormField from "../user/AppFormField";
 import SubmitButton from "../user/SubmitButton";
 import ErrorMsg from "./ErrorMsg";
@@ -21,8 +28,6 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
-
-
 
 export default function LoginForm() {
   const navigation = useNavigation();
@@ -33,7 +38,7 @@ export default function LoginForm() {
 
   const { user, setUser } = useContext(UserContext);
 
-  console.log(user,"<<<<<<login form")
+  // console.log(user,"<<<<<<login form")
 
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
@@ -44,7 +49,6 @@ export default function LoginForm() {
     const user: User = await getUserByEmail(email);
     setUser(user);
     navigation.navigate("EventList");
-
   };
 
   const handleLoginAs = async (email: string, password: string) => {
@@ -56,9 +60,8 @@ export default function LoginForm() {
 
     setPassword("");
     navigation.navigate("EventList");
-    
   };
-const values = {email:"",password:""}
+  const values = { email: "", password: "" };
   return (
     <SafeAreaView style={styles.form}>
       <Formik
@@ -66,17 +69,15 @@ const values = {email:"",password:""}
           email: "",
           password: "",
         }}
-        onSubmit={(values, {resetForm}) => {
-          console.log(values,'<<<<<ON SUBMIT')
+        onSubmit={(values, { resetForm }) => {
+          // console.log(values,'<<<<<ON SUBMIT')
 
-          handleLogin(values).catch((err) => setErrorInvalidUser(true))
-          resetForm({values:{email:"",password:""}})
-        }
-        }
-      
+          handleLogin(values).catch((err) => setErrorInvalidUser(true));
+          resetForm({ values: { email: "", password: "" } });
+        }}
         validationSchema={validationSchema}
       >
-        {({resetForm}) => (
+        {({ resetForm }) => (
           <>
             <AppFormField
               placeholder="email"
@@ -108,9 +109,12 @@ const values = {email:"",password:""}
           />
         </View>
       )}
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("SignUpForm")}>
-      <Text style={styles.text}>SIGN UP</Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("SignUpForm")}
+      >
+        <Text style={styles.text}>SIGN UP</Text>
+      </TouchableOpacity>
 
       <Button
         title="Login as Homer"
