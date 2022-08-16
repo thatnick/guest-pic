@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
@@ -12,13 +12,15 @@ import EventDetails from "./components/events/EventDetails";
 import {
   UserContext,
   SelectedEventContext,
-  InProgressEventContext,
+  InProgressEventsContext,
 } from "./contexts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import CreateEventForm from "./components/events/CreateEventForm";
 import PhotoPreview from "./components/camera/PhotoPreview";
 import EventList from "./components/events/EventList";
 import SetTestDateTime from "./utilities/SetTestDateTime";
+import { getInProgressEventsByGuest } from "./firebase/db";
+import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
 
@@ -26,10 +28,11 @@ import GuestList from "./components/events/GuestList";
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [user, setUser] = useState(undefined);
-  const [selectedEvent, setSelectedEvent] = useState(undefined);
-  const [inProgressEvent, setInProgressEvent] = useState(undefined);
-  const [inProgressItem, setInProgressItem] = useState(undefined);
+  const [user, setUser] = useState<User>();
+  const [selectedEvent, setSelectedEvent] = useState<Event>();
+  const [inProgressEvents, setInProgressEvents] = useState<Event[]>([]);
+  const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>();
+  const [dateTime, setDateTime] = useState(new Date("2022-08-19"));
 
   const forFade = ({ current }) => ({
     cardStyle: {
@@ -44,12 +47,14 @@ const App = () => {
           <SelectedEventContext.Provider
             value={{ selectedEvent, setSelectedEvent }}
           >
-            <InProgressEventContext.Provider
+            <InProgressEventsContext.Provider
               value={{
-                inProgressEvent,
-                setInProgressEvent,
-                inProgressItem,
-                setInProgressItem,
+                inProgressEvents: inProgressEvents,
+                setInProgressEvents: setInProgressEvents,
+                inProgressItems: inProgressItems,
+                setInProgressItems: setInProgressItems,
+                dateTime: dateTime,
+                setDateTime: setDateTime,
               }}
             >
               <Stack.Navigator
@@ -121,7 +126,7 @@ const App = () => {
                   }}
                 />
               </Stack.Navigator>
-            </InProgressEventContext.Provider>
+            </InProgressEventsContext.Provider>
           </SelectedEventContext.Provider>
         </UserContext.Provider>
       </NavigationContainer>

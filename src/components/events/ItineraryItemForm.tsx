@@ -11,13 +11,13 @@ import {
 import React, { useContext, useState } from "react";
 import DatePicker from "react-native-date-picker";
 import { addItineraryItemToEvent } from "../../firebase/db";
+
 import { SelectedEventContext, UserContext } from "../../contexts";
 import { styles } from "../../styles/forms";
 
 const ItineraryItemForm = ({setAddItnerary}) => {
   const { user } = useContext(UserContext);
   const { selectedEvent } = useContext(SelectedEventContext);
-
   const [itineraryTitle, setItineraryTitle] = useState("");
   const [itineraryLocation, setItineraryLocation] = useState("");
   const [itineraryDescription, setItineraryDescription] = useState("");

@@ -10,12 +10,17 @@ import {
   SafeAreaView,
 } from "react-native";
 import React, { useContext, useCallback, useEffect, useState } from "react";
-import { SelectedEventContext } from "../../contexts";
-import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "@react-navigation/native";
+import {
+  InProgressEventsContext,
+  SelectedEventContext,
+  UserContext,
+} from "../../contexts";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
+  getInProgressEventsByGuest,
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
 } from "../../firebase/db";
@@ -28,6 +33,10 @@ import ItineraryItemForm from "./ItineraryItemForm";
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
+  const { inProgressEvents, setInProgressEvents, dateTime } = useContext(
+    InProgressEventsContext
+  );
+  const { user } = useContext(UserContext);
   const [items, setItems] = useState<ItineraryItem[]>();
   const [addItnerary, setAddItnerary] = useState(false);
 
@@ -38,13 +47,11 @@ export default function EventDetails() {
   }, [addItnerary]);
 
 
-  // ***********
-  // TODO: set the in progress event and item here where the date / time changes?
-  // ***********
-
   return (
+
     
     <SafeAreaView style={styles.content}>
+
 
 
       <Image
@@ -62,7 +69,7 @@ export default function EventDetails() {
         data={items}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.time.toDate().toTimeString()}</Text>
+            <Text>{item.startTime.toTimeString()}</Text>
             <Text>{item.title}</Text>
             <Text>{item.location}</Text>
             {/* This isn't working yet because photos aren't saved in the

@@ -12,6 +12,7 @@ import {
   query,
   documentId,
   updateDoc,
+  collectionGroup,
 } from "firebase/firestore";
 import { User, Event, ItineraryItem, Photo, Guest } from "../utilities/types";
 import { uploadPhoto } from "./storage";
@@ -29,7 +30,6 @@ export const addUser = async ({
 }) => {
   try {
     console.log("addUser");
-
     const userRef = doc(db, "users", email);
     await setDoc(userRef, {
       name,
@@ -43,9 +43,9 @@ export const addUser = async ({
 };
 
 export const getUserByEmail = async (email: string) => {
+  console.log("etUserByEmail");
   const userRef = doc(db, "users", email);
   const docSnap = await getDoc(userRef);
-  console.log("etUserByEmail");
 
   if (docSnap.exists()) {
     const userDoc = docSnap.data();
@@ -61,9 +61,10 @@ export const getUserByEmail = async (email: string) => {
 };
 
 export const getUsers = async (emails?: string[]) => {
+  console.log("getUsers");
   let q;
   const usersRef = collection(db, "users");
-  console.log("getUsers");
+
   if (emails) {
     q = query(usersRef, where(documentId(), "in", emails));
   } else {
@@ -119,9 +120,11 @@ export const addEvent = async ({
 };
 
 export const getEvents = async (eventIds?: string[]) => {
+  console.log("getEvents");
+
   let q;
   const eventsRef = collection(db, "events");
-  console.log("getEvents");
+
   if (eventIds) {
     q = query(eventsRef, where(documentId(), "in", eventIds));
   } else {
@@ -138,7 +141,7 @@ export const getEvents = async (eventIds?: string[]) => {
       title: eventDoc.title,
       description: eventDoc.description,
       location: eventDoc.location,
-      date: eventDoc.date,
+      date: eventDoc.date.toDate(),
       bannerUrl: eventDoc.bannerUrl,
     });
   });
@@ -147,10 +150,9 @@ export const getEvents = async (eventIds?: string[]) => {
 };
 
 export const getEventsByGuestEmail = async (email: string) => {
-  const eventIds: string[] = [];
-
   console.log("getEventsByGuestEmail");
 
+  const eventIds: string[] = [];
   const guestsRef = collection(db, "guests");
   const q = query(guestsRef, where("email", "==", email));
   const querySnapshot = await getDocs(q);
@@ -163,10 +165,9 @@ export const getEventsByGuestEmail = async (email: string) => {
 };
 
 export const getGuestUsersByEventId = async (eventId: string) => {
-  const emails: string[] = [];
-
   console.log("getGuestUsersByEventId");
 
+  const emails: string[] = [];
   const guestsRef = collection(db, "guests");
   const q = query(guestsRef, where("eventId", "==", eventId));
   const querySnapshot = await getDocs(q);
@@ -249,35 +250,58 @@ export const addItineraryItemToEvent = async ({
   title,
   description,
   location,
-  time,
+  startTime,
+  endTime,
 }: {
   eventId: string;
   title: string;
   description: string;
   location: string;
-  time: Date;
+  startTime: Date;
+  endTime: Date;
 }) => {
   try {
     console.log("addItineraryItemToEvent");
-    const eventsRef = doc(db, "events", eventId);
-    const itemsRef = collection(eventsRef, "itineraryItems");
+    const eventRef = doc(db, "events", eventId);
+    const itemsRef = collection(eventRef, "itineraryItems");
+
     const newDocRef = await addDoc(itemsRef, {
       title,
       description,
       location,
-      time,
+      startTime,
+      endTime,
     });
     const item: ItineraryItem = {
       id: newDocRef.id,
       title,
       description,
       location,
-      time,
+      startTime,
+      endTime,
     };
     return item;
   } catch (err) {
     console.error("Error adding new itinerary item: ", err);
   }
+};
+
+export const getItineraryItems = async () => {
+  console.log("getItineraryItems");
+  const items: ItineraryItem[] = [];
+  const itemsQuery = query(collectionGroup(db, "itineraryItems"));
+  const querySnapshot = await getDocs(itemsQuery);
+  querySnapshot.forEach((document) => {
+    const itemDoc = document.data();
+    items.push({
+      id: document.id,
+      title: itemDoc.title,
+      description: itemDoc.description,
+      location: itemDoc.location,
+      startTime: itemDoc.time,
+      endTime: itemDoc.endTime.toDate(),
+    });
+  });
 };
 
 export const getItineraryItemsByEvent = async (eventId: string) => {
@@ -293,7 +317,8 @@ export const getItineraryItemsByEvent = async (eventId: string) => {
       title: itemDoc.title,
       description: itemDoc.description,
       location: itemDoc.location,
-      time: itemDoc.time,
+      startTime: itemDoc.startTime.toDate(),
+      endTime: itemDoc.endTime.toDate(),
     });
   });
   return items;
@@ -311,10 +336,55 @@ export const getItineraryItemById = async (eventId: string, itemId: string) => {
       title: itemDoc.title,
       description: itemDoc.description,
       location: itemDoc.location,
-      time: itemDoc.time,
+      startTime: itemDoc.startTime.toDate(),
+      endTime: itemDoc.endTime.toDate(),
     };
     return item;
   }
+};
+
+export const getInProgressEventsByGuest = async (email: string, date: Date) => {
+  console.log("getInProgressEventsByGuest");
+  const guestsEvents = await getEventsByGuestEmail(email);
+  const inProgressEvents: Event[] = [];
+  guestsEvents.forEach((event) => {
+    if (datesAreOnSameDay(event.date, date)) {
+      inProgressEvents.push(event);
+    }
+  });
+  return inProgressEvents;
+};
+
+export const getInProgressItemsByEvent = async (
+  events: Event[],
+  time: Date
+) => {
+  console.log("getInProgressItemsByEvent");
+  const inProgressItems: ItineraryItem[] = [];
+  events.forEach(async (event) => {
+    const items = await getItineraryItemsByEvent(event.id);
+    items.forEach((item) => {
+      if (timeIsBetweenStartAndEnd(time, item.startTime, item.endTime)) {
+        inProgressItems.push(item);
+      }
+    });
+  });
+  return inProgressItems;
+};
+
+export const getPhotos = async () => {
+  console.log("getPhotos");
+  const photos: Photo[] = [];
+  const photosQuery = query(collectionGroup(db, "photos"));
+  const querySnapshot = await getDocs(photosQuery);
+  querySnapshot.forEach((document) => {
+    const itemDoc = document.data();
+    photos.push({
+      id: document.id,
+      downloadUrl: itemDoc.downloadUrl,
+      userEmail: itemDoc.userEmail,
+    });
+  });
 };
 
 export const getPhotosByItineraryItem = async (
@@ -357,8 +427,8 @@ export const getPhotoByPhotoId = async (
     "photos",
     photoId
   );
-  const docSnap = await getDoc(photoRef);
   console.log("getPhotoByPhotoId");
+  const docSnap = await getDoc(photoRef);
   if (docSnap.exists()) {
     const photoDoc = docSnap.data();
     const item: Photo = {
@@ -369,10 +439,10 @@ export const getPhotoByPhotoId = async (
     return item;
   }
 };
+
 export const deleteAllDocsInCollection = async (collectionName: string) => {
   console.log("deleteAllDocsInCollection");
   const querySnapshot = await getDocs(collection(db, collectionName));
-
   const toDelete: Promise<void>[] = [];
 
   querySnapshot.forEach((doc) => {
@@ -408,4 +478,21 @@ export const deleteAllItineraryItemsAndPhotos = async () => {
     });
     console.log(`items and photos in event ${event.title} deleted`);
   });
+};
+
+const datesAreOnSameDay = (first: Date, second: Date) =>
+  first.getFullYear() === second.getFullYear() &&
+  first.getMonth() === second.getMonth() &&
+  first.getDate() === second.getDate();
+
+const timeIsBetweenStartAndEnd = (
+  time: Date,
+  startTime: Date,
+  endTime: Date
+) => {
+  const startNum = startTime.getHours() * 60 + startTime.getMinutes();
+  const endNum = endTime.getHours() * 60 + endTime.getMinutes();
+  const timeNum = time.getHours() * 60 + time.getMinutes();
+
+  return startNum <= timeNum && timeNum <= endNum;
 };

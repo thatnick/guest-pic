@@ -1,15 +1,20 @@
 import { FlatList, View, Button } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getEvents } from "../../firebase/db";
+import { getEvents, getInProgressEventsByGuest } from "../../firebase/db";
 import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
 import { useFocusEffect } from "@react-navigation/native";
+import { InProgressEventsContext, UserContext } from "../../contexts";
 
 export default function EventList() {
   const navigation = useNavigation();
   const [events, setEvents] = useState<Event[]>([]);
+  const { inProgressEvents, setInProgressEvents, dateTime } = useContext(
+    InProgressEventsContext
+  );
+  const { user } = useContext(UserContext);
 
   useFocusEffect(
     // TODO: get events by user (not all events)
@@ -19,6 +24,17 @@ export default function EventList() {
       });
     }, [])
   );
+
+  useEffect(() => {
+    console.log(dateTime);
+    getInProgressEventsByGuest(user.email, dateTime).then((events) => {
+      setInProgressEvents(events);
+      if (!inProgressEvents) return;
+      inProgressEvents.forEach((event) =>
+        console.log("IN PROGRESS EVENT:", event)
+      );
+    });
+  }, [dateTime]);
 
   return (
     <SafeAreaView>

@@ -1,21 +1,58 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { InProgressEventsContext } from "../contexts";
+import { getEvents, getItineraryItemsByEvent } from "../firebase/db";
+import { Event, ItineraryItem } from "../utilities/types";
 
 export default function SetTestDateTime() {
   const navigation = useNavigation();
+  const { setDateTime } = useContext(InProgressEventsContext);
+  const [eventItems, setEventItems] = useState<
+    [{ event: Event; items: ItineraryItem[] }]
+  >([]);
+
+  useEffect(() => {
+    getEvents().then((events) => {
+      events.forEach((event) => {
+        getItineraryItemsByEvent(event.id).then((items) => {
+          setEventItems((prev) => [...prev, { event, items }]);
+          console.log(eventItems);
+        });
+      });
+    });
+  }, []);
+
+  const handleItemPress = (startTime: Date) => {
+    setDateTime(startTime);
+    navigation.goBack();
+  };
 
   return (
     <View>
-      <Text>Date/time picker here to time travel</Text>
-      <Button
-        title="Save"
-        onPress={() => {
-          // TODO: Save the date time here
-          navigation.goBack();
-        }}
-      ></Button>
-      <Text>List of events dates and itinerary times here</Text>
+      <Text>Set app date/time for testing:</Text>
+      <View style={{ height: "85%" }}>
+        <FlatList
+          data={eventItems}
+          renderItem={({ item }) => (
+            <View>
+              <Text>Event: {item.event.title}</Text>
+              <FlatList
+                data={item.items}
+                renderItem={({ item }) => (
+                  <View>
+                    <Button
+                      onPress={() => handleItemPress(item.startTime)}
+                      title={`- ${item.title} ${item.startTime.toTimeString()}`}
+                    ></Button>
+                  </View>
+                )}
+              />
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 }
