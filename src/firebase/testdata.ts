@@ -84,11 +84,6 @@ export const seedDb = async () => {
   });
   addGuestToEvent({
     eventId: event2.id,
-    email: "homer@s.com",
-    isHost: true,
-  });
-  addGuestToEvent({
-    eventId: event2.id,
     email: "bart@s.com",
     isHost: false,
   });
