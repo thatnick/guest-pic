@@ -22,6 +22,7 @@ import {
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
 
 export default function EventDetails() {
@@ -42,17 +43,27 @@ export default function EventDetails() {
   // ***********
 
   return (
+
     <SafeAreaView style={styles.content}>
       {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
 
-      <TouchableOpacity style={styles.back}>
+ <View style={styles.content}>
+      <View style={styles.top}>
+
+      <TouchableOpacity style={styles.buttons}>
+        <View>
         <IonIcon
           name={"ios-arrow-undo-outline"}
           size={35}
           color="blue"
           onPress={() => navigation.goBack()}
-        />
+          />
+          </View>
+
       </TouchableOpacity>
+          </View>
+      {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
+
 
       <Image
         style={styles.image}
@@ -61,17 +72,6 @@ export default function EventDetails() {
         }}
       />
       <Text>{selectedEvent.title}</Text>
-      <TouchableOpacity style={styles.camera}>
-        <IonIcon
-          name={"camera-outline"}
-          size={80}
-          color="blue"
-          onPress={() => {
-            navigation.navigate("EventCamera");
-          }}
-        />
-        <Text> Take a Pic</Text>
-      </TouchableOpacity>
       <Text>Itinerary:</Text>
       <FlatList
         style={{
@@ -85,6 +85,12 @@ export default function EventDetails() {
             <Text>{item.location}</Text>
             {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
+           <TouchableOpacity style={styles.buttons}>
+   
+         <IonIcon name={"person-add-outline"} size={35} color="blue" onPress={() => {}}>
+         <Text style={{ fontFamily: "Arial", fontSize: 15 }} onPress={()=>{navigation.navigate("GuestList")}}>add guests</Text>
+       </IonIcon>
+           </TouchableOpacity>
             <PhotoGallery
               photosCallback={() =>
                 getPhotosByItineraryItem(selectedEvent.id, item.id)
@@ -93,6 +99,19 @@ export default function EventDetails() {
           </View>
         )}
       />
+
+           <TouchableOpacity style={styles.camera}>
+             <IonIcon
+               name={"camera-outline"}
+               size={80}
+               color="blue"
+               onPress={() => {
+                 navigation.navigate("EventCamera");
+               }}
+             />
+             <Text> Take a Pic</Text>
+           </TouchableOpacity>
+    </View>
 
       <Button
         onPress={() => setAddItnerary(true)}
@@ -122,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    flex: 0.25,
+    flex: 0.5,
     width: "95%",
     borderRadius: 8,
     overflow: "hidden",
@@ -141,7 +160,15 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "#0000",
   },
-  back: {
+  top: {
+    flex: 0.3,
+    flexDirection: "row",
+    justifyContent: 'space-around',
+  },
+  buttons: {
+    flex: 0.4,
+    flexDirection: "row",
+    justifyContent: 'center',
     padding: 20,
   },
   centeredView: {
