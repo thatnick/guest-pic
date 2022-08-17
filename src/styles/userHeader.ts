@@ -44,5 +44,6 @@ export const userHeaderStyle = StyleSheet.create({
   },
   buttonText: {
     fontSize: 15,
+    fontWeight: "bold",
 }
 });
