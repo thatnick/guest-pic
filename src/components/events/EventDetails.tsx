@@ -31,6 +31,8 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
 
+import { pageStyle } from "../../styles/EvenDetails";
+
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -55,14 +57,20 @@ export default function EventDetails() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.content}>
+    <SafeAreaView style={pageStyle.content}>
+      <View style={pageStyle.banner}>
       <Image
-        style={styles.image}
+        style={pageStyle.bannerImg}
         source={{
           uri: selectedEvent.bannerUrl,
         }}
       />
-      <Text>{selectedEvent.title}</Text>
+      <View style={pageStyle.bannerInfo}>
+      <Text style={pageStyle.bannerTitle}>{selectedEvent.title}</Text>
+      <Text>{selectedEvent.description}</Text>
+      <Text>{selectedEvent.date.toString().slice(0, 15)}</Text>
+      </View>
+      </View>
 
       <Text>Itinerary:</Text>
       <FlatList
@@ -95,7 +103,7 @@ export default function EventDetails() {
         )}
       />
       {selectedEvent.id === inProgressEvents[0].id ? (
-        <TouchableOpacity style={styles.camera}>
+        <TouchableOpacity style={pageStyle.camera}>
           <IonIcon
             name={"camera-outline"}
             size={80}
@@ -111,7 +119,7 @@ export default function EventDetails() {
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity style={styles.buttons}>
+      <TouchableOpacity style={pageStyle.buttons}>
         <IonIcon
           name={"people-outline"}
           size={35}
@@ -128,7 +136,7 @@ export default function EventDetails() {
           </Text>
         </IonIcon>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.buttons}>
+      <TouchableOpacity style={pageStyle.buttons}>
         <View>
           <IonIcon
             name={"ios-arrow-undo-outline"}
@@ -147,7 +155,7 @@ export default function EventDetails() {
       ) : null}
 
       <Modal
-        style={styles.centeredView}
+        style={pageStyle.centeredView}
         animationType="slide"
         transparent={true}
         visible={addItnerary}
@@ -162,52 +170,3 @@ export default function EventDetails() {
   );
 }
 
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  image: {
-    flex: 0.5,
-    width: "95%",
-    borderRadius: 8,
-    overflow: "hidden",
-  },
-  camera: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: 10,
-  },
-  shadowProp: {
-    shadowOffset: { width: 10, height: 10 },
-    shadowColor: "grey",
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#0000",
-  },
-  top: {
-    flex: 0.3,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  buttons: {
-    flex: 0.4,
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 10,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  textFont: {
-    fontFamily: "Rockwell",
-    fontSize: 20,
-    color: "royalblue",
-  },
-});

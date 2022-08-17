@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SelectedEventContext } from "../../contexts";
 import { cardStyle } from "../../styles/EventList";
 
+
 interface Props {
   event: Event;
 }
