@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   StatusBar,
+  Alert,
 } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
@@ -27,7 +28,6 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginForm() {
   const navigation = useNavigation();
-  const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorInvalidUser, setErrorInvalidUser] = useState(false);
@@ -35,7 +35,9 @@ export default function LoginForm() {
   const { user, setUser } = useContext(UserContext);
 
   const handleLogin = async ({ email, password }) => {
-    await signIn(email, password);
+    await signIn(email, password).then(() => {
+      setErrorInvalidUser(false);
+    });
     const user: User = await getUserByEmail(email);
     setUser(user);
     navigation.navigate("EventList");
@@ -77,9 +79,8 @@ export default function LoginForm() {
                 email: "",
                 password: "",
               }}
-              onSubmit={(values, { resetForm }) => {
+              onSubmit={(values) => {
                 handleLogin(values).catch(() => setErrorInvalidUser(true));
-                resetForm({ values: { email: "", password: "" } });
               }}
               validationSchema={validationSchema}
             >
@@ -115,14 +116,7 @@ export default function LoginForm() {
                 </>
               )}
             </Formik>
-            {errorInvalidUser && (
-              <View style={{ alignItems: "center" }}>
-                <ErrorMsg
-                  error="Invalid User Credentials"
-                  visible={errorInvalidUser}
-                />
-              </View>
-            )}
+            {errorInvalidUser && Alert.alert("Invalid User Credentials")}
           </View>
         </View>
       </SafeAreaView>
