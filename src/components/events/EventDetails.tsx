@@ -21,6 +21,7 @@ import { itinStyle } from "../../styles/itineraryItem";
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
   getInProgressEventsByGuest,
+  getIsHostByEventId,
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
 } from "../../firebase/db";
@@ -39,12 +40,19 @@ export default function EventDetails() {
   const { user } = useContext(UserContext);
   const [items, setItems] = useState<ItineraryItem[]>();
   const [addItnerary, setAddItnerary] = useState(false);
+  const [isHost, setIsHost] = useState(false);
 
   useEffect(() => {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
     });
   }, [addItnerary]);
+
+  useEffect(() => {
+    getIsHostByEventId(user.email, selectedEvent.id).then((isHost) => {
+      setIsHost(isHost);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.content}>
@@ -131,10 +139,13 @@ export default function EventDetails() {
         </View>
       </TouchableOpacity>
 
-      <Button
-        onPress={() => setAddItnerary(true)}
-        title="Add itnerary item"
-      ></Button>
+      {isHost ? (
+        <Button
+          onPress={() => setAddItnerary(true)}
+          title="Add itnerary item"
+        ></Button>
+      ) : null}
+
       <Modal
         style={styles.centeredView}
         animationType="slide"
