@@ -208,7 +208,7 @@ export const addGuestToEvent = async ({
 }) => {
   try {
     console.log("addGuestToEvent");
-    const attending = isHost ? "yes" : "?";
+    const attending = false;
     const guestRef = await addDoc(collection(db, "guests"), {
       email,
       eventId,
@@ -567,7 +567,7 @@ export const getGuestsByEventId = async (eventId: string) => {
 
 export const updateGuestAttending = async (
   guestId: string,
-  attending: "yes" | "no" | "?"
+  attending: boolean
 ) => {
   const guestRef = doc(db, "guests", guestId);
   await updateDoc(guestRef, {

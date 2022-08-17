@@ -11,7 +11,7 @@ export interface Guest {
   email: string;
   eventId: string;
   isHost: boolean;
-  attending: "yes" | "no" | "?";
+  attending: boolean;
 }
 
 export interface Event {

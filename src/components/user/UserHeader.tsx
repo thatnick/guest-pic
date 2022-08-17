@@ -16,7 +16,7 @@ import { resetStack } from "./ResetStack";
 export default function UserHeader() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
-  const { inProgressEvents } = useContext(InProgressEventsContext);
+  const { inProgressEvents, inProgressItems } = useContext(InProgressEventsContext);
 
   const eventNow = `Happening now: ${
     inProgressEvents[0] ? inProgressEvents[0].title : "No events"
