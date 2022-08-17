@@ -57,7 +57,32 @@ const pageStyle = StyleSheet.create({
         fontSize: 20,
         color: "royalblue",
       },
-   
 })
 
-export {pageStyle}
+const buttons = StyleSheet.create({
+    button: {
+        position: "absolute",
+        zIndex: 100,
+        top: 5,
+        left: 5,
+        
+        width: "auto",
+        height: 25,
+        backgroundColor: YELLOW,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        paddingHorizontal: 10,
+
+        shadowOffset: { width: 2, height: 2, },
+        shadowOpacity: 0.5,
+        shadowRadius: 1,
+    },
+    buttonText: {
+        fontSize: 14,
+        fontWeight: "bold",
+    }
+});
+
+export {pageStyle, buttons}

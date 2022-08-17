@@ -31,7 +31,7 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
 
-import { pageStyle } from "../../styles/EvenDetails";
+import { pageStyle, buttons } from "../../styles/EvenDetails";
 
 export default function EventDetails() {
   const navigation = useNavigation();
@@ -136,15 +136,8 @@ export default function EventDetails() {
           </Text>
         </IonIcon>
       </TouchableOpacity>
-      <TouchableOpacity style={pageStyle.buttons}>
-        <View>
-          <IonIcon
-            name={"ios-arrow-undo-outline"}
-            size={35}
-            color="royalblue"
-            onPress={() => navigation.goBack()}
-          />
-        </View>
+      <TouchableOpacity style={buttons.button} onPress={() => navigation.goBack()}>
+        <Text style={buttons.buttonText}>← Back</Text>
       </TouchableOpacity>
 
       {isHost ? (
