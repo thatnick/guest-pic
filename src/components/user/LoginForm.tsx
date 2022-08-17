@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
 import {
   Text,
-  Button,
-  StyleSheet,
   View,
   TouchableOpacity,
   ImageBackground,
@@ -12,11 +10,7 @@ import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
 import { UserContext } from "../../contexts";
 import * as Yup from "yup";
-import {
-  deleteAllDocsInDb,
-  seedDb,
-  seedUserAccounts,
-} from "../../firebase/testdata";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
@@ -39,10 +33,6 @@ export default function LoginForm() {
   const [errorInvalidUser, setErrorInvalidUser] = useState(false);
 
   const { user, setUser } = useContext(UserContext);
-
-  const handleShowPasswordPress = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleLogin = async ({ email, password }) => {
     await signIn(email, password);
@@ -135,33 +125,6 @@ export default function LoginForm() {
             )}
           </View>
         </View>
-
-        {/* <Button
-          title="Login as Homer"
-          onPress={() => handleLoginAs("homer@s.com", "test123")}
-        ></Button>
-        <Button
-          title="Login as Marge"
-          onPress={() => handleLoginAs("marge@s.com", "test123")}
-        ></Button>
-        <Button
-          title="Login as Lisa"
-          onPress={() => handleLoginAs("lisa@s.com", "test123")}
-        ></Button>
-        <Button
-          title="Login as Bart"
-          onPress={() => handleLoginAs("bart@s.com", "test123")}
-        ></Button>
-        <Button
-          title="Seed user accounts"
-          onPress={() => seedUserAccounts()}
-        ></Button>
-        <Button title="Seed the database" onPress={() => seedDb()}></Button>
-        <Button
-          color="red"
-          title="Delete all docs in the database"
-          onPress={() => deleteAllDocsInDb()}
-        ></Button> */}
       </SafeAreaView>
     </ImageBackground>
   );
