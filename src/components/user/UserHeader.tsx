@@ -46,7 +46,7 @@ export default function UserHeader() {
           resetStack(navigation, "LoginForm");
         }}
       >
-        <Text>Log out</Text>
+        <Text style={userHeaderStyle.buttonText}>Log out</Text>
       </Pressable>
     </View>
   );

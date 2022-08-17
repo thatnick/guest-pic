@@ -8,7 +8,7 @@ const pageStyle = StyleSheet.create({
     },
     events:{
         height: "100%",
-        paddingTop: 0,
+        paddingTop: 10,
     },
     
     button: {

@@ -21,8 +21,6 @@ const pageStyle = StyleSheet.create({
         fontSize: 25,
         fontWeight: "bold",
       },
-
-
       camera: {
         flex: 1,
         flexDirection: "column",

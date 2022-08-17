@@ -30,8 +30,19 @@ export const userHeaderStyle = StyleSheet.create({
     fontSize: 15,
   },
   logOutButton: {
-    padding: 15,
+    width: 70,
+    height: 30,
     backgroundColor: BLUE,
     borderRadius: 15,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    shadowOffset: { width: 2, height: 2, },
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
   },
+  buttonText: {
+    fontSize: 15,
+}
 });
