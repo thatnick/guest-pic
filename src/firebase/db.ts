@@ -43,7 +43,7 @@ export const addUser = async ({
 };
 
 export const getUserByEmail = async (email: string) => {
-  // console.log("etUserByEmail");
+  console.log("getUserByEmail");
   const userRef = doc(db, "users", email);
   const docSnap = await getDoc(userRef);
 
