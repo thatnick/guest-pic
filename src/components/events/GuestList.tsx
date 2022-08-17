@@ -18,6 +18,10 @@ import {
 } from "../../firebase/db";
 import AddGuestForm from "./AddGuestForm";
 import GuestCard from "./GuestCard";
+import { styles } from "../../styles/guestList";
+import { BLUE, PURPLE, RED, YELLOW } from '../../styles/guestList';
+import { BackButton } from "../BackButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -44,21 +48,18 @@ export default function GuestList() {
   }, []);
   // console.log(guests);
   return (
-    <View style={styles.content}>
-      <TouchableOpacity style={styles.buttons}>
-        <IonIcon
-          name={"ios-arrow-undo-outline"}
-          size={35}
-          color="royalblue"
-          onPress={() => navigation.goBack()}
-        />
-      </TouchableOpacity>
-
+    
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.headerText}>Guest List</Text>
+      <View style={styles.alignRight}>
+      <BackButton/>
+      </View>
+      <View style={styles.flatlist}>
       <FlatList
         data={users}
         renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
-      />
-
+        />
+  
       {isHost ? (
         <TouchableOpacity style={styles.buttons}>
           <IonIcon name={"person-add-outline"} size={35} color="royalblue">
@@ -67,33 +68,22 @@ export default function GuestList() {
               onPress={() => {
                 setModalVisible(true);
               }}
-            >
+              >
               add guest
             </Text>
           </IonIcon>
         </TouchableOpacity>
       ) : null}
-
+      </View>
+      <View style={styles.modal}>
       <Modal visible={modalVisible}>
         <AddGuestForm
           setModalVisible={setModalVisible}
           event={selectedEvent.id}
         />
       </Modal>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
 
-  buttons: {
-    flex: 0.4,
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 20,
-  },
-});
