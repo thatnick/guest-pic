@@ -72,6 +72,7 @@ export default function EventDetails() {
                 <Text>{item.location}</Text>
               </View>
             </View>
+
             {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
 
@@ -90,22 +91,22 @@ export default function EventDetails() {
         <IonIcon
           name={"camera-outline"}
           size={80}
-          color="blue"
+          color="royalblue"
           onPress={() => {
             navigation.navigate("EventCamera");
           }}
         />
-        <Text> Take a Pic</Text>
+        <Text style={{color:'royalblue', fontFamily:'Rockwell'}}> Take a Pic</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttons}>
         <IonIcon
           name={"people-outline"}
           size={35}
-          color="blue"
+          color="royalblue"
           onPress={() => {}}
         >
           <Text
-            style={{ fontFamily: "Arial", fontSize: 15 }}
+            style={{ fontFamily: "Rockwell", fontSize: 15 }}
             onPress={() => {
               navigation.navigate("GuestList");
             }}
@@ -119,7 +120,7 @@ export default function EventDetails() {
           <IonIcon
             name={"ios-arrow-undo-outline"}
             size={35}
-            color="blue"
+            color="royalblue"
             onPress={() => navigation.goBack()}
           />
         </View>
@@ -188,4 +189,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
+  textFont: {
+    fontFamily:'Rockwell',
+    fontSize:20,
+    color:'royalblue'
+  }
 });
