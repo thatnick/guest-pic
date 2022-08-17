@@ -9,7 +9,6 @@ import {
 import React from "react";
 import { useContext } from "react";
 import { UserContext, InProgressEventsContext } from "../../contexts";
-import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
@@ -20,23 +19,33 @@ export default function UserHeader() {
   const { inProgressEvents } = useContext(InProgressEventsContext);
 
   return (
-    <View>
+    <View style={styles.card}>
+      <View style={styles.alignLeft}>
+
       <Image
-        style={tw`w-15 h-15 rounded-full shadow-2xl`}
+        style={styles.image}
+
         source={{ uri: user.avatarUrl }}
-      />
-      <Text>{user.name}</Text>
+        />
+      <Text style={styles.textFont}>{user.name}</Text>
       <TouchableOpacity style={styles.back}>
-        <IonIcon
+<IonIcon
+          style={{paddingLeft:12}}
           name={"exit-outline"}
           size={35}
-          color="blue"
+          color="white"
           onPress={() => {
             resetStack(navigation, "LoginForm");
-          }}
-        />
-        <Text>Log out</Text>
+          }
+        }
+>
+
+</IonIcon>
+        <Text style={{color:'white', fontFamily:'Rockwell',}}>Log out</Text>
+        
+
       </TouchableOpacity>
+        </View>
       <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
         <Text>
           {inProgressEvents[0]
@@ -64,4 +73,41 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 50,
   },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  alignLeft: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "96%",
+    padding: 5,
+    backgroundColor: "dodgerblue",
+    borderRadius: 15,
+    margin: 5,
+  },
+  card: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "darkslategray",
+    shadowOpacity: 1,
+    elevation: 3,
+    backgroundColor: "#0000",
+  },
+  switch: {
+    backgroundColor:'royalblue',
+    borderRadius:15
+  },
+  textFont: {
+    fontFamily:'Rockwell',
+    fontSize:20,
+    color:'white',
+  }
 });

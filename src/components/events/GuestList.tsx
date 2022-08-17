@@ -11,50 +11,46 @@ import {
 } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext } from "../../contexts";
-import { getGuestUsersByEventId } from "../../firebase/db";
+import { getGuestsByEventId, getGuestUsersByEventId } from "../../firebase/db";
 import AddGuestForm from "./AddGuestForm";
+import GuestCard from "./GuestCard";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
   const [guests, setGuests] = useState([]);
+  const [users, setUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
 
-  // useFocusEffect(
-  //   // TODO: get events by user (not all events)
-  //   useCallback(() => {
-  //     getGuestUsersByEventId(selectedEvent.id).then((data) => {
-  //       setGuests(data);
-  //     });
-  //   }, [])
-  // );
-
   useEffect(() => {
-    getGuestUsersByEventId(selectedEvent.id).then((data) => {
-      setGuests(data);
+    getGuestUsersByEventId(selectedEvent.id).then((users) => {
+      setUsers(users);
+    });
+    getGuestsByEventId(selectedEvent.id).then((guests) => {
+      setGuests(guests);
     });
   }, [selectedEvent, modalVisible]);
-
+  // console.log(guests);
   return (
     <View style={styles.content}>
       <TouchableOpacity style={styles.buttons}>
         <IonIcon
           name={"ios-arrow-undo-outline"}
           size={35}
-          color="blue"
+          color="royalblue"
           onPress={() => navigation.goBack()}
         />
       </TouchableOpacity>
 
       <FlatList
-        data={guests}
-        renderItem={({ item }) => <Text>{item.email}</Text>}
+        data={users}
+        renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
       />
 
       <TouchableOpacity style={styles.buttons}>
-        <IonIcon name={"person-add-outline"} size={35} color="blue">
+        <IonIcon name={"person-add-outline"} size={35} color="royalblue">
           <Text
-            style={{ fontFamily: "Arial", fontSize: 15 }}
+            style={{ fontFamily: "Rockwell", fontSize: 15 }}
             onPress={() => {
               setModalVisible(true);
             }}
