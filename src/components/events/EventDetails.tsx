@@ -86,18 +86,23 @@ export default function EventDetails() {
           </View>
         )}
       />
+      {selectedEvent.id === inProgressEvents[0].id ? (
+        <TouchableOpacity style={styles.camera}>
+          <IonIcon
+            name={"camera-outline"}
+            size={80}
+            color="royalblue"
+            onPress={() => {
+              navigation.navigate("EventCamera");
+            }}
+          />
+          <Text style={{ color: "royalblue", fontFamily: "Rockwell" }}>
+            {" "}
+            Take a Pic
+          </Text>
+        </TouchableOpacity>
+      ) : null}
 
-      <TouchableOpacity style={styles.camera}>
-        <IonIcon
-          name={"camera-outline"}
-          size={80}
-          color="royalblue"
-          onPress={() => {
-            navigation.navigate("EventCamera");
-          }}
-        />
-        <Text style={{color:'royalblue', fontFamily:'Rockwell'}}> Take a Pic</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.buttons}>
         <IonIcon
           name={"people-outline"}
@@ -190,8 +195,8 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   textFont: {
-    fontFamily:'Rockwell',
-    fontSize:20,
-    color:'royalblue'
-  }
+    fontFamily: "Rockwell",
+    fontSize: 20,
+    color: "royalblue",
+  },
 });
