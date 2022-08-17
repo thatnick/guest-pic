@@ -68,7 +68,6 @@ export default function LoginForm() {
           password: "",
         }}
         onSubmit={(values, { resetForm }) => {
-
           handleLogin(values).catch((err) => setErrorInvalidUser(true));
           resetForm({ values: { email: "", password: "" } });
         }}
@@ -128,16 +127,6 @@ export default function LoginForm() {
       <Button
         title="Login as Bart"
         onPress={() => handleLoginAs("bart@s.com", "test123")}
-      ></Button>
-      <Button
-        title="Seed user accounts"
-        onPress={() => seedUserAccounts()}
-      ></Button>
-      <Button title="Seed the database" onPress={() => seedDb()}></Button>
-      <Button
-        color="red"
-        title="Delete all docs in the database"
-        onPress={() => deleteAllDocsInDb()}
       ></Button>
     </SafeAreaView>
   );
