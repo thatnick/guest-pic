@@ -14,12 +14,9 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
 
 export default function UserHeader() {
-  console.log("USER HEADER");
   const navigation = useNavigation();
-  const { user, setUser } = useContext(UserContext);
-  const { inProgressEvents, inProgressItems } = useContext(
-    InProgressEventsContext
-  );
+  const { user } = useContext(UserContext);
+  const { inProgressEvents } = useContext(InProgressEventsContext);
 
   return (
     <View style={styles.card}>
@@ -38,16 +35,15 @@ export default function UserHeader() {
           size={35}
           color="white"
           onPress={() => {
-            setUser({user:"",password:""})
-            resetStack(navigation, "LoginForm")
+            resetStack(navigation, "LoginForm");
           }
         }
-
 >
 
 </IonIcon>
         <Text style={{color:'white', fontFamily:'Rockwell',}}>Log out</Text>
         
+
       </TouchableOpacity>
         </View>
       <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
