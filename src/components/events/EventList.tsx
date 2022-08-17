@@ -1,4 +1,4 @@
-import { FlatList, View, Button } from "react-native";
+import { FlatList, View, Text, Pressable } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,7 +12,7 @@ import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
 import { useFocusEffect } from "@react-navigation/native";
 import { InProgressEventsContext, UserContext } from "../../contexts";
-import { pageStyle, card } from "../../styles/EventList"; 
+import { pageStyle } from "../../styles/EventList"; 
 
 export default function EventList() {
   const navigation = useNavigation();
@@ -41,16 +41,14 @@ export default function EventList() {
   }, [dateTime]);
 
   return (
-
     <SafeAreaView style={pageStyle.container}>
       <UserHeader />
-      <Button
-        title="Create Event"
-        onPress={() => navigation.navigate("CreateEventForm")}
-      ></Button>
-      <View style={{ height: "85%" }}>
+      <Pressable style={pageStyle.button} onPress={() => navigation.navigate("CreateEventForm")}>
+      <Text style={pageStyle.buttonText}>+ Event</Text>
+      </Pressable>
+     
+      <View style={pageStyle.events}>
         <FlatList
-      
           data={events}
           renderItem={({ item }) => <EventCard event={item} />}
         />
