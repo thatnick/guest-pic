@@ -18,7 +18,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import AppFormField from "../user/AppFormField";
 import SubmitButton from "../user/SubmitButton";
-import ErrorMsg from "./ErrorMsg";
 import loginFormStyles from "../../styles/loginFormStyles";
 
 const validationSchema = Yup.object().shape({
