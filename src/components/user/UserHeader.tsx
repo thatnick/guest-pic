@@ -1,121 +1,53 @@
-import {
-  Image,
-  Pressable,
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { Image, Pressable, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { useContext } from "react";
 import { UserContext, InProgressEventsContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
+import { userHeaderStyle } from "../../styles/userHeader";
 
 export default function UserHeader() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
-  const { inProgressEvents, inProgressItems } = useContext(InProgressEventsContext);
+  const { inProgressEvents, inProgressItems } = useContext(
+    InProgressEventsContext
+  );
 
-  const eventNow = `Happening now: ${
+  const eventNow = `${
     inProgressEvents[0] ? inProgressEvents[0].title : "No events"
   }`;
 
-  const itemNow = ` - ${
+  const itemNow = `${
     inProgressItems[0]
-      ? inProgressItems[0].title
-      : "Nothing in itinerary right now"
+      ? `${inProgressItems[0].startTime.toTimeString().slice(0, 5)} ${
+          inProgressItems[0].title
+        }`
+      : ""
   }`;
 
   return (
-    <View style={styles.card}>
-      <View style={styles.alignLeft}>
-
-      <Image
-
-        style={styles.image}
-
-        source={{ uri: user.avatarUrl }}
+    <View style={userHeaderStyle.container}>
+      <View style={userHeaderStyle.avatarAndText}>
+        <Image
+          style={userHeaderStyle.avatar}
+          source={{ uri: user.avatarUrl }}
         />
-      <Text style={styles.textFont}>{user.name}</Text>
-      <TouchableOpacity style={styles.back}>
-<IonIcon
-          style={{paddingLeft:12}}
-          name={"exit-outline"}
-          size={35}
-          color="white"
-          onPress={() => {
-
-            resetStack(navigation, "LoginForm");
-          }
-        }
->
-
-</IonIcon>
-        <Text style={{color:'white', fontFamily:'Rockwell',}}>Log out</Text>
-        
-
-      </TouchableOpacity>
+        <View style={userHeaderStyle.text}>
+          <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
+            <Text style={userHeaderStyle.event}>{eventNow}</Text>
+            <Text style={userHeaderStyle.item}>{itemNow}</Text>
+          </Pressable>
         </View>
-      <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
-        <Text>{eventNow + itemNow}</Text>
+      </View>
+      <Pressable
+        style={userHeaderStyle.logOutButton}
+        onPress={() => {
+          resetStack(navigation, "LoginForm");
+        }}
+      >
+        <Text>Log out</Text>
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  camContainer: { width: "100%", height: "100%" },
-  content: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: 40,
-  },
-  buttons: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "flex-end",
-    padding: 10,
-    marginTop: 50,
-  },
-  image: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  alignLeft: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "96%",
-    padding: 5,
-    backgroundColor: "dodgerblue",
-    borderRadius: 15,
-    margin: 5,
-  },
-  card: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    shadowOffset: { width: 10, height: 10 },
-    shadowColor: "darkslategray",
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#0000",
-  },
-  switch: {
-    backgroundColor:'royalblue',
-    borderRadius:15
-  },
-  textFont: {
-    fontFamily:'Rockwell',
-    fontSize:20,
-    color:'white',
-  }
-});

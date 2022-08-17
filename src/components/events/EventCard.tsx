@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SelectedEventContext } from "../../contexts";
+import { cardStyle } from "../../styles/EventList";
+
 
 interface Props {
   event: Event;
@@ -24,50 +26,20 @@ export default function EventCard({ event }: Props) {
         navigation.navigate("EventDetails");
       }}
     >
-      <View style={[styles.container, styles.shadowProp]}>
+      <View style={cardStyle.container}>
         <ImageBackground
-          style={styles.image}
+          style={cardStyle.image}
           source={{
             uri: event.bannerUrl,
           }}
         />
-        <Text style={styles.title}> {event.title}</Text>
+        <View style={cardStyle.infoContainer}>
+          <View style={cardStyle.info}>
+            <Text style={cardStyle.title}> {event.title}</Text>
+            <Text style={cardStyle.description}>{event.date.toString().slice(0, 15)}</Text>
+          </View>
+        </View>
       </View>
     </TouchableHighlight>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    padding: 15,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-  },
-  image: {
-    width: "100%",
-    height: 100,
-    borderRadius: 8,
-    overflow: "hidden",
-  },
-  title: {
-    fontWeight: "500",
-    backgroundColor: "dodgerblue",
-    overflow: "hidden",
-    borderRadius: 8,
-    width: "50%",
-    textAlign: "center",
-    fontFamily:'Rockwell',
-    color:'white',
-    height:20,
-  },
-  shadowProp: {
-    shadowOffset: { width: 10, height: 10 },
-    shadowColor: "darkslategray",
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#0000",
-  },
-});
