@@ -90,7 +90,7 @@ const buttons = StyleSheet.create({
     camera: {
         position: "absolute",
         zIndex: 100,
-        bottom: 0,
+        bottom: 120,
         padding: 10,
         
     },

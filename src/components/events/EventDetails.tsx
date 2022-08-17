@@ -103,7 +103,7 @@ export default function EventDetails() {
         )}
       />
       {selectedEvent.id === inProgressEvents[0].id ? (
-        <TouchableOpacity style={pageStyle.camera}>
+        <TouchableOpacity style={buttons.camera}>
           <IonIcon
             name={"camera"}
             size={30}
@@ -119,7 +119,7 @@ export default function EventDetails() {
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity style={buttons.camera}>
+      <TouchableOpacity >
         <IonIcon
           name={"people-outline"}
           size={35}
