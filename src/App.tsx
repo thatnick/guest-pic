@@ -5,7 +5,6 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-
 import EventCamera from "./components/camera/EventCamera";
 import LoginForm from "./components/user/LoginForm";
 import EventDetails from "./components/events/EventDetails";
@@ -24,14 +23,15 @@ import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
 import { observeAuth } from "./firebase/auth";
 
+
 const Stack = createStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState<User>({});
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [inProgressEvents, setInProgressEvents] = useState<Event[]>([]);
-  const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>();
-  const [dateTime, setDateTime] = useState(new Date("2022-08-19"));
+  const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>([]);
+  const [dateTime, setDateTime] = useState(new Date("2022-08-19T19:30"));
 
   observeAuth((user) => {
     if (!user) {

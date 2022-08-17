@@ -16,10 +16,10 @@ export const SelectedEventContext =
   });
 export const InProgressEventsContext =
   React.createContext<InProgressEventsContextType>({
-    inProgressEvents: undefined,
+    inProgressEvents: [],
     setInProgressEvents: () => undefined,
-    inProgressItems: undefined,
+    inProgressItems: [],
     setInProgressItems: () => undefined,
-    dateTime: undefined,
+    dateTime: new Date(),
     setDateTime: () => undefined,
   });

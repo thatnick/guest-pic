@@ -18,11 +18,22 @@ export default function UserHeader() {
   const { user } = useContext(UserContext);
   const { inProgressEvents } = useContext(InProgressEventsContext);
 
+  const eventNow = `Happening now: ${
+    inProgressEvents[0] ? inProgressEvents[0].title : "No events"
+  }`;
+
+  const itemNow = ` - ${
+    inProgressItems[0]
+      ? inProgressItems[0].title
+      : "Nothing in itinerary right now"
+  }`;
+
   return (
     <View style={styles.card}>
       <View style={styles.alignLeft}>
 
       <Image
+
         style={styles.image}
 
         source={{ uri: user.avatarUrl }}
@@ -35,6 +46,7 @@ export default function UserHeader() {
           size={35}
           color="white"
           onPress={() => {
+
             resetStack(navigation, "LoginForm");
           }
         }
@@ -47,11 +59,7 @@ export default function UserHeader() {
       </TouchableOpacity>
         </View>
       <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
-        <Text>
-          {inProgressEvents[0]
-            ? `Happening now: ${inProgressEvents[0].title}`
-            : "Nothing"}
-        </Text>
+        <Text>{eventNow + itemNow}</Text>
       </Pressable>
     </View>
   );

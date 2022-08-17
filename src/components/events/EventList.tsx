@@ -16,13 +16,9 @@ import { InProgressEventsContext, UserContext } from "../../contexts";
 export default function EventList() {
   const navigation = useNavigation();
   const [events, setEvents] = useState<Event[]>([]);
-  const {
-    inProgressEvents,
-    setInProgressEvents,
-    inProgressItems,
-    setInProgressItems,
-    dateTime,
-  } = useContext(InProgressEventsContext);
+  const { setInProgressEvents, setInProgressItems, dateTime } = useContext(
+    InProgressEventsContext
+  );
   const { user } = useContext(UserContext);
 
   useFocusEffect(
@@ -34,22 +30,13 @@ export default function EventList() {
   );
 
   useEffect(() => {
-    console.log(dateTime);
-    getInProgressEventsByGuest(user.email, dateTime).then((events) => {
-      setInProgressEvents(events);
-      if (!inProgressEvents) return;
-      inProgressEvents.forEach((event) => {
-        console.log("EVENT IN PROGRESS: ", event.title);
-      });
-
-      getInProgressItemsByEvents(inProgressEvents, dateTime).then((items) => {
-        setInProgressItems(items);
-        if (!inProgressItems) return;
-        inProgressItems.forEach((item) => {
-          console.log("ITEM IN PROGRESS: ", item.title);
-        });
-      });
-    });
+    getInProgressEventsByGuest(user.email, dateTime)
+      .then((events) => {
+        setInProgressEvents(events);
+        return events;
+      })
+      .then((events) => getInProgressItemsByEvents(events, dateTime))
+      .then((items) => setInProgressItems(items));
   }, [dateTime]);
 
   return (
