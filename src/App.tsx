@@ -21,15 +21,23 @@ import SetTestDateTime from "./utilities/SetTestDateTime";
 import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
+import { observeAuth } from "./firebase/auth";
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User>({});
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [inProgressEvents, setInProgressEvents] = useState<Event[]>([]);
   const [inProgressItems, setInProgressItems] = useState<ItineraryItem[]>([]);
   const [dateTime, setDateTime] = useState(new Date("2022-08-19T19:30"));
+
+  observeAuth((user) => {
+    if (!user) {
+      setUser({});
+    }
+  });
 
   const forFade = ({ current }) => ({
     cardStyle: {

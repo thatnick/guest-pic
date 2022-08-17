@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   getEvents,
+  getEventsByGuestEmail,
   getInProgressEventsByGuest,
   getInProgressItemsByEvents,
 } from "../../firebase/db";
@@ -21,9 +22,8 @@ export default function EventList() {
   const { user } = useContext(UserContext);
 
   useFocusEffect(
-    // TODO: get events by user (not all events)
     useCallback(() => {
-      getEvents().then((events) => {
+      getEventsByGuestEmail(user.email).then((events) => {
         setEvents(events);
       });
     }, [])
