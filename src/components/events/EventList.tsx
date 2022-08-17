@@ -12,6 +12,7 @@ import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
 import { useFocusEffect } from "@react-navigation/native";
 import { InProgressEventsContext, UserContext } from "../../contexts";
+import { pageStyle, card } from "../../styles/EventList"; 
 
 export default function EventList() {
   const navigation = useNavigation();
@@ -40,7 +41,8 @@ export default function EventList() {
   }, [dateTime]);
 
   return (
-    <SafeAreaView>
+
+    <SafeAreaView style={pageStyle.container}>
       <UserHeader />
       <Button
         title="Create Event"
@@ -48,6 +50,7 @@ export default function EventList() {
       ></Button>
       <View style={{ height: "85%" }}>
         <FlatList
+      
           data={events}
           renderItem={({ item }) => <EventCard event={item} />}
         />
