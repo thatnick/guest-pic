@@ -53,6 +53,7 @@ export default function LoginForm() {
   };
 
   return (
+
     <ImageBackground
       blurRadius={3}
       source={require("../../assets/images/event-login.jpg")}

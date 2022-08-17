@@ -4,6 +4,11 @@ import { Button, Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { InProgressEventsContext } from "../contexts";
 import { getEvents, getItineraryItemsByEvent } from "../firebase/db";
+import {
+  deleteAllDocsInDb,
+  seedDb,
+  seedUserAccounts,
+} from "../firebase/testdata";
 import { Event, ItineraryItem } from "../utilities/types";
 
 export default function SetTestDateTime() {
@@ -51,6 +56,16 @@ export default function SetTestDateTime() {
             </View>
           )}
         />
+        <Button
+          title="Seed user accounts"
+          onPress={() => seedUserAccounts()}
+        ></Button>
+        <Button title="Seed the database" onPress={() => seedDb()}></Button>
+        <Button
+          color="red"
+          title="Delete all docs in the database"
+          onPress={() => deleteAllDocsInDb()}
+        ></Button>
       </View>
     </View>
   );
