@@ -10,16 +10,22 @@ import {
   View,
 } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import { SelectedEventContext } from "../../contexts";
-import { getGuestsByEventId, getGuestUsersByEventId } from "../../firebase/db";
+import { SelectedEventContext, UserContext } from "../../contexts";
+import {
+  getGuestsByEventId,
+  getGuestUsersByEventId,
+  getIsHostByEventId,
+} from "../../firebase/db";
 import AddGuestForm from "./AddGuestForm";
 import GuestCard from "./GuestCard";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
+  const { user } = useContext(UserContext);
   const [guests, setGuests] = useState([]);
   const [users, setUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isHost, setIsHost] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -30,6 +36,12 @@ export default function GuestList() {
       setGuests(guests);
     });
   }, [selectedEvent, modalVisible]);
+
+  useEffect(() => {
+    getIsHostByEventId(user.email, selectedEvent.id).then((isHost) => {
+      setIsHost(isHost);
+    });
+  }, []);
   // console.log(guests);
   return (
     <View style={styles.content}>
@@ -47,18 +59,21 @@ export default function GuestList() {
         renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
       />
 
-      <TouchableOpacity style={styles.buttons}>
-        <IonIcon name={"person-add-outline"} size={35} color="royalblue">
-          <Text
-            style={{ fontFamily: "Rockwell", fontSize: 15 }}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            add guest
-          </Text>
-        </IonIcon>
-      </TouchableOpacity>
+      {isHost ? (
+        <TouchableOpacity style={styles.buttons}>
+          <IonIcon name={"person-add-outline"} size={35} color="royalblue">
+            <Text
+              style={{ fontFamily: "Rockwell", fontSize: 15 }}
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              add guest
+            </Text>
+          </IonIcon>
+        </TouchableOpacity>
+      ) : null}
+
       <Modal visible={modalVisible}>
         <AddGuestForm
           setModalVisible={setModalVisible}
