@@ -17,20 +17,18 @@ const loginFormStyles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
   },
   formStyle: {
-    display: "flex",
     alignItems: "center",
-    justifyContent: "center",
   },
   formikStyle: {
-    height: "45%",
     width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    marginTop: "70%",
   },
   displayButton: {
     display: "flex",
