@@ -27,7 +27,7 @@ import {
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import IonIcon from "react-native-vector-icons/Ionicons";
+import IonIcon from "react-native-vector-icons/FontAwesome";
 import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
 
@@ -105,8 +105,8 @@ export default function EventDetails() {
       {selectedEvent.id === inProgressEvents[0].id ? (
         <TouchableOpacity style={pageStyle.camera}>
           <IonIcon
-            name={"camera-outline"}
-            size={80}
+            name={"camera"}
+            size={30}
             color="royalblue"
             onPress={() => {
               navigation.navigate("EventCamera");
@@ -119,12 +119,11 @@ export default function EventDetails() {
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity style={pageStyle.buttons}>
+      <TouchableOpacity style={buttons.camera}>
         <IonIcon
           name={"people-outline"}
           size={35}
           color="royalblue"
-          onPress={() => {}}
         >
           <Text
             style={{ fontFamily: "Rockwell", fontSize: 15 }}

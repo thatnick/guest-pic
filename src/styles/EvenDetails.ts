@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 import { RED, PURPLE, BLUE, YELLOW} from "../utilities/colour-palette";
 
 const pageStyle = StyleSheet.create({
+    content: {
+        height: "100%",
+    },
+    
     banner: {
         height: 150
       },
@@ -22,10 +26,9 @@ const pageStyle = StyleSheet.create({
         fontWeight: "bold",
       },
       camera: {
-        flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-end",
+        position: "absolute",
+        zIndex: 100,
+        bottom: 0,
         padding: 10,
       },
       shadowProp: {
@@ -57,6 +60,7 @@ const pageStyle = StyleSheet.create({
         fontSize: 20,
         color: "royalblue",
       },
+
 })
 
 const buttons = StyleSheet.create({
@@ -67,7 +71,7 @@ const buttons = StyleSheet.create({
         left: 5,
         
         width: "auto",
-        height: 25,
+        height: 30,
         backgroundColor: YELLOW,
         display: "flex",
         justifyContent: "center",
@@ -82,7 +86,14 @@ const buttons = StyleSheet.create({
     buttonText: {
         fontSize: 14,
         fontWeight: "bold",
-    }
+    },
+    camera: {
+        position: "absolute",
+        zIndex: 100,
+        bottom: 0,
+        padding: 10,
+        
+    },
 });
 
 export {pageStyle, buttons}
