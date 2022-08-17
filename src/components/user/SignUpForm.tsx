@@ -41,7 +41,7 @@ export default function SignUpForm() {
   };
   return (
     <View>
-       <Button title="Close" onPress={() => navigation.goBack()}></Button>
+      <Button title="Close" onPress={() => navigation.goBack()}></Button>
       <Text>Email:</Text>
       <TextInput
         placeholder="email"

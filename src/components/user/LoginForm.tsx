@@ -7,6 +7,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
@@ -19,7 +20,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import AppFormField from "../user/AppFormField";
 import SubmitButton from "../user/SubmitButton";
-import ErrorMsg from "./ErrorMsg";
 import loginFormStyles from "../../styles/loginFormStyles";
 
 const validationSchema = Yup.object().shape({
@@ -29,7 +29,6 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginForm() {
   const navigation = useNavigation();
-  const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorInvalidUser, setErrorInvalidUser] = useState(false);
@@ -37,7 +36,9 @@ export default function LoginForm() {
   const { user, setUser } = useContext(UserContext);
 
   const handleLogin = async ({ email, password }) => {
-    await signIn(email, password);
+    await signIn(email, password).then(() => {
+      setErrorInvalidUser(false);
+    });
     const user: User = await getUserByEmail(email);
     setUser(user);
     navigation.navigate("EventList");
@@ -84,7 +85,6 @@ export default function LoginForm() {
             }}
             onSubmit={(values, { resetForm }) => {
               handleLogin(values).catch(() => setErrorInvalidUser(true));
-              resetForm({ values: { email: "", password: "" } });
             }}
             validationSchema={validationSchema}
           >
@@ -130,6 +130,7 @@ export default function LoginForm() {
           )}
         </SafeAreaView>
       </KeyboardAvoidingView>
+
     </ImageBackground>
   );
 }
