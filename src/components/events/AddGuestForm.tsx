@@ -4,12 +4,14 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   Alert,
 } from "react-native";
 import { addGuestToEvent, getUserByEmail, addUser } from "../../firebase/db";
 import { Event } from "../../utilities/types";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import {styles} from '../../styles/addGuestForm'
+import { CloseModalButton } from "../CloseModalButton";
 
 interface Props {
   event: Event;
@@ -48,19 +50,15 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
   };
 
   return (
-    <View style={styles.content}>
-      <TouchableOpacity style={styles.buttons}>
-        <View>
-          <IonIcon
-            name={"ios-arrow-undo-outline"}
-            size={35}
-            color="blue"
-            onPress={() => setModalVisible(false)}
-          />
-        </View>
-      </TouchableOpacity>
-      <View style={styles.input}>
-        <Text style={{ backgroundColor: "white" }}>Name:</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.alignRight}>
+      <View></View>
+      <Text style={styles.headerText}>Add Guest</Text>
+      <CloseModalButton setModalVisible={setModalVisible}/>
+      </View>
+      <View style={{flex:1}}></View>
+      <View style={styles.flatlist}>
+        <Text>Name:</Text>
         <TextInput
           value={name}
           autoCapitalize="none"
@@ -77,43 +75,33 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
           onChangeText={(newText) => setEmail(newText)}
         ></TextInput>
       </View>
+<View>
 
-      {/* <Button title="Add guest" onPress={handleAddGuestPress}></Button> */}
+<View style={styles.addGuest}>
+
       <TouchableOpacity style={styles.buttons}>
         <IonIcon
           name={"person-add-outline"}
-          size={35}
-          color="blue"
+          size={30}
+          color="black"
           onPress={() => {
             console.log("click");
           }}
-        >
-          <Text
-            style={{ fontFamily: "Arial", fontSize: 15 }}
-            onPress={handleAddGuestPress}
           >
+          <Text
+            style={{ fontFamily: "Rockwell", fontSize: 15 }}
+            onPress={handleAddGuestPress}
+            >
             add guest
           </Text>
         </IonIcon>
       </TouchableOpacity>
-    </View>
+            </View>
+              </View>
+      <View style={{flex:3}}>
+      </View>
+    </SafeAreaView>
+
   );
 }
 
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-  },
-
-  buttons: {
-    flex: 0.5,
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 20,
-  },
-  input: {
-    backgroundColor: "white",
-    borderRadius: 15,
-    padding: 15,
-  },
-});

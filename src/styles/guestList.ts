@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
       },
       alignRight:{
           flexDirection:'row',
-          justifyContent:'flex-end',
+          justifyContent:'space-between',
           margin:10,
       },
       flatlist: {
@@ -81,14 +81,17 @@ export const styles = StyleSheet.create({
           padding:5
       },
       modal: {
-          flex:1
+          flex:1,
+          alignItems:'center',
+          justifyContent:'center',
       },
       headerText: {
           alignSelf:'center',
           fontFamily:'Rockwell',
           color:'white',
           fontSize:30,
-padding:5      }
+          padding:5,
+    },
 
 
   });

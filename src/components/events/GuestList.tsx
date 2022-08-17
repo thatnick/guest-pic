@@ -22,6 +22,7 @@ import { styles } from "../../styles/guestList";
 import { BLUE, PURPLE, RED, YELLOW } from '../../styles/guestList';
 import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AddGuestFormButton } from "./AddGuestFormButton";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -50,8 +51,9 @@ export default function GuestList() {
   return (
     
     <SafeAreaView style={styles.container}>
-      <Text style={styles.headerText}>Guest List</Text>
       <View style={styles.alignRight}>
+      <View></View>
+      <Text style={styles.headerText}>Guest List</Text>
       <BackButton/>
       </View>
       <View style={styles.flatlist}>
@@ -59,28 +61,18 @@ export default function GuestList() {
         data={users}
         renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
         />
-  
-      {isHost ? (
-        <TouchableOpacity style={styles.buttons}>
-          <IonIcon name={"person-add-outline"} size={35} color="royalblue">
-            <Text
-              style={{ fontFamily: "Rockwell", fontSize: 15 }}
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              >
-              add guest
-            </Text>
-          </IonIcon>
-        </TouchableOpacity>
-      ) : null}
       </View>
+  
       <View style={styles.modal}>
+      {isHost ? (
+        <AddGuestFormButton setModalVisible={setModalVisible}/>
+      ) : null}
       <Modal visible={modalVisible}>
         <AddGuestForm
           setModalVisible={setModalVisible}
           event={selectedEvent.id}
         />
+        
       </Modal>
       </View>
     </SafeAreaView>
