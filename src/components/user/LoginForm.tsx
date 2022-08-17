@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   StatusBar,
+  KeyboardAvoidingView,
+  Platform,
   Alert,
 } from "react-native";
 import { signIn } from "../../firebase/auth";
@@ -54,7 +56,6 @@ export default function LoginForm() {
   };
 
   return (
-
     <ImageBackground
       blurRadius={3}
       source={require("../../assets/images/event-login.jpg")}
@@ -63,63 +64,73 @@ export default function LoginForm() {
     >
       <StatusBar barStyle={"light-content"} />
 
-      <SafeAreaView style={loginFormStyles.formStyle}>
-        <View
-          style={{
-            height: "10%",
-            width: "70%",
-            backgroundColor: "white",
-            marginTop: "40%",
-          }}
-        ></View>
-        <View style={loginFormStyles.formikStyle}>
-          <View style={{ margin: 20 }}>
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-              }}
-              onSubmit={(values) => {
-                handleLogin(values).catch(() => setErrorInvalidUser(true));
-              }}
-              validationSchema={validationSchema}
-            >
-              {() => (
-                <>
-                  <AppFormField
-                    placeholder="email"
-                    name="email"
-                    icon="mail"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    keyBoardType="email-address"
-                    textContentType="emailAddress"
-                  />
-                  <AppFormField
-                    placeholder="password"
-                    name="password"
-                    icon="lock-closed"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    secureTextEntry
-                    textContentType="password"
-                  />
-                  <View style={loginFormStyles.displayButton}>
-                    <SubmitButton title="submit" />
-                    <TouchableOpacity
-                      style={loginFormStyles.button}
-                      onPress={() => navigation.navigate("SignUpForm")}
-                    >
-                      <Text style={loginFormStyles.text}>SIGN UP</Text>
-                    </TouchableOpacity>
-                  </View>
-                </>
-              )}
-            </Formik>
-            {errorInvalidUser && Alert.alert("Invalid User Credentials")}
-          </View>
-        </View>
-      </SafeAreaView>
+      <View
+        style={{
+          height: "10%",
+          width: "70%",
+          backgroundColor: "white",
+          marginTop: "40%",
+          position: "absolute",
+        }}
+      ></View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={loginFormStyles.formStyle}
+      >
+        <SafeAreaView style={loginFormStyles.formikStyle}>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            onSubmit={(values, { resetForm }) => {
+              handleLogin(values).catch(() => setErrorInvalidUser(true));
+            }}
+            validationSchema={validationSchema}
+          >
+            {() => (
+              <>
+                <AppFormField
+                  placeholder="email"
+                  name="email"
+                  icon="mail"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyBoardType="email-address"
+                  textContentType="emailAddress"
+                />
+                <AppFormField
+                  placeholder="password"
+                  name="password"
+                  icon="lock-closed"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  secureTextEntry
+                  textContentType="password"
+                />
+                <View style={loginFormStyles.displayButton}>
+                  <SubmitButton title="submit" />
+                  <TouchableOpacity
+                    style={loginFormStyles.button}
+                    onPress={() => navigation.navigate("SignUpForm")}
+                  >
+                    <Text style={loginFormStyles.text}>SIGN UP</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
+          </Formik>
+          {errorInvalidUser && (
+            <View style={{ alignItems: "center" }}>
+              <ErrorMsg
+                error="Invalid User Credentials"
+                visible={errorInvalidUser}
+              />
+            </View>
+          )}
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+
     </ImageBackground>
   );
 }
