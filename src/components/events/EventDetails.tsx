@@ -107,33 +107,17 @@ export default function EventDetails() {
           <IonIcon
             name={"camera"}
             size={30}
-            color="royalblue"
+            color="black"
             onPress={() => {
               navigation.navigate("EventCamera");
             }}
           />
-          <Text style={{ color: "royalblue", fontFamily: "Rockwell" }}>
-            {" "}
-            Take a Pic
-          </Text>
+          
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity >
-        <IonIcon
-          name={"people-outline"}
-          size={35}
-          color="royalblue"
-        >
-          <Text
-            style={{ fontFamily: "Rockwell", fontSize: 15 }}
-            onPress={() => {
-              navigation.navigate("GuestList");
-            }}
-          >
-            guest list
-          </Text>
-        </IonIcon>
+      <TouchableOpacity style={buttons.guests}>
+        <Text>Guests</Text>
       </TouchableOpacity>
       <TouchableOpacity style={buttons.button} onPress={() => navigation.goBack()}>
         <Text style={buttons.buttonText}>← Back</Text>

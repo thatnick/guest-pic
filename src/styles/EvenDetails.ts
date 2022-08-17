@@ -89,10 +89,35 @@ const buttons = StyleSheet.create({
     },
     camera: {
         position: "absolute",
+        width: 60,
+        height:60,
+        borderRadius: 50,
+        backgroundColor: YELLOW,
+
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+
         zIndex: 100,
-        bottom: 120,
-        padding: 10,
-        
+        bottom: 80,
+        left: "50%",
+        marginLeft: -30,
+
+        shadowOffset: { width: 2, height: 2, },
+        shadowOpacity: 0.35,
+        shadowRadius: 2,
+    },
+    guests: {
+        position: "absolute",
+        width: 60,
+        height: 30,
+        borderRadius: 50,
+        backgroundColor: YELLOW,
+
+        zIndex: 100,
+        bottom: 80,
+        left: "80%",
+        marginLeft: -30,
     },
 });
 
