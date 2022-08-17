@@ -49,21 +49,21 @@ export const seedDb = async () => {
   });
 
   const event1 = await addEvent({
-    title: "Party",
+    title: "Our wedding",
     description: "All night long",
     location: "Your house",
     date: new Date("2022-08-19T19:30"),
     bannerUrl:
-      "https://cdn.shopify.com/s/files/1/0254/2030/0362/products/34624-Time-To-Party-Banner-2M_4400f2b6-f91b-4841-ad5f-2e65d53854cc_800x.jpg?v=1593828029",
+      "https://images.pexels.com/photos/796607/pexels-photo-796607.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   });
 
   const event2 = await addEvent({
-    title: "Film night",
+    title: "Nick's 40th",
     description: "Cinema Paradiso",
     location: "Drive in",
     date: new Date("2022-08-27T18:30"),
     bannerUrl:
-      "https://www.partyrama.co.uk/wp-content/uploads/2018/02/hollywood-film-reel-design-personalised-banner-product-image.jpg",
+      "https://images.pexels.com/photos/226737/pexels-photo-226737.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   });
 
   addGuestToEvent({
