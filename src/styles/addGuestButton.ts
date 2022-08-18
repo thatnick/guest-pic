@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
 
     button: {
         position:'absolute',
-        width:130,
+        width:150,
         height:40,
         backgroundColor:YELLOW,
         display:'flex',

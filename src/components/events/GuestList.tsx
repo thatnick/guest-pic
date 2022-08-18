@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext, UserContext } from "../../contexts";
 import {
   getGuestsByEventId,
@@ -24,7 +23,7 @@ import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
 import { pageStyle, buttons } from "../../styles/EvenDetails";
-
+import { InviteButton } from "./InviteButton";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -64,9 +63,18 @@ export default function GuestList() {
         renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
         />
       </View>
-  
       <View style={styles.modal}>
+
       {isHost ? (
+       <InviteButton/>):null}
+        </View>
+      <View style={styles.modal}>
+      
+      
+      {isHost ? (
+        
+
+        
         <AddGuestFormButton setModalVisible={setModalVisible}/>
       ) : null}
       <Modal
