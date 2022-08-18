@@ -44,12 +44,13 @@ const styles = StyleSheet.create({
     modalSubtitle: {
       fontSize: 16,
       fontWeight: "500",
+      marginTop: 10,
     },
     modalTextbox: {
-      padding: 5,
-      borderRadius: 10,
+      padding: 10,
+      borderRadius: 5,
       backgroundColor: "#EDEDED",
-      minHeight: 50,
+      minHeight: 20,
     },
     
     modalSubmit: {
