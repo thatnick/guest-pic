@@ -1,14 +1,18 @@
 import { StyleSheet } from "react-native";
+import { YELLOW } from "../utilities/colour-palette";
 
 const loginFormStyles = StyleSheet.create({
   button: {
-    backgroundColor: "#AA9EE4",
+    backgroundColor: YELLOW,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
     width: "100%",
     marginVertical: 10,
+    shadowOffset: { width: 2, height: 2, },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   text: {
     fontSize: 18,

@@ -4,6 +4,7 @@ import {
   Button,
   FlatList,
   Modal,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,7 +24,6 @@ import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
 import { pageStyle, buttons } from "../../styles/EvenDetails";
-import { InviteButton } from "./InviteButton";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -52,9 +52,11 @@ export default function GuestList() {
   return (
     
     <SafeAreaView style={styles.container}>
+            <StatusBar barStyle={"light-content"} />
+
       <View style={styles.alignRight}>
       <View></View>
-      <Text style={styles.headerText}>Guest List</Text>
+      <Text style={styles.headerText}>Who's Coming:</Text>
       <BackButton/>
       </View>
       <View style={styles.flatlist}>
@@ -63,11 +65,6 @@ export default function GuestList() {
         renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
         />
       </View>
-      <View style={styles.modal}>
-
-      {isHost ? (
-       <InviteButton/>):null}
-        </View>
       <View style={styles.modal}>
       
       
