@@ -71,7 +71,7 @@ export default function EventDetails() {
       </View>
 
       <View style={itinStyle.section}>
-        <Text style={itinStyle.sectionTitle}>Event Itinerary</Text>
+        
         <FlatList
           data={items}
           renderItem={({ item }) => (

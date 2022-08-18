@@ -7,24 +7,29 @@ const pageStyle = StyleSheet.create({
     },
     
     banner: {
-        height: 150
+        height: 180
       },
       bannerImg: {
         width: "100%",
-        height: 100,
+        height: 150,
       },
       bannerInfo: {
         position: "absolute",
         paddingLeft: 20,
-        paddingBottom: 5,
+        
         bottom: 0,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         width: "100%",
-        height: 65,
+        height: 80,
+
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
       },
       bannerTitle: {
+        marginTop: 5,
         fontSize: 25,
         fontWeight: "bold",
+        
       },
       camera: {
         position: "absolute",

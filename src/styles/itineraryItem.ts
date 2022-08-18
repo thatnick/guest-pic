@@ -6,13 +6,16 @@ section: {
     display: "flex",
     alignItems: "center",
     width: "100%",
+    height: "100%",
+    marginTop: 10,
 },
 sectionTitle : {
     fontSize: 20,
 },
 container: {
-    width: "100%",
+    width: 380,
     marginTop: 15,
+    marginLeft: 10,
 },
 header: {
     width: "100%",
