@@ -52,18 +52,15 @@ export const styles = StyleSheet.create({
   //   },
 
   buttons: {
-    position: "relative",
-
-    marginTop: 10,
-    left: "50%",
-    marginLeft: -50,
-    width: 100,
-    height: 40,
     backgroundColor: YELLOW,
+    borderRadius: 50,
+    // borderWidth:2,
+    height: 35,
+    width: 35,
 
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50,
 
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.3,
