@@ -110,7 +110,7 @@ guests: {
   width: 80,
   height: 30,
   borderRadius: 50,
-  backgroundColor: BLUE,
+  backgroundColor: YELLOW,
 
   display: "flex",
   justifyContent: "center",
@@ -129,6 +129,26 @@ guestsText: {
   fontSize: 18,
   fontWeight: "bold",
 },
+back: {
+  position:'absolute',
+  right: 10,
+  top: 10,
+  width:35,
+  height:35,
+  borderRadius:50,
+  backgroundColor:YELLOW,
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  borderColor: "black",
+  borderWidth: 2,
+
+  shadowOffset: { width: 2, height: 2},
+  shadowOpacity: 0.35,
+  shadowRadius: 2,
+}
 });
 
 export {pageStyle, buttons}
