@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import SignUpFormStyles from "../../styles/SignUpFormStyles";
 import { pageStyle } from "../../styles/EventList";
+import { BackButton } from "../BackButton";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -56,14 +57,8 @@ export default function SignUpForm() {
   };
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <Pressable
-        style={SignUpFormStyles.closeButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={SignUpFormStyles.buttonText}>Close</Text>
-      </Pressable>
+      <BackButton />
       <View style={SignUpFormStyles.registerForm}>
-        {/* <Button title="Close" onPress={() => navigation.goBack()}></Button> */}
         <Text>Email :</Text>
         <TextInput
           style={SignUpFormStyles.textInputContainer}

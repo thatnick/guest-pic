@@ -12,7 +12,7 @@ const SignUpFormStyles = StyleSheet.create({
     marginVertical: 10,
     margin: -3,
 
-    shadowOffset: { width: 2, height: 2, },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
   },
@@ -31,24 +31,6 @@ const SignUpFormStyles = StyleSheet.create({
   },
   registerForm: {
     margin: 20,
-  },
-  closeButton: {
-    position: "relative",
-
-    marginTop: 10,
-    left: "50%",
-    marginLeft: -50,
-    width: 100,
-    height: 40,
-    backgroundColor: YELLOW,
-
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 50,
-
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
   },
   buttonText: {
     fontSize: 20,
