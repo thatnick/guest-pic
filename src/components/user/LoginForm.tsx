@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Image,
 } from "react-native";
 import { signIn } from "../../firebase/auth";
 import { getUserByEmail } from "../../firebase/db";
@@ -65,12 +66,15 @@ export default function LoginForm() {
       style={loginFormStyles.image}
     >
       <StatusBar barStyle={"light-content"} />
-      <View style={{flexDirection:"column",justifyContent:'center',alignItems:'center',padding:90}}>
-      <Text style={{fontSize:80,color:'#F1F0FC'}}>guest</Text>
-      <Icon name={'camera'}
-      color={'#F1F0FC'}
-      size={80}/>
-      <Text style={{fontSize:80, color:'#F1F0FC'}}>pic</Text>
+
+      <View style={{flexDirection:"column",justifyContent:'center',alignItems:'center',padding:50,top:100}}>
+
+<Image 
+source={require("../../assets/images/gp_logo_white.png")}
+style={{resizeMode: "contain",
+width: "100%",
+height: "100%",}}
+/>
 
       </View>
 
