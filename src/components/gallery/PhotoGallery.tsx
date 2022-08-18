@@ -42,7 +42,6 @@ const PhotoGallery = ({ photosCallback }: Props) => {
     });
   }, []);
 
-
   const renderItem = useCallback(({ item }) => {
     return (
       <View>
@@ -60,13 +59,8 @@ const PhotoGallery = ({ photosCallback }: Props) => {
 
   return (
     <View>
-      <FlatList
-        horizontal={true}
-        data={photos}
-        renderItem={renderItem}
-      />
+      <FlatList horizontal={true} data={photos} renderItem={renderItem} />
     </View>
   );
 };
 export default PhotoGallery;
-

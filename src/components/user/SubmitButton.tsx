@@ -3,7 +3,7 @@ import React from "react";
 import { useFormikContext } from "formik";
 
 const SubmitButton = ({ title }) => {
-  const { handleSubmit, resetForm } = useFormikContext();
+  const { handleSubmit } = useFormikContext();
   return (
     <TouchableOpacity onPress={handleSubmit} style={styles.button}>
       <Text style={styles.text}>{title}</Text>

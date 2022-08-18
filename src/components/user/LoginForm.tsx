@@ -21,6 +21,7 @@ import { Formik } from "formik";
 import AppFormField from "../user/AppFormField";
 import SubmitButton from "../user/SubmitButton";
 import loginFormStyles from "../../styles/loginFormStyles";
+import ErrorMsg from "./ErrorMsg";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -130,7 +131,6 @@ export default function LoginForm() {
           )}
         </SafeAreaView>
       </KeyboardAvoidingView>
-
     </ImageBackground>
   );
 }

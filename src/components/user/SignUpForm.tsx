@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { createUserAccount } from "../../firebase/auth";
@@ -44,6 +45,8 @@ export default function SignUpForm() {
     setShowPassword(true);
     setName("");
     setAvatarUrl("");
+    Alert.alert("Registration Done");
+    navigation.goBack();
   };
 
   const handleShowPasswordPress = () => {
@@ -78,6 +81,8 @@ export default function SignUpForm() {
         <Text>Avatar:</Text>
         <TextInput
           style={SignUpFormStyles.textInputContainer}
+          autoCorrect={false}
+          autoCapitalize="none"
           placeholder="image URL"
           onChangeText={(newText) => setAvatarUrl(newText)}
         ></TextInput>
