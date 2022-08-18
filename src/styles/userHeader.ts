@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BLUE, OFFWHITE, PURPLE } from "../utilities/colour-palette";
+import { BLUE, OFFWHITE, PURPLE, YELLOW } from "../utilities/colour-palette";
 
 export const userHeaderStyle = StyleSheet.create({
   container: {
@@ -32,18 +32,18 @@ export const userHeaderStyle = StyleSheet.create({
   logOutButton: {
     width: 70,
     height: 30,
-    backgroundColor: BLUE,
+    backgroundColor: YELLOW,
     borderRadius: 15,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
 
-    shadowOffset: { width: 2, height: 2, },
-        shadowOpacity: 0.3,
-        shadowRadius: 1,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   buttonText: {
     fontSize: 15,
     fontWeight: "bold",
-}
+  },
 });
