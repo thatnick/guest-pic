@@ -81,12 +81,6 @@ const ItineraryItemForm = ({ setAddItnerary }) => {
           mode={"time"}
         />
 
-          <Text style={styles.modalSubtitle}>Start Time:</Text>
-          <DatePicker
-            date={itineraryTime}
-            onDateChange={setItineraryTime}
-            mode={"time"}
-          />
           <Text style={styles.modalSubtitle}>End Time:</Text>
           <DatePicker
             date={itineraryTime}
