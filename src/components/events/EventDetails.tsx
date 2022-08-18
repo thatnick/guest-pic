@@ -59,49 +59,51 @@ export default function EventDetails() {
   return (
     <SafeAreaView style={pageStyle.content}>
       <View style={pageStyle.banner}>
-      <Image
-        style={pageStyle.bannerImg}
-        source={{
-          uri: selectedEvent.bannerUrl,
-        }}
-      />
-      <View style={pageStyle.bannerInfo}>
-      <Text style={pageStyle.bannerTitle}>{selectedEvent.title}</Text>
-      <Text>{selectedEvent.description}</Text>
-      <Text>{selectedEvent.date.toString().slice(0, 15)}</Text>
-      </View>
+        <Image
+          style={pageStyle.bannerImg}
+          source={{
+            uri: selectedEvent.bannerUrl,
+          }}
+        />
+        <View style={pageStyle.bannerInfo}>
+          <Text style={pageStyle.bannerTitle}>{selectedEvent.title}</Text>
+          <Text>{selectedEvent.description}</Text>
+          <Text>{selectedEvent.date.toString().slice(0, 15)}</Text>
+        </View>
       </View>
 
-      <Text>Itinerary:</Text>
-      <FlatList
-        data={items}
-        renderItem={({ item }) => (
-          <View style={itinStyle.container}>
-            <View style={itinStyle.header}>
-              <View style={itinStyle.time}>
-                <Text style={itinStyle.title}>
-                  {item.startTime.toTimeString().slice(0, 5)}
-                </Text>
+      <View style={itinStyle.section}>
+        <Text style={itinStyle.sectionTitle}>Event Itinerary</Text>
+        <FlatList
+          data={items}
+          renderItem={({ item }) => (
+            <View style={itinStyle.container}>
+              <View style={itinStyle.header}>
+                <View style={itinStyle.time}>
+                  <Text style={itinStyle.title}>
+                    {item.startTime.toTimeString().slice(0, 5)}
+                  </Text>
+                </View>
+                <View style={itinStyle.info}>
+                  <Text style={itinStyle.title}>{item.title}</Text>
+                  <Text>{item.location}</Text>
+                </View>
               </View>
-              <View style={itinStyle.info}>
-                <Text style={itinStyle.title}>{item.title}</Text>
-                <Text>{item.location}</Text>
-              </View>
-            </View>
 
-            {/* This isn't working yet because photos aren't saved in the
+              {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
 
-            <View style={itinStyle.gallery}>
-              <PhotoGallery
-                photosCallback={() =>
-                  getPhotosByItineraryItem(selectedEvent.id, item.id)
-                }
-              />
+              <View style={itinStyle.gallery}>
+                <PhotoGallery
+                  photosCallback={() =>
+                    getPhotosByItineraryItem(selectedEvent.id, item.id)
+                  }
+                />
+              </View>
             </View>
-          </View>
-        )}
-      />
+          )}
+        />
+      </View>
       {selectedEvent.id === inProgressEvents[0].id ? (
         <TouchableOpacity style={buttons.camera}>
           <IonIcon
@@ -112,15 +114,24 @@ export default function EventDetails() {
               navigation.navigate("EventCamera");
             }}
           />
-          
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity style={buttons.guests}>
-        <Text>Guests</Text>
+      <TouchableOpacity
+        style={buttons.guests}
+        onPress={() => {
+          navigation.navigate("GuestList");
+        }}
+      >
+        <Text style={buttons.guestsText}>Guests</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={buttons.button} onPress={() => navigation.goBack()}>
-        <Text style={buttons.buttonText}>← Back</Text>
+      <TouchableOpacity style={buttons.backButton}>
+        <IonIcon
+          name={"remove"}
+          size={35}
+          color="white"
+          onPress={() => navigation.goBack()}
+        />
       </TouchableOpacity>
 
       {isHost ? (
@@ -145,4 +156,3 @@ export default function EventDetails() {
     </SafeAreaView>
   );
 }
-

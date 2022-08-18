@@ -18,8 +18,9 @@ const pageStyle = StyleSheet.create({
         paddingLeft: 20,
         paddingBottom: 5,
         bottom: 0,
-        backgroundColor: "white",
+        backgroundColor: 'white',
         width: "100%",
+        height: 65,
       },
       bannerTitle: {
         fontSize: 25,
@@ -64,61 +65,70 @@ const pageStyle = StyleSheet.create({
 })
 
 const buttons = StyleSheet.create({
-    button: {
-        position: "absolute",
-        zIndex: 100,
-        top: 5,
-        left: 5,
-        
-        width: "auto",
-        height: 30,
-        backgroundColor: YELLOW,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
-        paddingHorizontal: 10,
+backButton: {
+  position: "absolute",
+  zIndex: 100,
+  top: 5,
+  right: 5,
 
-        shadowOffset: { width: 2, height: 2, },
-        shadowOpacity: 0.5,
-        shadowRadius: 1,
-    },
-    buttonText: {
-        fontSize: 14,
-        fontWeight: "bold",
-    },
-    camera: {
-        position: "absolute",
-        width: 60,
-        height:60,
-        borderRadius: 50,
-        backgroundColor: YELLOW,
+  height: 40,
+  width: 40,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: 50,
 
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+  backgroundColor: "black",
+},
+buttonText: {
+  fontSize: 20,
+  fontWeight: "bold",
+  
+},
+camera: {
+  position: "absolute",
+  width: 60,
+  height:60,
+  borderRadius: 50,
+  backgroundColor: YELLOW,
 
-        zIndex: 100,
-        bottom: 80,
-        left: "50%",
-        marginLeft: -30,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 
-        shadowOffset: { width: 2, height: 2, },
-        shadowOpacity: 0.35,
-        shadowRadius: 2,
-    },
-    guests: {
-        position: "absolute",
-        width: 60,
-        height: 30,
-        borderRadius: 50,
-        backgroundColor: YELLOW,
+  zIndex: 100,
+  bottom: 60,
+  left: "50%",
+  marginLeft: -30,
 
-        zIndex: 100,
-        bottom: 80,
-        left: "80%",
-        marginLeft: -30,
-    },
+  shadowOffset: { width: 2, height: 2, },
+  shadowOpacity: 0.35,
+  shadowRadius: 2,
+},
+guests: {
+  position: "absolute",
+  width: 80,
+  height: 30,
+  borderRadius: 50,
+  backgroundColor: BLUE,
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  zIndex: 100,
+  bottom: 75,
+  left: "80%",
+  marginLeft: -40,
+
+  shadowOffset: { width: 2, height: 2},
+  shadowOpacity: 0.35,
+  shadowRadius: 2,
+},
+guestsText: {
+  fontSize: 18,
+  fontWeight: "bold",
+},
 });
 
 export {pageStyle, buttons}
