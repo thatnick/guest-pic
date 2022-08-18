@@ -7,6 +7,7 @@ import {
   Modal,
   Button,
   SafeAreaView,
+  Pressable,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -27,9 +28,9 @@ import { ItineraryItem } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";
 
 import IonIcon from "react-native-vector-icons/FontAwesome";
-
+import IonIcon2 from "react-native-vector-icons/Ionicons";
 import ItineraryItemForm from "./ItineraryItemForm";
-
+import { BackButton } from "../BackButton";
 import { pageStyle, buttons } from "../../styles/EvenDetails";
 
 export default function EventDetails() {
@@ -70,7 +71,7 @@ export default function EventDetails() {
       </View>
 
       <View style={itinStyle.section}>
-        <Text style={itinStyle.sectionTitle}>Event Itinerary</Text>
+        
         <FlatList
           data={items}
           renderItem={({ item }) => (
@@ -87,11 +88,10 @@ export default function EventDetails() {
                 </View>
               </View>
               <View style={itinStyle.gallery}>
-                {/* <PhotoGallery
-                  photosCallback={() =>
-                    getPhotosByItineraryItem(selectedEvent.id, item.id)
-                  }
-                /> */}
+
+
+                <PhotoGallery event={selectedEvent.id} item={item.id} />
+
               </View>
             </View>
           )}
@@ -99,7 +99,7 @@ export default function EventDetails() {
       </View>
       {!inProgressEvents[0] ? null : selectedEvent.id ===
         inProgressEvents[0].id ? (
-        <TouchableOpacity style={pageStyle.camera}>
+        <TouchableOpacity style={buttons.camera}>
           <IonIcon
             name={"camera"}
             size={30}
@@ -111,6 +111,15 @@ export default function EventDetails() {
         </TouchableOpacity>
       ) : null}
 
+      <Pressable style={buttons.back}>
+        <IonIcon2
+          name={"close"}
+          size={30}
+          color={"black"}
+          onPress={() => navigation.goBack()}
+        />
+      </Pressable>
+
       <TouchableOpacity
         style={buttons.guests}
         onPress={() => {
@@ -118,14 +127,6 @@ export default function EventDetails() {
         }}
       >
         <Text style={buttons.guestsText}>Guests</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={buttons.backButton}>
-        <IonIcon
-          name={"remove"}
-          size={35}
-          color="white"
-          onPress={() => navigation.goBack()}
-        />
       </TouchableOpacity>
 
       {isHost ? (
