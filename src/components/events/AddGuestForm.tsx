@@ -5,11 +5,9 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  Pressable,
 } from "react-native";
 import { addGuestToEvent, getUserByEmail, addUser } from "../../firebase/db";
 import { Event } from "../../utilities/types";
-import IonIcon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {styles} from '../../styles/forms'
 import { CloseModalButton } from "../CloseModalButton";
@@ -85,41 +83,6 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
         >
           <Text style={styles.modalButtonText}>Submit</Text>
         </TouchableOpacity>
-
-      {/* <View style={{flex:1}}></View>
-      <View style={styles.flatlist}>
-        <View style={styles.textInput}>
-
-          </View>
-<View style={styles.textInput}>
-
-</View>
-      </View>
-<View>
-
-<View style={styles.addGuest}>
-
-      <TouchableOpacity style={styles.buttons}>
-        <IonIcon
-          name={"person-add-outline"}
-          size={30}
-          color="black"
-          onPress={() => {
-            console.log("click");
-          }}
-          >
-          <Text
-            style={{ fontFamily: "Rockwell", fontSize: 15 }}
-            onPress={handleAddGuestPress}
-            >
-            Submit
-          </Text>
-        </IonIcon>
-      </TouchableOpacity>
-            </View>
-              </View>
-      <View style={{flex:3}}>
-      </View> */}
     </SafeAreaView>
 
   );
