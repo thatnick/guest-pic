@@ -102,13 +102,11 @@ export default function EventDetails() {
                 />
               </View>
             </View>
-
-          </View>
-        )}
-      />
+          )}
+        />
+      </View>
       {inProgressEvents[0] && selectedEvent.id === inProgressEvents[0].id ? (
         <TouchableOpacity style={pageStyle.camera}>
-
           <IonIcon
             name={"camera"}
             size={30}
@@ -117,7 +115,6 @@ export default function EventDetails() {
               navigation.navigate("EventCamera");
             }}
           />
-
         </TouchableOpacity>
       ) : null}
 
