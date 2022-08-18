@@ -26,10 +26,15 @@ import {
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import IonIcon from "react-native-vector-icons/Ionicons";
+
+import IonIcon from "react-native-vector-icons/FontAwesome";
+import GuestList from "./GuestList";
+
+//import IonIcon from "react-native-vector-icons/Ionicons";
+
 import ItineraryItemForm from "./ItineraryItemForm";
 
-import { pageStyle } from "../../styles/EvenDetails";
+import { pageStyle, buttons } from "../../styles/EvenDetails";
 
 export default function EventDetails() {
   const navigation = useNavigation();
@@ -68,78 +73,69 @@ export default function EventDetails() {
         </View>
       </View>
 
-      <Text>Itinerary:</Text>
-      <FlatList
-        data={items}
-        renderItem={({ item }) => (
-          <View style={itinStyle.container}>
-            <View style={itinStyle.header}>
-              <View style={itinStyle.time}>
-                <Text style={itinStyle.title}>
-                  {item.startTime.toTimeString().slice(0, 5)}
-                </Text>
+      <View style={itinStyle.section}>
+        <Text style={itinStyle.sectionTitle}>Event Itinerary</Text>
+        <FlatList
+          data={items}
+          renderItem={({ item }) => (
+            <View style={itinStyle.container}>
+              <View style={itinStyle.header}>
+                <View style={itinStyle.time}>
+                  <Text style={itinStyle.title}>
+                    {item.startTime.toTimeString().slice(0, 5)}
+                  </Text>
+                </View>
+                <View style={itinStyle.info}>
+                  <Text style={itinStyle.title}>{item.title}</Text>
+                  <Text>{item.location}</Text>
+                </View>
               </View>
-              <View style={itinStyle.info}>
-                <Text style={itinStyle.title}>{item.title}</Text>
-                <Text>{item.location}</Text>
-              </View>
-            </View>
 
-            {/* This isn't working yet because photos aren't saved in the
+              {/* This isn't working yet because photos aren't saved in the
            correct itinerary item - see th TODO in PhotoPreview.tsx*/}
 
-            <View style={itinStyle.gallery}>
-              <PhotoGallery
-                photosCallback={() =>
-                  getPhotosByItineraryItem(selectedEvent.id, item.id)
-                }
-              />
+              <View style={itinStyle.gallery}>
+                <PhotoGallery
+                  photosCallback={() =>
+                    getPhotosByItineraryItem(selectedEvent.id, item.id)
+                  }
+                />
+              </View>
             </View>
+
           </View>
         )}
       />
       {inProgressEvents[0] && selectedEvent.id === inProgressEvents[0].id ? (
         <TouchableOpacity style={pageStyle.camera}>
+
           <IonIcon
-            name={"camera-outline"}
-            size={80}
-            color="royalblue"
+            name={"camera"}
+            size={30}
+            color="black"
             onPress={() => {
               navigation.navigate("EventCamera");
             }}
           />
-          <Text style={{ color: "royalblue", fontFamily: "Rockwell" }}>
-            Take a Pic
-          </Text>
+
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity style={pageStyle.buttons}>
-        <IonIcon
-          name={"people-outline"}
-          size={35}
-          color="royalblue"
-          onPress={() => {}}
-        >
-          <Text
-            style={{ fontFamily: "Rockwell", fontSize: 15 }}
-            onPress={() => {
-              navigation.navigate("GuestList");
-            }}
-          >
-            guest list
-          </Text>
-        </IonIcon>
+      <TouchableOpacity
+        style={buttons.guests}
+        onPress={() => {
+          navigation.navigate("GuestList");
+        }}
+      >
+        <Text style={buttons.guestsText}>Guests</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={pageStyle.buttons}>
-        <View>
-          <IonIcon
-            name={"ios-arrow-undo-outline"}
-            size={35}
-            color="royalblue"
-            onPress={() => navigation.goBack()}
-          />
-        </View>
+      <TouchableOpacity style={buttons.backButton}>
+        <IonIcon
+          name={"remove"}
+          size={35}
+          color="white"
+          onPress={() => navigation.goBack()}
+        />
       </TouchableOpacity>
 
       {isHost ? (
