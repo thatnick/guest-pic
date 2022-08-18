@@ -9,7 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { SelectedEventContext } from "../../contexts";
 import { cardStyle } from "../../styles/EventList";
-
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface Props {
   event: Event;
@@ -19,8 +19,7 @@ export default function EventCard({ event }: Props) {
   const { setSelectedEvent } = useContext(SelectedEventContext);
 
   return (
-    <TouchableHighlight
-      underlayColor="red"
+    <TouchableOpacity
       onPress={() => {
         setSelectedEvent(event);
         navigation.navigate("EventDetails");
@@ -36,10 +35,12 @@ export default function EventCard({ event }: Props) {
         <View style={cardStyle.infoContainer}>
           <View style={cardStyle.info}>
             <Text style={cardStyle.title}> {event.title}</Text>
-            <Text style={cardStyle.description}>{event.date.toString().slice(0, 15)}</Text>
+            <Text style={cardStyle.description}>
+              {event.date.toString().slice(0, 15)}
+            </Text>
           </View>
         </View>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
