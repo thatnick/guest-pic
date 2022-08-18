@@ -1,9 +1,11 @@
 import React, { useRef, useState, useCallback } from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, YellowBox } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { requestCameraPermissions } from "../../utilities/permissions";
 import { useNavigation } from "@react-navigation/native";
+import { YELLOW } from "../../utilities/colour-palette";
+import { BackButton } from "../BackButton";
 
 export default function EventCamera() {
   const navigation = useNavigation();
@@ -52,13 +54,13 @@ export default function EventCamera() {
         <TouchableOpacity onPress={onFlashPressed}>
           <IonIcon
             name={flash === "on" ? "flash" : "flash-off"}
-            color="white"
+            color={YELLOW}
             size={30}
           />
           <IonIcon
             name={"camera-reverse-sharp"}
             size={30}
-            color={"white"}
+            color={YELLOW}
             onPress={flipCamera}
           />
         </TouchableOpacity>
@@ -68,15 +70,16 @@ export default function EventCamera() {
         <IonIcon
           name={"scan-outline"}
           size={80}
-          color="red"
+          color={YELLOW}
           onPress={capturePhoto}
         />
-        <IonIcon
+        {/* <IonIcon
           name={"ios-arrow-undo-outline"}
           size={35}
-          color="white"
+          color={YELLOW}
           onPress={() => navigation.goBack()}
-        />
+        /> */}
+        <BackButton/>
       </TouchableOpacity>
     </View>
   );
