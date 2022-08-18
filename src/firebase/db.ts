@@ -403,6 +403,7 @@ export const getPhotos = async () => {
       userEmail: itemDoc.userEmail,
     });
   });
+  return photos;
 };
 
 export const getPhotosByItineraryItem = async (
@@ -516,7 +517,7 @@ const timeIsBetweenStartAndEnd = (
 };
 
 // export const attendingUserEvent = async (email, eventId) => {
-  
+
 //   const guestsRef = collection(db, "guests");
 //   const q = query(guestsRef, where('email', "==", email),where('eventId', "==", eventId));
 //   const querySnapshot = await getDocs(q);
@@ -534,7 +535,6 @@ const timeIsBetweenStartAndEnd = (
 
 // export const attendingUserEvent = () => {
 
-  
 //   const washingtonRef = doc(db, "guests", "6FONGdQsIxoeOQIHW6rB");
 //   // Set the "capital" field of the city 'DC'
 //   return updateDoc(washingtonRef, {
@@ -542,7 +542,7 @@ const timeIsBetweenStartAndEnd = (
 //   })
 //   // console.log(washingtonRef,"<<<<<ref")
 //   // .then((data)=>{console.log(data,"<<<<<<<DATA")});
-  
+
 // }
 export const getGuestsByEventId = async (eventId: string) => {
   console.log("getGuestsByEventId");
@@ -571,6 +571,6 @@ export const updateGuestAttending = async (
 ) => {
   const guestRef = doc(db, "guests", guestId);
   await updateDoc(guestRef, {
-    attending
+    attending,
   });
 };

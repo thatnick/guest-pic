@@ -22,7 +22,7 @@ import { Event, ItineraryItem, User } from "./utilities/types";
 import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
 import { observeAuth } from "./firebase/auth";
-
+import FullScreenPhoto from "./components/gallery/FullScreenPhoto";
 
 const Stack = createStackNavigator();
 
@@ -71,6 +71,13 @@ const App = () => {
                 <Stack.Screen
                   name="EventList"
                   component={EventList}
+                  options={{
+                    cardStyleInterpolator: forFade,
+                  }}
+                />
+                <Stack.Screen
+                  name="FullScreenPhoto"
+                  component={FullScreenPhoto}
                   options={{
                     cardStyleInterpolator: forFade,
                   }}
