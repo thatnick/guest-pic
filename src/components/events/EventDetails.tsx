@@ -131,10 +131,11 @@ export default function EventDetails() {
       </TouchableOpacity>
 
       {isHost ? (
-        <Button
+        <TouchableOpacity style={buttons.itinItems}
           onPress={() => setAddItnerary(true)}
-          title="Add itnerary item"
-        ></Button>
+        >
+          <Text style={buttons.buttonText}>+ Itnerary</Text>
+        </TouchableOpacity>
       ) : null}
 
       <Modal

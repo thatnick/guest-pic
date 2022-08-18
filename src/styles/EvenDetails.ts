@@ -86,9 +86,8 @@ backButton: {
   backgroundColor: "black",
 },
 buttonText: {
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: "bold",
-  
 },
 camera: {
   position: "absolute",
@@ -112,7 +111,7 @@ camera: {
 },
 guests: {
   position: "absolute",
-  width: 80,
+  width: 100,
   height: 30,
   borderRadius: 50,
   backgroundColor: YELLOW,
@@ -124,7 +123,7 @@ guests: {
   zIndex: 100,
   bottom: 75,
   left: "80%",
-  marginLeft: -40,
+  marginLeft: -50,
 
   shadowOffset: { width: 2, height: 2},
   shadowOpacity: 0.35,
@@ -153,7 +152,28 @@ back: {
   shadowOffset: { width: 2, height: 2},
   shadowOpacity: 0.35,
   shadowRadius: 2,
-}
+},
+itinItems: {
+  position: "absolute",
+  width: 100,
+  
+  height: 30,
+  borderRadius: 50,
+  backgroundColor: YELLOW,
+
+  zIndex: 100,
+  bottom: 75,
+  left: "20%",
+  marginLeft: -50,
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  shadowOffset: { width: 2, height: 2},
+  shadowOpacity: 0.35,
+  shadowRadius: 2,
+},
 });
 
 export {pageStyle, buttons}
