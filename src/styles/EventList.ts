@@ -8,7 +8,7 @@ const pageStyle = StyleSheet.create({
     },
     events:{
         height: "100%",
-        paddingTop: 10,
+        marginTop: 15
     },
     
     button: {
@@ -44,7 +44,7 @@ const cardStyle = StyleSheet.create({
         borderRadius: 10,
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        
+        marginTop: 5,
         height: 180,
       },
       image: {
