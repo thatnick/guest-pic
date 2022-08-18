@@ -110,7 +110,7 @@ export default function LoginForm() {
                   textContentType="password"
                 />
                 <View style={loginFormStyles.displayButton}>
-                  <SubmitButton title="submit" />
+                  <SubmitButton title="Sign In" />
                   <TouchableOpacity
                     style={loginFormStyles.button}
                     onPress={() => navigation.navigate("SignUpForm")}
