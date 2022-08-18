@@ -23,6 +23,8 @@ import { BLUE, PURPLE, RED, YELLOW } from '../../styles/guestList';
 import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
+import { pageStyle, buttons } from "../../styles/EvenDetails";
+
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -67,7 +69,11 @@ export default function GuestList() {
       {isHost ? (
         <AddGuestFormButton setModalVisible={setModalVisible}/>
       ) : null}
-      <Modal visible={modalVisible}>
+      <Modal
+      style={pageStyle.centeredView}
+      animationType='slide'
+      transparent={true} 
+      visible={modalVisible}>
         <AddGuestForm
           setModalVisible={setModalVisible}
           event={selectedEvent.id}
