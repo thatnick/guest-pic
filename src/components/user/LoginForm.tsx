@@ -58,7 +58,7 @@ export default function LoginForm() {
 
   return (
     <ImageBackground
-      blurRadius={3}
+      blurRadius={1}
       source={require("../../assets/images/event-login.jpg")}
       resizeMode="cover"
       style={loginFormStyles.image}
