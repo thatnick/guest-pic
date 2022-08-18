@@ -71,7 +71,6 @@ export default function EventDetails() {
       </View>
 
       <View style={itinStyle.section}>
-        
         <FlatList
           data={items}
           renderItem={({ item }) => (
@@ -88,9 +87,7 @@ export default function EventDetails() {
                 </View>
               </View>
               <View style={itinStyle.gallery}>
-
                 <PhotoGallery event={selectedEvent.id} item={item.id} />
-
               </View>
             </View>
           )}
@@ -129,7 +126,8 @@ export default function EventDetails() {
       </TouchableOpacity>
 
       {isHost ? (
-        <TouchableOpacity style={buttons.itinItems}
+        <TouchableOpacity
+          style={buttons.itinItems}
           onPress={() => setAddItnerary(true)}
         >
           <Text style={buttons.buttonText}>+ Itnerary</Text>
