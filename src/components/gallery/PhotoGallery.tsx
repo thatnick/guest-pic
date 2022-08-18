@@ -2,24 +2,28 @@ import { FlatList, Image, Pressable, View } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { Photo } from "../../utilities/types";
 import { getPhotosByItineraryItem } from "../../firebase/db";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const PhotoGallery = ({ event, item }) => {
   const navigation = useNavigation();
   const [photoPairs, setPhotoPairs] = useState<Photo[][]>([]);
 
-  useEffect(() => {
-    getPhotosByItineraryItem(event, item).then((photos) => {
-      const pairs = [];
+  useEffect(() => {}, []);
 
-      for (let i = 0; i < photos.length; i += 2) {
-        const pair = [photos[i], photos[i + 1] ?? {}];
-        pairs.push(pair);
-      }
+  useFocusEffect(
+    useCallback(() => {
+      getPhotosByItineraryItem(event, item).then((photos) => {
+        const pairs = [];
 
-      setPhotoPairs(pairs);
-    });
-  }, []);
+        for (let i = 0; i < photos.length; i += 2) {
+          const pair = [photos[i], photos[i + 1] ?? {}];
+          pairs.push(pair);
+        }
+
+        setPhotoPairs(pairs);
+      });
+    }, [])
+  );
 
   const handlePhotoPress = (index) => {
     navigation.navigate("FullScreenPhoto", { event, item, index });
