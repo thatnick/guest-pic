@@ -26,7 +26,7 @@ import FullScreenPhoto from "./components/gallery/FullScreenPhoto";
 import { LogBox } from "react-native";
 
 // Uncomment the following to hide warning
-//LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 
