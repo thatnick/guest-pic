@@ -70,7 +70,24 @@ const styles = StyleSheet.create({
     modalButtonText: {
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
+    back: {
+      position:'absolute',
+      right: -10,
+      top: 0,
+      width:35,
+      height:35,
+      borderRadius:50,
+      backgroundColor:YELLOW,
+    
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    
+      shadowOffset: { width: 2, height: 2},
+      shadowOpacity: 0.35,
+      shadowRadius: 2,
+    },
   });
 
 export {styles}

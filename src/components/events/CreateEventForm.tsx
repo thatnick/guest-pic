@@ -20,6 +20,7 @@ import {
 import { styles } from "../../styles/forms";
 import { BackButton } from "../BackButton";
 
+
 export default function CreateEventForm() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);

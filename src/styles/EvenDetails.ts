@@ -146,8 +146,6 @@ back: {
   justifyContent: "center",
   alignItems: "center",
 
-  borderColor: "black",
-  borderWidth: 2,
 
   shadowOffset: { width: 2, height: 2},
   shadowOpacity: 0.35,
