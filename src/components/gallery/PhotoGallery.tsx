@@ -1,10 +1,8 @@
-import { FlatList, Image, Pressable, StyleSheet, View } from "react-native";
+import { FlatList, Image, Pressable, View } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { Photo } from "../../utilities/types";
-import FullScreenPhoto from "./FullScreenPhoto";
-import { getPhotos, getPhotosByItineraryItem } from "../../firebase/db";
+import { getPhotosByItineraryItem } from "../../firebase/db";
 import { useNavigation } from "@react-navigation/native";
-import ImageSource from "react-native-image-viewing";
 
 const PhotoGallery = ({ event, item }) => {
   const navigation = useNavigation();
@@ -12,8 +10,7 @@ const PhotoGallery = ({ event, item }) => {
 
   useEffect(() => {
     getPhotosByItineraryItem(event, item).then((photos) => {
-      if (photoPairs.length > 0) return;
-      const pairs: Photo[][] = [];
+      const pairs = [];
 
       for (let i = 0; i < photos.length; i += 2) {
         const pair = [photos[i], photos[i + 1] ?? {}];
@@ -24,24 +21,20 @@ const PhotoGallery = ({ event, item }) => {
     });
   }, []);
 
-  const handlePhotoPress = () => {
-    getPhotos().then((photos) => {
-      // TODO: change photos to be photoPairs.flat AFTER getting pairs loop working above
-      const imageSources = photos.map((photo) => ({ uri: photo.downloadUrl }));
-      navigation.navigate("FullScreenPhoto", { imageSources });
-    });
+  const handlePhotoPress = (index) => {
+    navigation.navigate("FullScreenPhoto", { event, item, index });
   };
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = useCallback(({ item, index }) => {
     return (
       <View>
-        <Pressable onPress={handlePhotoPress}>
+        <Pressable onPress={() => handlePhotoPress(index)}>
           <Image
             source={{ uri: item[0].downloadUrl }}
             style={{ height: 60, width: 60, margin: 2 }}
           />
         </Pressable>
-        <Pressable onPress={handlePhotoPress}>
+        <Pressable onPress={() => handlePhotoPress(index + 1)}>
           <Image
             source={{ uri: item[1].downloadUrl }}
             style={{ height: 60, width: 60, margin: 2 }}
