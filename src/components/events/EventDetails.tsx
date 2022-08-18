@@ -30,7 +30,7 @@ import { FlatList } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/FontAwesome";
 import IonIcon2 from "react-native-vector-icons/Ionicons";
 import ItineraryItemForm from "./ItineraryItemForm";
-import { BackButton } from "../BackButton";
+
 import { pageStyle, buttons } from "../../styles/EvenDetails";
 
 export default function EventDetails() {
@@ -88,11 +88,11 @@ export default function EventDetails() {
                 </View>
               </View>
               <View style={itinStyle.gallery}>
-                <PhotoGallery
+                {/* <PhotoGallery
                   photosCallback={() =>
                     getPhotosByItineraryItem(selectedEvent.id, item.id)
                   }
-                />
+                /> */}
               </View>
             </View>
           )}

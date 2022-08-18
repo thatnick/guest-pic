@@ -18,6 +18,7 @@ import {
   addItineraryItemToEvent,
 } from "../../firebase/db";
 import { styles } from "../../styles/forms";
+import { BackButton } from "../BackButton";
 
 export default function CreateEventForm() {
   const navigation = useNavigation();
@@ -69,16 +70,11 @@ export default function CreateEventForm() {
     <SafeAreaView style={styles.modalView}>
       <View style={styles.modalHeader}>
         <Text style={styles.modalTitle}>Host an Event</Text>
-        <Pressable
-          style={styles.modalCloseButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.modalButtonText}>X</Text>
-        </Pressable>
+        <BackButton />
       </View>
       <ScrollView>
         <View>
-          <Text style={styles.modalTitle}>Event</Text>
+          <Text style={styles.modalSection}>Event</Text>
           <Text style={styles.modalSubtitle}>Title:</Text>
           <TextInput
             style={styles.modalTextbox}
@@ -113,7 +109,7 @@ export default function CreateEventForm() {
         </View>
 
         <View>
-          <Text style={styles.modalTitle}>Add your first Itinerary Item</Text>
+          <Text style={styles.modalSection}>Add your first Itinerary Item</Text>
           <Text style={styles.modalSubtitle}>Title:</Text>
           <TextInput
             style={styles.modalTextbox}
