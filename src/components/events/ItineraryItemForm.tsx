@@ -57,18 +57,21 @@ const ItineraryItemForm = ({ setAddItnerary }) => {
         <TextInput
           style={styles.modalTextbox}
           onChangeText={(newText) => setItineraryTitle(newText)}
+          multiline
         ></TextInput>
 
         <Text style={styles.modalSubtitle}>Location:</Text>
         <TextInput
           style={styles.modalTextbox}
           onChangeText={(newText) => setItineraryLocation(newText)}
+          multiline
         ></TextInput>
 
         <Text style={styles.modalSubtitle}>Descrition:</Text>
         <TextInput
           style={styles.modalTextbox}
           onChangeText={(newText) => setItineraryDescription(newText)}
+          multiline
         ></TextInput>
 
         <Text style={styles.modalSubtitle}>Start Time:</Text>
@@ -78,12 +81,6 @@ const ItineraryItemForm = ({ setAddItnerary }) => {
           mode={"time"}
         />
 
-          <Text style={styles.modalSubtitle}>Start Time:</Text>
-          <DatePicker
-            date={itineraryTime}
-            onDateChange={setItineraryTime}
-            mode={"time"}
-          />
           <Text style={styles.modalSubtitle}>End Time:</Text>
           <DatePicker
             date={itineraryTime}

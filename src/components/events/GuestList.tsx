@@ -19,7 +19,7 @@ import {
 import AddGuestForm from "./AddGuestForm";
 import GuestCard from "./GuestCard";
 import { styles } from "../../styles/guestList";
-import { BLUE, PURPLE, RED, YELLOW } from '../../styles/guestList';
+import { BLUE, PURPLE, RED, YELLOW } from "../../styles/guestList";
 import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
@@ -50,21 +50,20 @@ export default function GuestList() {
   }, []);
   // console.log(guests);
   return (
-    
     <SafeAreaView style={styles.container}>
-            <StatusBar barStyle={"light-content"} />
-
+      <StatusBar barStyle={"light-content"} />
       <View style={styles.alignRight}>
-      <View></View>
-      <Text style={styles.headerText}>Who's Coming:</Text>
-      <BackButton/>
+        <View></View>
+        <Text style={styles.headerText}>Guest List</Text>
+        <BackButton />
       </View>
       <View style={styles.flatlist}>
-      <FlatList
-        data={users}
-        renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
+        <FlatList
+          data={users}
+          renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
         />
       </View>
+
       <View style={styles.modal}>
       
       
@@ -85,8 +84,8 @@ export default function GuestList() {
         />
         
       </Modal>
+
       </View>
     </SafeAreaView>
   );
 }
-

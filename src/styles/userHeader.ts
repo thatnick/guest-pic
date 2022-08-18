@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 import { BLUE, OFFWHITE, PURPLE, YELLOW } from "../utilities/colour-palette";
 
 export const userHeaderStyle = StyleSheet.create({
@@ -21,6 +22,8 @@ export const userHeaderStyle = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     marginRight: 10,
+    borderWidth: 1,
+    borderColor: PURPLE,
   },
   event: {
     fontWeight: "bold",

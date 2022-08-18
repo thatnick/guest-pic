@@ -80,24 +80,28 @@ export default function CreateEventForm() {
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setEventTitle(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Location:</Text>
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setEventLocation(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Description:</Text>
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setEventDescription(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Banner url:</Text>
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setBanner(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Event Date:</Text>
@@ -115,18 +119,21 @@ export default function CreateEventForm() {
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryTitle(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Location:</Text>
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryLocation(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Descrition:</Text>
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryDescription(newText)}
+            multiline
           ></TextInput>
 
           <Text style={styles.modalSubtitle}>Start Time:</Text>
