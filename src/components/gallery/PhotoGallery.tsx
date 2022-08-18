@@ -36,7 +36,6 @@ const PhotoGallery = ({ photosCallback }: Props) => {
     });
   }, []);
 
-
   const handlePhotoPress = () => {
     getPhotos().then((photos) => {
       // TODO: change photos to be photoPairs.flat AFTER getting pairs loop working above
@@ -66,11 +65,7 @@ const PhotoGallery = ({ photosCallback }: Props) => {
 
   return (
     <View>
-
-// <FlatList horizontal={true} data={photos} renderItem={renderItem} />
-
       <FlatList horizontal={true} data={photoPairs} renderItem={renderItem} />
-
     </View>
   );
 };

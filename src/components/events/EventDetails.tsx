@@ -1,7 +1,6 @@
 import {
   Alert,
   Image,
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -9,7 +8,7 @@ import {
   Button,
   SafeAreaView,
 } from "react-native";
-import React, { useContext, useCallback, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   InProgressEventsContext,
   SelectedEventContext,
@@ -25,12 +24,9 @@ import {
   getPhotosByItineraryItem,
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 
 import IonIcon from "react-native-vector-icons/FontAwesome";
-import GuestList from "./GuestList";
-
-//import IonIcon from "react-native-vector-icons/Ionicons";
 
 import ItineraryItemForm from "./ItineraryItemForm";
 
@@ -44,7 +40,7 @@ export default function EventDetails() {
   const [items, setItems] = useState<ItineraryItem[]>();
   const [addItnerary, setAddItnerary] = useState(false);
   const [isHost, setIsHost] = useState(false);
-  console.log(inProgressEvents, "<<<<<< in progress");
+
   useEffect(() => {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
@@ -90,10 +86,6 @@ export default function EventDetails() {
                   <Text>{item.location}</Text>
                 </View>
               </View>
-
-              {/* This isn't working yet because photos aren't saved in the
-           correct itinerary item - see th TODO in PhotoPreview.tsx*/}
-
               <View style={itinStyle.gallery}>
                 <PhotoGallery
                   photosCallback={() =>
@@ -105,7 +97,8 @@ export default function EventDetails() {
           )}
         />
       </View>
-      {inProgressEvents[0] && selectedEvent.id === inProgressEvents[0].id ? (
+      {!inProgressEvents[0] ? null : selectedEvent.id ===
+        inProgressEvents[0].id ? (
         <TouchableOpacity style={pageStyle.camera}>
           <IonIcon
             name={"camera"}
