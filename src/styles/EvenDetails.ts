@@ -7,24 +7,29 @@ const pageStyle = StyleSheet.create({
     },
     
     banner: {
-        height: 150
+        height: 180
       },
       bannerImg: {
         width: "100%",
-        height: 100,
+        height: 150,
       },
       bannerInfo: {
         position: "absolute",
         paddingLeft: 20,
-        paddingBottom: 5,
+        
         bottom: 0,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         width: "100%",
-        height: 65,
+        height: 80,
+
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
       },
       bannerTitle: {
+        marginTop: 5,
         fontSize: 25,
         fontWeight: "bold",
+        
       },
       camera: {
         position: "absolute",
@@ -81,9 +86,8 @@ backButton: {
   backgroundColor: "black",
 },
 buttonText: {
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: "bold",
-  
 },
 camera: {
   position: "absolute",
@@ -107,10 +111,10 @@ camera: {
 },
 guests: {
   position: "absolute",
-  width: 80,
+  width: 100,
   height: 30,
   borderRadius: 50,
-  backgroundColor: BLUE,
+  backgroundColor: YELLOW,
 
   display: "flex",
   justifyContent: "center",
@@ -119,7 +123,7 @@ guests: {
   zIndex: 100,
   bottom: 75,
   left: "80%",
-  marginLeft: -40,
+  marginLeft: -50,
 
   shadowOffset: { width: 2, height: 2},
   shadowOpacity: 0.35,
@@ -128,6 +132,45 @@ guests: {
 guestsText: {
   fontSize: 18,
   fontWeight: "bold",
+},
+back: {
+  position:'absolute',
+  right: 10,
+  top: 10,
+  width:35,
+  height:35,
+  borderRadius:50,
+  backgroundColor:YELLOW,
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+
+  shadowOffset: { width: 2, height: 2},
+  shadowOpacity: 0.35,
+  shadowRadius: 2,
+},
+itinItems: {
+  position: "absolute",
+  width: 100,
+  
+  height: 30,
+  borderRadius: 50,
+  backgroundColor: YELLOW,
+
+  zIndex: 100,
+  bottom: 75,
+  left: "20%",
+  marginLeft: -50,
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  shadowOffset: { width: 2, height: 2},
+  shadowOpacity: 0.35,
+  shadowRadius: 2,
 },
 });
 

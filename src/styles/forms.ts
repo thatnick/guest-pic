@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RED, PURPLE, BLUE, YELLOW} from "../utilities/colour-palette";
 
 
 const styles = StyleSheet.create({
@@ -25,20 +26,24 @@ const styles = StyleSheet.create({
 
     modalHeader: {
         flexDirection: "row",
-        flexWrap: "wrap",
         alignItems: "center",
-        margin: 10,
+        marginTop: 10,
     },
     
     modalTitle: {
-      fontSize: 18,
+      fontSize: 20,
       fontWeight: "bold",
       textAlign: "left",
-      width: "75%",
+      width: "80%",
+    },
+    modalSection:{
+      marginVertical: 10,
+      fontSize: 18,
+      fontWeight: "700",
     },
     modalSubtitle: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontWeight: "500",
     },
     modalTextbox: {
       padding: 5,
@@ -46,30 +51,43 @@ const styles = StyleSheet.create({
       backgroundColor: "#EDEDED",
       minHeight: 50,
     },
-    modalCloseButton: {
-        width: 20,
-        height: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-        backgroundColor: 'black',
-    },
+    
     modalSubmit: {
-        width: 100,
-        height: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-        backgroundColor: 'black',
-        margin: 5,
+      width: 110,
+      height: 30,
+      margin: 10,
+      borderRadius: 50,
+      backgroundColor: YELLOW,
+
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+
+      shadowOffset: { width: 2, height: 2},
+      shadowOpacity: 0.35,
+      shadowRadius: 2,
     },
     modalButtonText: {
         fontSize: 16,
-        lineHeight: 21,
         fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-    }
+    },
+    back: {
+      position:'absolute',
+      right: -10,
+      top: 0,
+      width:35,
+      height:35,
+      borderRadius:50,
+      backgroundColor:YELLOW,
+    
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    
+      shadowOffset: { width: 2, height: 2},
+      shadowOpacity: 0.35,
+      shadowRadius: 2,
+    },
   });
 
 export {styles}

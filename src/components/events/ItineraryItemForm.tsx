@@ -11,6 +11,7 @@ import {
 import React, { useContext, useState } from "react";
 import DatePicker from "react-native-date-picker";
 import { addItineraryItemToEvent } from "../../firebase/db";
+import IonIcon from "react-native-vector-icons/Ionicons";
 
 import { SelectedEventContext, UserContext } from "../../contexts";
 import { styles } from "../../styles/forms";
@@ -41,16 +42,18 @@ const ItineraryItemForm = ({ setAddItnerary }) => {
     <SafeAreaView style={styles.modalView} onPress={() => Keyboard.dismiss()}>
       <View style={styles.modalHeader}>
         <Text style={styles.modalTitle}>Add an Itinerary Item</Text>
-        <Pressable
-          style={styles.modalCloseButton}
-          onPress={() => setAddItnerary(false)}
-        >
-          <Text style={styles.modalButtonText}>X</Text>
+        <Pressable style={styles.back}>
+            <IonIcon 
+                name={"close"}
+                size={30}
+                color={'black'}
+                onPress={() => setAddItnerary(false)}/>
         </Pressable>
       </View>
 
       <ScrollView>
         <Text style={styles.modalSubtitle}>Title:</Text>
+        
         <TextInput
           style={styles.modalTextbox}
           onChangeText={(newText) => setItineraryTitle(newText)}

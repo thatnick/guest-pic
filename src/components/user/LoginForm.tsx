@@ -58,7 +58,7 @@ export default function LoginForm() {
 
   return (
     <ImageBackground
-      blurRadius={3}
+      blurRadius={1}
       source={require("../../assets/images/event-login.jpg")}
       resizeMode="cover"
       style={loginFormStyles.image}
@@ -110,7 +110,7 @@ export default function LoginForm() {
                   textContentType="password"
                 />
                 <View style={loginFormStyles.displayButton}>
-                  <SubmitButton title="submit" />
+                  <SubmitButton title="Sign In" />
                   <TouchableOpacity
                     style={loginFormStyles.button}
                     onPress={() => navigation.navigate("SignUpForm")}

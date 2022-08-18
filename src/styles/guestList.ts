@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
         // borderWidth:2,
         height:35,
         width:35,
+
         display:'flex',
         justifyContent: "center",
         alignItems:'center',
@@ -65,6 +66,7 @@ export const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2, },
         shadowOpacity: 0.3,
         shadowRadius: 1,
+
       },
     //   topBar: {
     //       display:'flex',

@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { Text, View, TextInput, TouchableOpacity, Alert } from "react-native";
 import { addGuestToEvent, getUserByEmail, addUser } from "../../firebase/db";
 import { Event } from "../../utilities/types";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -49,12 +43,12 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
   };
 
   return (
+
     <SafeAreaView style={styles.modalView}>
       <View style={styles.modalHeader}>
       <Text style={styles.modalTitle}>Add Guest</Text>
       <CloseModalButton setModalVisible={setModalVisible}/>
       </View>
-
       <View>
       <Text style={styles.modalSubtitle}>Name:</Text>
       <TextInput
@@ -76,7 +70,6 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
         onChangeText={(newText) => setEmail(newText)}
         ></TextInput>
       </View>
-
       <TouchableOpacity
           style={styles.modalSubmit}
           onPress={handleAddGuestPress}
@@ -84,7 +77,5 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
           <Text style={styles.modalButtonText}>Submit</Text>
         </TouchableOpacity>
     </SafeAreaView>
-
   );
 }
-
