@@ -1,10 +1,21 @@
-import { View, Text, TextInput, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  Alert,
+} from "react-native";
 import React, { useState, useContext } from "react";
 import { createUserAccount } from "../../firebase/auth";
 import { UserContext } from "../../contexts";
 import { addUser } from "../../firebase/db";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
+import SignUpFormStyles from "../../styles/SignUpFormStyles";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -34,40 +45,60 @@ export default function SignUpForm() {
     setShowPassword(true);
     setName("");
     setAvatarUrl("");
+    Alert.alert("Registration Done");
+    navigation.goBack();
   };
 
   const handleShowPasswordPress = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <View>
-       <Button title="Close" onPress={() => navigation.goBack()}></Button>
-      <Text>Email:</Text>
-      <TextInput
-        placeholder="email"
-        textContentType="emailAddress"
-        autoCapitalize="none"
-        onChangeText={(newText) => setEmail(newText)}
-      ></TextInput>
-      <Text>Password:</Text>
-      <TextInput
-        placeholder="password"
-        textContentType="newPassword"
-        secureTextEntry={showPassword}
-        onChangeText={(newText) => setPassword(newText)}
-      ></TextInput>
-      <Text>Name:</Text>
-      <TextInput
-        placeholder="name"
-        onChangeText={(newText) => setName(newText)}
-      ></TextInput>
-      <Text>Avatar:</Text>
-      <TextInput
-        placeholder="image URL"
-        onChangeText={(newText) => setAvatarUrl(newText)}
-      ></TextInput>
-      <Button title="show password" onPress={handleShowPasswordPress}></Button>
-      <Button title="Register" onPress={handleRegisterPress}></Button>
-    </View>
+    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+      <View style={SignUpFormStyles.registerForm}>
+        <Button title="Close" onPress={() => navigation.goBack()}></Button>
+        <Text>Email :</Text>
+        <TextInput
+          style={SignUpFormStyles.textInputContainer}
+          placeholder="email"
+          textContentType="emailAddress"
+          autoCapitalize="none"
+          onChangeText={(newText) => setEmail(newText)}
+        ></TextInput>
+        <Text>Password:</Text>
+        <TextInput
+          style={SignUpFormStyles.textInputContainer}
+          placeholder="password"
+          textContentType="newPassword"
+          secureTextEntry={showPassword}
+          onChangeText={(newText) => setPassword(newText)}
+        ></TextInput>
+        <Text>Name:</Text>
+        <TextInput
+          style={SignUpFormStyles.textInputContainer}
+          placeholder="name"
+          onChangeText={(newText) => setName(newText)}
+        />
+        <Text>Avatar:</Text>
+        <TextInput
+          style={SignUpFormStyles.textInputContainer}
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="image URL"
+          onChangeText={(newText) => setAvatarUrl(newText)}
+        ></TextInput>
+        <TouchableOpacity
+          style={SignUpFormStyles.button}
+          onPress={handleShowPasswordPress}
+        >
+          <Text style={SignUpFormStyles.text}>Show Password</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={SignUpFormStyles.button}
+          onPress={handleRegisterPress}
+        >
+          <Text style={SignUpFormStyles.text}>Register</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }

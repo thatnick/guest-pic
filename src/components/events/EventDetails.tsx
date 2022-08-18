@@ -15,20 +15,23 @@ import {
   SelectedEventContext,
   UserContext,
 } from "../../contexts";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { itinStyle } from "../../styles/itineraryItem";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
-  getInProgressEventsByGuest,
   getIsHostByEventId,
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
+
 import IonIcon from "react-native-vector-icons/FontAwesome";
 import GuestList from "./GuestList";
+
+//import IonIcon from "react-native-vector-icons/Ionicons";
+
 import ItineraryItemForm from "./ItineraryItemForm";
 
 import { pageStyle, buttons } from "../../styles/EvenDetails";
@@ -36,14 +39,12 @@ import { pageStyle, buttons } from "../../styles/EvenDetails";
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
-  const { inProgressEvents, setInProgressEvents, dateTime } = useContext(
-    InProgressEventsContext
-  );
+  const { inProgressEvents } = useContext(InProgressEventsContext);
   const { user } = useContext(UserContext);
   const [items, setItems] = useState<ItineraryItem[]>();
   const [addItnerary, setAddItnerary] = useState(false);
   const [isHost, setIsHost] = useState(false);
-
+  console.log(inProgressEvents, "<<<<<< in progress");
   useEffect(() => {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
@@ -101,11 +102,13 @@ export default function EventDetails() {
                 />
               </View>
             </View>
-          )}
-        />
-      </View>
-      {selectedEvent.id === inProgressEvents[0].id ? (
-        <TouchableOpacity style={buttons.camera}>
+
+          </View>
+        )}
+      />
+      {inProgressEvents[0] && selectedEvent.id === inProgressEvents[0].id ? (
+        <TouchableOpacity style={pageStyle.camera}>
+
           <IonIcon
             name={"camera"}
             size={30}
@@ -114,6 +117,7 @@ export default function EventDetails() {
               navigation.navigate("EventCamera");
             }}
           />
+
         </TouchableOpacity>
       ) : null}
 
