@@ -5,12 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Pressable,
 } from "react-native";
 import { addGuestToEvent, getUserByEmail, addUser } from "../../firebase/db";
 import { Event } from "../../utilities/types";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {styles} from '../../styles/addGuestForm'
+import {styles} from '../../styles/forms'
 import { CloseModalButton } from "../CloseModalButton";
 
 interface Props {
@@ -50,30 +51,49 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.alignRight}>
-      <View></View>
-      <Text style={styles.headerText}>Add Guest</Text>
+    <SafeAreaView style={styles.modalView}>
+      <View style={styles.modalHeader}>
+      <Text style={styles.modalTitle}>Add Guest</Text>
       <CloseModalButton setModalVisible={setModalVisible}/>
       </View>
-      <View style={{flex:1}}></View>
-      <View style={styles.flatlist}>
-        <Text>Name:</Text>
-        <TextInput
-          value={name}
-          autoCapitalize="none"
-          placeholder="name"
-          onChangeText={(newText) => setName(newText)}
-        ></TextInput>
 
-        <Text>Email:</Text>
-        <TextInput
-          textContentType="emailAddress"
-          value={email}
-          autoCapitalize="none"
-          placeholder="email"
-          onChangeText={(newText) => setEmail(newText)}
+      <View>
+      <Text style={styles.modalSubtitle}>Name:</Text>
+      <TextInput
+        style={styles.modalTextbox}
+        value={name}
+        placeholder="name"
+        onChangeText={(newText) => setName(newText)}
         ></TextInput>
+        
+      <Text style={styles.modalSubtitle}>Email:
+      
+        </Text>
+      <TextInput
+        style={styles.modalTextbox}
+        textContentType="emailAddress"
+        value={email}
+        autoCapitalize="none"
+        placeholder="email@example.com"
+        onChangeText={(newText) => setEmail(newText)}
+        ></TextInput>
+      </View>
+
+      <TouchableOpacity
+          style={styles.modalSubmit}
+          onPress={handleAddGuestPress}
+        >
+          <Text style={styles.modalButtonText}>Submit</Text>
+        </TouchableOpacity>
+
+      {/* <View style={{flex:1}}></View>
+      <View style={styles.flatlist}>
+        <View style={styles.textInput}>
+
+          </View>
+<View style={styles.textInput}>
+
+</View>
       </View>
 <View>
 
@@ -92,14 +112,14 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
             style={{ fontFamily: "Rockwell", fontSize: 15 }}
             onPress={handleAddGuestPress}
             >
-            add guest
+            Submit
           </Text>
         </IonIcon>
       </TouchableOpacity>
             </View>
               </View>
       <View style={{flex:3}}>
-      </View>
+      </View> */}
     </SafeAreaView>
 
   );

@@ -87,11 +87,11 @@ export default function EventDetails() {
                 </View>
               </View>
               <View style={itinStyle.gallery}>
-                <PhotoGallery
+                {/* <PhotoGallery
                   photosCallback={() =>
                     getPhotosByItineraryItem(selectedEvent.id, item.id)
                   }
-                />
+                /> */}
               </View>
             </View>
           )}
