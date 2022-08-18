@@ -15,7 +15,6 @@ export default function FullScreenPhoto({ route }) {
       setImageSources(photos.map((photo) => ({ uri: photo.downloadUrl })));
     });
   }, []);
-  console.log("index", index);
 
   return (
     <ImageView
