@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
 
 import ImageView from "react-native-image-viewing";
 import { useNavigation } from "@react-navigation/native";
