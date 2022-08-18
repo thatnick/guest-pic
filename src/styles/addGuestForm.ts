@@ -6,7 +6,8 @@ export const styles = StyleSheet.create({
 container:{
     flex:1,
     flexDirection:'column',
-    backgroundColor:'#5B57F4',
+    backgroundColor:'#F1F0FC',
+    // backgroundColor:'#5B57F4',
     padding:20,
     paddingTop:40
 },
@@ -29,7 +30,8 @@ modal: {
 headerText: {
     alignSelf:'center',
     fontFamily:'Rockwell',
-    color:'white',
+    color:'black',
+    // color:'white',
     fontSize:30,
     padding:5,
 },
@@ -42,16 +44,35 @@ button: {
 
 buttons: {
     position:'absolute',
-    width:130,
-    height:37,
-    backgroundColor:YELLOW,
-    alignItems:'center',
-    borderRadius:50,
-    borderWidth:2
+        width:130,
+        height:40,
+        backgroundColor:YELLOW,
+        display:'flex',
+        justifyContent: "center",
+        alignItems:'center',
+        borderRadius:50,
+        // borderWidth:2,
+
+        shadowOffset: { width: 2, height: 2, },
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
 },
 addGuest: {
     flexDirection:'row',
     justifyContent:'center',
     margin:10
-}
+},
+textInput:{
+    backgroundColor:YELLOW,
+    borderRadius:50,
+    margin:5,
+    padding:10,
+
+    shadowOffset: { width: 2, height: 2, },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+},
+
+text: {fontFamily:'Rockwell'}
+
 });

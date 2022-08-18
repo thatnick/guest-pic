@@ -88,7 +88,9 @@ export default function EventDetails() {
                 </View>
               </View>
               <View style={itinStyle.gallery}>
+
                 <PhotoGallery event={selectedEvent.id} item={item.id} />
+
               </View>
             </View>
           )}

@@ -24,14 +24,18 @@ export const styles = StyleSheet.create({
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      shadowOffset: { width: 5, height: 5 },
-      shadowColor: "darkslategray",
-      shadowOpacity: 1,
-      elevation: 2,
+
+      shadowOffset: { width: 2, height: 2, },
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+      // shadowOffset: { width: 5, height: 5 },
+      // shadowColor: "darkslategray",
+      // shadowOpacity: 1,
+      // elevation: 2,
     //   backgroundColor: "#0000",
     },
     switch: {
-      backgroundColor:PURPLE,
+      backgroundColor:'#b38d1d',
       borderRadius:15,
       margin: 2
     },
@@ -51,13 +55,18 @@ export const styles = StyleSheet.create({
       buttons: {
         backgroundColor:YELLOW,
         borderRadius:50,
-        borderWidth:2,
+        // borderWidth:2,
         height:35,
         width:35,
 
-        shadowOffset: { width: 2, height: 2},
-        shadowOpacity: 0.35,
-        shadowRadius: 2,
+        display:'flex',
+        justifyContent: "center",
+        alignItems:'center',
+
+        shadowOffset: { width: 2, height: 2, },
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+
       },
     //   topBar: {
     //       display:'flex',
@@ -72,7 +81,8 @@ export const styles = StyleSheet.create({
       container:{
           flex:1,
           flexDirection:'column',
-          backgroundColor:'#5B57F4',
+          // backgroundColor:'#5B57F4',
+          backgroundColor:'#F1F0FC',
       },
       alignRight:{
           flexDirection:'row',
@@ -92,7 +102,8 @@ export const styles = StyleSheet.create({
       headerText: {
           alignSelf:'center',
           fontFamily:'Rockwell',
-          color:'white',
+          color:'black',
+          // color:'white',
           fontSize:30,
           padding:5,
     },
