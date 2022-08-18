@@ -126,7 +126,7 @@ export default function CreateEventForm() {
             onChangeText={(newText) => setItineraryLocation(newText)}
           ></TextInput>
 
-          <Text style={styles.modalSubtitle}>Descrition:</Text>
+          <Text style={styles.modalSubtitle}>Description:</Text>
           <TextInput
             style={styles.modalTextbox}
             onChangeText={(newText) => setItineraryDescription(newText)}
@@ -140,20 +140,12 @@ export default function CreateEventForm() {
           />
 
           <Text style={styles.modalSubtitle}>End Time:</Text>
-          <DatePicker
-            date={endTime}
-            onDateChange={setEndTime}
-            mode={"time"}
-          />
+          <DatePicker date={endTime} onDateChange={setEndTime} mode={"time"} />
         </View>
-        
       </ScrollView>
-        <Pressable
-          style={styles.modalSubmit}
-          onPress={handleRegisterPress}
-        >
-          <Text style={styles.modalButtonText}>Create event</Text>
-        </Pressable>
+      <Pressable style={styles.modalSubmit} onPress={handleRegisterPress}>
+        <Text style={styles.modalButtonText}>Create event</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
