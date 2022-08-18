@@ -20,6 +20,8 @@ import SignUpFormStyles from "../../styles/SignUpFormStyles";
 import { pageStyle } from "../../styles/EventList";
 import { BackButton } from "../BackButton";
 
+
+
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,7 +59,16 @@ export default function SignUpForm() {
   };
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <BackButton />
+      <View style={{margin:10, flexDirection:"row-reverse"}}>
+      <Pressable style={SignUpFormStyles.buttons}>
+            <Icon 
+                name={"close"}
+                size={30}
+                color={'black'}
+                onPress={() => navigation.goBack()}/>
+        </Pressable>
+
+      </View>
       <View style={SignUpFormStyles.registerForm}>
         <Text>Email :</Text>
         <TextInput

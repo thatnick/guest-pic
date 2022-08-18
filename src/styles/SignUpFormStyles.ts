@@ -36,6 +36,21 @@ const SignUpFormStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  buttons: {
+    backgroundColor: YELLOW,
+    borderRadius: 50,
+    // borderWidth:2,
+    height: 35,
+    width: 35,
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+  }
 });
 
 export default SignUpFormStyles;

@@ -22,6 +22,7 @@ import AppFormField from "../user/AppFormField";
 import SubmitButton from "../user/SubmitButton";
 import loginFormStyles from "../../styles/loginFormStyles";
 import ErrorMsg from "./ErrorMsg";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -64,12 +65,20 @@ export default function LoginForm() {
       style={loginFormStyles.image}
     >
       <StatusBar barStyle={"light-content"} />
+      <View style={{flexDirection:"column",justifyContent:'center',alignItems:'center',padding:90}}>
+      <Text style={{fontSize:80,color:'#F1F0FC'}}>guest</Text>
+      <Icon name={'camera'}
+      color={'#F1F0FC'}
+      size={80}/>
+      <Text style={{fontSize:80, color:'#F1F0FC'}}>pic</Text>
+
+      </View>
 
       <View
         style={{
           height: "10%",
           width: "70%",
-          backgroundColor: "white",
+          backgroundColor: '#F1F0FC',
           marginTop: "40%",
           position: "absolute",
         }}

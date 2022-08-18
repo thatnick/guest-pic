@@ -4,6 +4,7 @@ import { RED, PURPLE, BLUE, YELLOW} from "../utilities/colour-palette";
 const pageStyle = StyleSheet.create({
     content: {
         height: "100%",
+        backgroundColor:'#F1F0FC'
     },
     
     banner: {
