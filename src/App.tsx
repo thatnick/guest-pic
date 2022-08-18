@@ -23,6 +23,10 @@ import SignUpForm from "./components/user/SignUpForm";
 import GuestList from "./components/events/GuestList";
 import { observeAuth } from "./firebase/auth";
 import FullScreenPhoto from "./components/gallery/FullScreenPhoto";
+import { LogBox } from "react-native";
+
+// Uncomment the following to hide warning
+//LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 
