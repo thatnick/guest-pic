@@ -59,17 +59,17 @@ export default function EventDetails() {
   return (
     <SafeAreaView style={pageStyle.content}>
       <View style={pageStyle.banner}>
-      <Image
-        style={pageStyle.bannerImg}
-        source={{
-          uri: selectedEvent.bannerUrl,
-        }}
-      />
-      <View style={pageStyle.bannerInfo}>
-      <Text style={pageStyle.bannerTitle}>{selectedEvent.title}</Text>
-      <Text>{selectedEvent.description}</Text>
-      <Text>{selectedEvent.date.toString().slice(0, 15)}</Text>
-      </View>
+        <Image
+          style={pageStyle.bannerImg}
+          source={{
+            uri: selectedEvent.bannerUrl,
+          }}
+        />
+        <View style={pageStyle.bannerInfo}>
+          <Text style={pageStyle.bannerTitle}>{selectedEvent.title}</Text>
+          <Text>{selectedEvent.description}</Text>
+          <Text>{selectedEvent.date.toString().slice(0, 15)}</Text>
+        </View>
       </View>
 
       <Text>Itinerary:</Text>
@@ -102,7 +102,7 @@ export default function EventDetails() {
           </View>
         )}
       />
-      {selectedEvent.id === inProgressEvents[0].id ? (
+      {inProgressEvents[0] && selectedEvent.id === inProgressEvents[0].id ? (
         <TouchableOpacity style={pageStyle.camera}>
           <IonIcon
             name={"camera-outline"}
@@ -169,4 +169,3 @@ export default function EventDetails() {
     </SafeAreaView>
   );
 }
-
