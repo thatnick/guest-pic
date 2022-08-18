@@ -1,8 +1,9 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import { Image,  Text, View } from "react-native";
+import React, {  useContext,  useState } from "react";
 import { Switch } from "react-native-gesture-handler";
-import { SelectedEventContext, UserContext } from "../../contexts";
+import {  UserContext } from "../../contexts";
 import { updateGuestAttending } from "../../firebase/db";
+import { styles } from "../../styles/guestList";
 
 const GuestCard = ({ item, guests }) => {
   console.log(guests, "<<<<");
@@ -16,7 +17,6 @@ const GuestCard = ({ item, guests }) => {
           return guests[i].attending;
         }
       }
-      // return false;
     }
   }
 
@@ -44,8 +44,6 @@ const GuestCard = ({ item, guests }) => {
           }}
         />
         <Text style={styles.textFont}>{item.name}</Text>
-        {/* </View>
-      <View style={styles.switch}> */}
         <Switch
           style={styles.switch}
           value={isAttending}
@@ -59,42 +57,3 @@ const GuestCard = ({ item, guests }) => {
 
 export default GuestCard;
 
-const styles = StyleSheet.create({
-  image: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  alignLeft: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "96%",
-    padding: 5,
-    backgroundColor: "dodgerblue",
-    borderRadius: 15,
-    margin: 5,
-  },
-  card: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    shadowOffset: { width: 10, height: 10 },
-    shadowColor: "darkslategray",
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#0000",
-  },
-  switch: {
-    backgroundColor:'royalblue',
-    borderRadius:15
-  },
-  textFont: {
-    fontFamily:'Rockwell',
-    fontSize:20,
-    color:'white',
-  }
-});
