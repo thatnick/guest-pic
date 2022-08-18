@@ -54,6 +54,10 @@ export const styles = StyleSheet.create({
         borderWidth:2,
         height:35,
         width:35,
+
+        shadowOffset: { width: 2, height: 2},
+        shadowOpacity: 0.35,
+        shadowRadius: 2,
       },
     //   topBar: {
     //       display:'flex',

@@ -30,7 +30,7 @@ import { FlatList } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/FontAwesome";
 import IonIcon2 from "react-native-vector-icons/Ionicons";
 import ItineraryItemForm from "./ItineraryItemForm";
-import { BackButton } from "../BackButton";
+
 import { pageStyle, buttons } from "../../styles/EvenDetails";
 
 export default function EventDetails() {
@@ -88,10 +88,7 @@ export default function EventDetails() {
                 </View>
               </View>
               <View style={itinStyle.gallery}>
-
-
                 <PhotoGallery event={selectedEvent.id} item={item.id} />
-
               </View>
             </View>
           )}
@@ -130,10 +127,11 @@ export default function EventDetails() {
       </TouchableOpacity>
 
       {isHost ? (
-        <Button
+        <TouchableOpacity style={buttons.itinItems}
           onPress={() => setAddItnerary(true)}
-          title="Add itnerary item"
-        ></Button>
+        >
+          <Text style={buttons.buttonText}>+ Itnerary</Text>
+        </TouchableOpacity>
       ) : null}
 
       <Modal
