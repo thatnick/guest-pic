@@ -98,7 +98,7 @@ export default function EventDetails() {
           </View>
         )}
       />
-      {selectedEvent.id === inProgressEvents[0].id ? (
+      {inProgressEvents[0] && selectedEvent.id === inProgressEvents[0].id ? (
         <TouchableOpacity style={pageStyle.camera}>
           <IonIcon
             name={"camera-outline"}
