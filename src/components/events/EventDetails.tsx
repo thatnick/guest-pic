@@ -15,12 +15,11 @@ import {
   SelectedEventContext,
   UserContext,
 } from "../../contexts";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { itinStyle } from "../../styles/itineraryItem";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
-  getInProgressEventsByGuest,
   getIsHostByEventId,
   getItineraryItemsByEvent,
   getPhotosByItineraryItem,
@@ -28,7 +27,6 @@ import {
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import GuestList from "./GuestList";
 import ItineraryItemForm from "./ItineraryItemForm";
 
 import { pageStyle } from "../../styles/EvenDetails";
@@ -36,14 +34,12 @@ import { pageStyle } from "../../styles/EvenDetails";
 export default function EventDetails() {
   const navigation = useNavigation();
   const { selectedEvent } = useContext(SelectedEventContext);
-  const { inProgressEvents, setInProgressEvents, dateTime } = useContext(
-    InProgressEventsContext
-  );
+  const { inProgressEvents } = useContext(InProgressEventsContext);
   const { user } = useContext(UserContext);
   const [items, setItems] = useState<ItineraryItem[]>();
   const [addItnerary, setAddItnerary] = useState(false);
   const [isHost, setIsHost] = useState(false);
-
+  console.log(inProgressEvents, "<<<<<< in progress");
   useEffect(() => {
     getItineraryItemsByEvent(selectedEvent.id).then((items) => {
       setItems(items);
@@ -113,7 +109,6 @@ export default function EventDetails() {
             }}
           />
           <Text style={{ color: "royalblue", fontFamily: "Rockwell" }}>
-            {" "}
             Take a Pic
           </Text>
         </TouchableOpacity>
