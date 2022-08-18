@@ -15,7 +15,7 @@ export const AddGuestFormButton = ({setModalVisible}) => {
                 setModalVisible(true);
               }}
               >
-              add guest
+              invite guest
             </Text>
           </IonIcon>
         </Pressable>

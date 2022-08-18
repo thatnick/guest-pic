@@ -1,6 +1,7 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useFormikContext } from "formik";
+import { YELLOW } from "../../utilities/colour-palette";
 
 const SubmitButton = ({ title }) => {
   const { handleSubmit } = useFormikContext();
@@ -15,7 +16,7 @@ export default SubmitButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#AA9EE4",
+    backgroundColor: YELLOW,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -23,6 +24,10 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     margin: -3,
+
+    shadowOffset: { width: 2, height: 2, },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   text: {
     fontSize: 18,

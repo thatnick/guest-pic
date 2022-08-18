@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext, UserContext } from "../../contexts";
 import {
   getGuestsByEventId,
@@ -24,6 +23,7 @@ import { BLUE, PURPLE, RED, YELLOW } from "../../styles/guestList";
 import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
+import { pageStyle, buttons } from "../../styles/EvenDetails";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
@@ -65,15 +65,26 @@ export default function GuestList() {
       </View>
 
       <View style={styles.modal}>
-        {isHost ? (
-          <AddGuestFormButton setModalVisible={setModalVisible} />
-        ) : null}
-        <Modal visible={modalVisible}>
-          <AddGuestForm
-            setModalVisible={setModalVisible}
-            event={selectedEvent.id}
-          />
-        </Modal>
+      
+      
+      {isHost ? (
+        
+
+        
+        <AddGuestFormButton setModalVisible={setModalVisible}/>
+      ) : null}
+      <Modal
+      style={pageStyle.centeredView}
+      animationType='slide'
+      transparent={true} 
+      visible={modalVisible}>
+        <AddGuestForm
+          setModalVisible={setModalVisible}
+          event={selectedEvent.id}
+        />
+        
+      </Modal>
+
       </View>
     </SafeAreaView>
   );

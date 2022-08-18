@@ -21,18 +21,18 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
           email,
           name,
           avatarUrl:
-            "https://openpsychometrics.org/tests/characters/test-resources/pics/S/3.jpg",
+            "https://cdn.pixabay.com/photo/2013/07/18/10/56/smiley-163510_1280.jpg",
         })
           .then(() => {
             addGuestToEvent({ email, eventId: event, isHost: false }).then(() =>
-              Alert.alert("Guest Added")
+              Alert.alert("Invitation Sent")
             );
           })
           .catch(() => Alert.alert("Sorry cannot be added ...Try Again"));
       } else {
         addGuestToEvent({ email, eventId: event, isHost: false })
           .then(() => {
-            Alert.alert("Guest Added");
+            Alert.alert("Invitation Sent");
           })
           .catch(() => Alert.alert("Sorry cannot be added ...Try Again"));
       }
@@ -46,7 +46,7 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
 
     <SafeAreaView style={styles.modalView}>
       <View style={styles.modalHeader}>
-      <Text style={styles.modalTitle}>Add Guest</Text>
+      <Text style={styles.modalTitle}>Invite Guest</Text>
       <CloseModalButton setModalVisible={setModalVisible}/>
       </View>
       <View>
@@ -74,7 +74,7 @@ export default function AddGuestForm({ event, setModalVisible }: Props) {
           style={styles.modalSubmit}
           onPress={handleAddGuestPress}
         >
-          <Text style={styles.modalButtonText}>Submit</Text>
+          <Text style={styles.modalButtonText}>send invite</Text>
         </TouchableOpacity>
     </SafeAreaView>
   );

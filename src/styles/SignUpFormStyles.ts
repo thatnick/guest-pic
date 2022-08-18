@@ -3,7 +3,7 @@ import { YELLOW } from "../utilities/colour-palette";
 
 const SignUpFormStyles = StyleSheet.create({
   button: {
-    backgroundColor: "#AA9EE4",
+    backgroundColor: YELLOW,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -11,6 +11,10 @@ const SignUpFormStyles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     margin: -3,
+
+    shadowOffset: { width: 2, height: 2, },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   textInputContainer: {
     borderRadius: 25,
