@@ -1,7 +1,6 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
-import { Photo } from "../../utilities/types";
+import { StyleSheet } from "react-native";
+
 import ImageView from "react-native-image-viewing";
 import { useNavigation } from "@react-navigation/native";
 
