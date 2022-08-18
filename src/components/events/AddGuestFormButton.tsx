@@ -10,7 +10,7 @@ export const AddGuestFormButton = ({setModalVisible}) => {
         <Pressable style={styles.button}>
             <IonIcon name={"person-add-outline"} size={30} color="black">
             <Text
-              style={{ fontFamily: "Rockwell", fontSize: 15 }}
+              style={{ fontSize: 15 }}
               onPress={() => {
                 setModalVisible(true);
               }}

@@ -39,7 +39,6 @@ export const styles = StyleSheet.create({
     margin: 2,
   },
   textFont: {
-    fontFamily: "Rockwell",
     fontSize: 20,
     color: "black",
   },
@@ -99,7 +98,6 @@ export const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: "center",
-    fontFamily: "Rockwell",
     color: "black",
     // color:'white',
     fontSize: 30,

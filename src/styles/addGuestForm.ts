@@ -29,7 +29,6 @@ modal: {
 },
 headerText: {
     alignSelf:'center',
-    fontFamily:'Rockwell',
     color:'black',
     // color:'white',
     fontSize:30,
@@ -73,6 +72,6 @@ textInput:{
     shadowRadius: 1,
 },
 
-text: {fontFamily:'Rockwell'}
+text:{}
 
 });

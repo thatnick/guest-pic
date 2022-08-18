@@ -63,7 +63,6 @@ const pageStyle = StyleSheet.create({
         marginTop: 22,
       },
       textFont: {
-        fontFamily: "Rockwell",
         fontSize: 20,
         color: "royalblue",
       },
