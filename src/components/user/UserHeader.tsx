@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { UserContext, InProgressEventsContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
 import { resetStack } from "./ResetStack";
-import { userHeaderStyle } from "../../styles/userHeader";
+import { userHeaderStyles } from "../../styles/userHeaderStyles";
 
 export default function UserHeader() {
   const navigation = useNavigation();
@@ -26,26 +26,26 @@ export default function UserHeader() {
   }`;
 
   return (
-    <View style={userHeaderStyle.container}>
-      <View style={userHeaderStyle.avatarAndText}>
+    <View style={userHeaderStyles.container}>
+      <View style={userHeaderStyles.avatarAndText}>
         <Image
-          style={userHeaderStyle.avatar}
+          style={userHeaderStyles.avatar}
           source={{ uri: user.avatarUrl }}
         />
         <View>
           <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
-            <Text style={userHeaderStyle.event}>{eventNow}</Text>
-            <Text style={userHeaderStyle.item}>{itemNow}</Text>
+            <Text style={userHeaderStyles.event}>{eventNow}</Text>
+            <Text style={userHeaderStyles.item}>{itemNow}</Text>
           </Pressable>
         </View>
       </View>
       <Pressable
-        style={userHeaderStyle.logOutButton}
+        style={userHeaderStyles.logOutButton}
         onPress={() => {
           resetStack(navigation, "LoginForm");
         }}
       >
-        <Text style={userHeaderStyle.buttonText}>Log out</Text>
+        <Text style={userHeaderStyles.buttonText}>Log out</Text>
       </Pressable>
     </View>
   );

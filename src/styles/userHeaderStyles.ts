@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { PURPLE, YELLOW } from "../utilities/colour-palette";
 
-export const userHeaderStyle = StyleSheet.create({
+export const userHeaderStyles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",

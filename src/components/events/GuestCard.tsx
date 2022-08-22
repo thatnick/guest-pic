@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { Switch } from "react-native-gesture-handler";
 import { UserContext } from "../../contexts";
 import { updateGuestAttending } from "../../firebase/db";
-import { styles } from "../../styles/guestList";
+import { guestListStyles } from "../../styles/guestListStyles";
 import { Guest, User } from "../../utilities/types";
 
 interface Props {
@@ -25,17 +25,17 @@ const GuestCard = ({ guestUser, guests }: Props) => {
   };
 
   return (
-    <View style={styles.card}>
-      <View style={styles.alignLeft}>
+    <View style={guestListStyles.card}>
+      <View style={guestListStyles.alignLeft}>
         <Image
-          style={styles.image}
+          style={guestListStyles.image}
           source={{
             uri: guestUser.avatarUrl,
           }}
         />
-        <Text style={styles.textFont}>{guestUser.name}</Text>
+        <Text style={guestListStyles.textFont}>{guestUser.name}</Text>
         <Switch
-          style={styles.switch}
+          style={guestListStyles.switch}
           value={isAttending}
           onValueChange={attendingSwitch}
           disabled={user.email !== guestUser.email || guestUser.isHost === true}

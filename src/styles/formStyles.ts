@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { YELLOW } from "../utilities/colour-palette";
 
-const styles = StyleSheet.create({
+const formStyles = StyleSheet.create({
   modalView: {
     textAlign: "center",
     height: "50%",
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { styles };
+export { formStyles as styles };

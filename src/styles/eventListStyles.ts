@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { YELLOW } from "../utilities/colour-palette";
 
-const pageStyle = StyleSheet.create({
+const eventListStyles = StyleSheet.create({
   container: {
     backgroundColor: "#F1F0FC",
   },
@@ -72,4 +72,4 @@ const cardStyle = StyleSheet.create({
   },
 });
 
-export { pageStyle, cardStyle };
+export { eventListStyles as pageStyle, cardStyle };

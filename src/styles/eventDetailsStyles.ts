@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { YELLOW } from "../utilities/colour-palette";
 
-const pageStyle = StyleSheet.create({
+const eventDetailsStyles = StyleSheet.create({
   content: {
     height: "100%",
     backgroundColor: "#F1F0FC",
@@ -154,4 +154,4 @@ const buttons = StyleSheet.create({
   },
 });
 
-export { pageStyle, buttons };
+export { eventDetailsStyles as pageStyle, buttons };

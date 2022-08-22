@@ -8,11 +8,11 @@ import {
 } from "../../firebase/db";
 import AddGuestForm from "./AddGuestForm";
 import GuestCard from "./GuestCard";
-import { styles } from "../../styles/guestList";
+import { guestListStyles } from "../../styles/guestListStyles";
 import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
-import { pageStyle } from "../../styles/EvenDetails";
+import { pageStyle } from "../../styles/eventDetailsStyles";
 import { Guest, User } from "../../utilities/types";
 
 export default function GuestList() {
@@ -39,14 +39,14 @@ export default function GuestList() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={guestListStyles.container}>
       <StatusBar barStyle={"light-content"} />
-      <View style={styles.alignRight}>
+      <View style={guestListStyles.alignRight}>
         <View></View>
-        <Text style={styles.headerText}>Guest List</Text>
+        <Text style={guestListStyles.headerText}>Guest List</Text>
         <BackButton />
       </View>
-      <View style={styles.flatlist}>
+      <View style={guestListStyles.flatlist}>
         <FlatList
           data={users}
           renderItem={({ item: user }) => (
@@ -55,7 +55,7 @@ export default function GuestList() {
         />
       </View>
 
-      <View style={styles.modal}>
+      <View style={guestListStyles.modal}>
         {isHost ? (
           <AddGuestFormButton setModalVisible={setModalVisible} />
         ) : null}

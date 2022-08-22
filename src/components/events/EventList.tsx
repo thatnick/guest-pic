@@ -11,7 +11,7 @@ import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
 import { useFocusEffect } from "@react-navigation/native";
 import { InProgressEventsContext, UserContext } from "../../contexts";
-import { pageStyle } from "../../styles/EventList";
+import { pageStyle } from "../../styles/eventListStyles";
 
 export default function EventList() {
   const navigation = useNavigation();

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const itinStyle = StyleSheet.create({
+const intinItemStyles = StyleSheet.create({
   section: {
     display: "flex",
     alignItems: "center",
@@ -41,4 +41,4 @@ const itinStyle = StyleSheet.create({
   },
 });
 
-export { itinStyle };
+export { intinItemStyles as itinStyle };

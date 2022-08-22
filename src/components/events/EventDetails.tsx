@@ -15,7 +15,7 @@ import {
   UserContext,
 } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
-import { itinStyle } from "../../styles/itineraryItem";
+import { itinStyle } from "../../styles/intinItemStyles";
 
 import PhotoGallery from "../gallery/PhotoGallery";
 import {
@@ -29,7 +29,7 @@ import IonIcon from "react-native-vector-icons/FontAwesome";
 import IonIcon2 from "react-native-vector-icons/Ionicons";
 import ItineraryItemForm from "./ItineraryItemForm";
 
-import { pageStyle, buttons } from "../../styles/EvenDetails";
+import { pageStyle, buttons } from "../../styles/eventDetailsStyles";
 
 export default function EventDetails() {
   const navigation = useNavigation();

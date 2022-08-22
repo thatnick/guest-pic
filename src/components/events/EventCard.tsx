@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ImageBackground, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SelectedEventContext } from "../../contexts";
-import { cardStyle } from "../../styles/EventList";
+import { cardStyle } from "../../styles/eventListStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Event } from "../../utilities/types";
 

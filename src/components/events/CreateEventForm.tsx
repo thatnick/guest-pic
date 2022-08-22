@@ -15,7 +15,7 @@ import {
   addGuestToEvent,
   addItineraryItemToEvent,
 } from "../../firebase/db";
-import { styles } from "../../styles/forms";
+import { styles } from "../../styles/formStyles";
 import { BackButton } from "../BackButton";
 
 export default function CreateEventForm() {

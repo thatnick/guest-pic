@@ -2,7 +2,7 @@ import React, { Dispatch, useState } from "react";
 import { Text, View, TextInput, TouchableOpacity, Alert } from "react-native";
 import { addGuestToEvent, getUserByEmail, addUser } from "../../firebase/db";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../../styles/forms";
+import { styles } from "../../styles/formStyles";
 import { CloseModalButton } from "../CloseModalButton";
 
 interface Props {

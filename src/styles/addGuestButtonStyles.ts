@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { YELLOW } from "../utilities/colour-palette";
 
-export const styles = StyleSheet.create({
+export const addGuestButtonStyles = StyleSheet.create({
   button: {
     position: "absolute",
     width: 150,

@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { YELLOW } from "../utilities/colour-palette";
 
-export const styles = StyleSheet.create({
+export const guestListStyles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,

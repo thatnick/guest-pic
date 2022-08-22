@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { BLUE, PURPLE, RED, YELLOW } from "../utilities/colour-palette";
+import { YELLOW } from "../utilities/colour-palette";
 
-export const styles = StyleSheet.create({
+export const addGuestFormStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",

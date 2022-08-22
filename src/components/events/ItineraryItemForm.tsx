@@ -11,7 +11,7 @@ import DatePicker from "react-native-date-picker";
 import { addItineraryItemToEvent } from "../../firebase/db";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { SelectedEventContext } from "../../contexts";
-import { styles } from "../../styles/forms";
+import { styles } from "../../styles/formStyles";
 
 const ItineraryItemForm = ({ setAddItnerary }) => {
   const { selectedEvent } = useContext(SelectedEventContext);

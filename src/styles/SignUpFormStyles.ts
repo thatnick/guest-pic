@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { YELLOW } from "../utilities/colour-palette";
 
-const SignUpFormStyles = StyleSheet.create({
+const signUpFormStyles = StyleSheet.create({
   button: {
     backgroundColor: YELLOW,
     borderRadius: 25,
@@ -52,4 +52,4 @@ const SignUpFormStyles = StyleSheet.create({
   },
 });
 
-export default SignUpFormStyles;
+export default signUpFormStyles;
