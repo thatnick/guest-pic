@@ -25,7 +25,7 @@ import { observeAuth } from "./firebase/auth";
 import FullScreenPhoto from "./components/gallery/FullScreenPhoto";
 import { LogBox } from "react-native";
 
-// Uncomment the following to hide warning
+// Uncomment the following to hide warnings when demoing work in progress
 //LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
