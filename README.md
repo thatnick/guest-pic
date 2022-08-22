@@ -2,9 +2,13 @@
 
 GuestPic is an event planning and photo sharing app for iOS, developed in 8 days as the final project for the Northcoders Software Development Bootcamp.
 
-Tech: TypeScript, React Native, Firebase.
+## The team
 
-The team was made up of [AdilBulsari](https://github.com/AdilBulsari), [Evil-Pablo](https://github.com/Evil-Pablo), [PDE24](https://github.com/PDE24) and [thatnick](https://github.com/thatnick).
+[AdilBulsari](https://github.com/AdilBulsari), [Evil-Pablo](https://github.com/Evil-Pablo), [PDE24](https://github.com/PDE24) and [thatnick](https://github.com/thatnick).
+
+## Tech
+
+TypeScript, React Native, Firebase.
 
 ## Building and running the app
 
