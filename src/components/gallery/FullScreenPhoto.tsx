@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import ImageView from "react-native-image-viewing";
 import { useNavigation } from "@react-navigation/native";
 import { getPhotosByItineraryItem } from "../../firebase/db";

@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   Modal,
-  Button,
   SafeAreaView,
   Pressable,
 } from "react-native";
@@ -22,7 +21,6 @@ import PhotoGallery from "../gallery/PhotoGallery";
 import {
   getIsHostByEventId,
   getItineraryItemsByEvent,
-  getPhotosByItineraryItem,
 } from "../../firebase/db";
 import { ItineraryItem } from "../../utilities/types";
 import { FlatList } from "react-native-gesture-handler";

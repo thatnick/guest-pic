@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from "react";
-import { StyleSheet, TouchableOpacity, View, Text, YellowBox } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { requestCameraPermissions } from "../../utilities/permissions";
@@ -73,13 +73,7 @@ export default function EventCamera() {
           color={YELLOW}
           onPress={capturePhoto}
         />
-        {/* <IonIcon
-          name={"ios-arrow-undo-outline"}
-          size={35}
-          color={YELLOW}
-          onPress={() => navigation.goBack()}
-        /> */}
-        <BackButton/>
+        <BackButton />
       </TouchableOpacity>
     </View>
   );

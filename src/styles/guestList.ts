@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BLUE, PURPLE, RED, YELLOW } from "../utilities/colour-palette";
+import { YELLOW } from "../utilities/colour-palette";
 
 export const styles = StyleSheet.create({
   image: {
@@ -27,11 +27,6 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
-    // shadowOffset: { width: 5, height: 5 },
-    // shadowColor: "darkslategray",
-    // shadowOpacity: 1,
-    // elevation: 2,
-    //   backgroundColor: "#0000",
   },
   switch: {
     backgroundColor: "#b38d1d",
@@ -42,18 +37,9 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
   },
-  // content: {
-  //     flex: 1,
-  //     flexDirection: "column",
-  //     alignItems: "center",
-  //     backgroundColor: '#5B57F4',
-  //     margin:5
-  //   },
-
   buttons: {
     backgroundColor: YELLOW,
     borderRadius: 50,
-    // borderWidth:2,
     height: 35,
     width: 35,
 
@@ -65,20 +51,9 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 1,
   },
-  //   topBar: {
-  //       display:'flex',
-  //       flexDirection:'row',
-  //       height:60,
-  //       justifyContent:"flex-end",
-  //       alignItems:'flex-end'
-  //   },
-
-  //---------------------------------------------//
-
   container: {
     flex: 1,
     flexDirection: "column",
-    // backgroundColor:'#5B57F4',
     backgroundColor: "#F1F0FC",
   },
   alignRight: {
@@ -99,7 +74,6 @@ export const styles = StyleSheet.create({
   headerText: {
     alignSelf: "center",
     color: "black",
-    // color:'white',
     fontSize: 30,
     padding: 5,
   },

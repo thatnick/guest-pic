@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useFormikContext } from "formik";
 import { YELLOW } from "../../utilities/colour-palette";
@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     margin: -3,
-
-    shadowOffset: { width: 2, height: 2, },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
   },

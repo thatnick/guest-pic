@@ -228,6 +228,37 @@ export const addGuestToEvent = async ({
   }
 };
 
+export const getGuestsByEventId = async (eventId: string) => {
+  console.log("getGuestsByEventId");
+
+  const guests: Guest[] = [];
+  const guestsRef = collection(db, "guests");
+  const q = query(guestsRef, where("eventId", "==", eventId));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const guestData = doc.data();
+    guests.push({
+      id: doc.id,
+      email: guestData.email,
+      eventId: guestData.eventId,
+      isHost: guestData.isHost,
+      attending: guestData.attending,
+    });
+  });
+  return guests;
+};
+
+export const updateGuestAttending = async (
+  guestId: string,
+  attending: boolean
+) => {
+  const guestRef = doc(db, "guests", guestId);
+  await updateDoc(guestRef, {
+    attending,
+  });
+};
+
 export const addPhotoToItineraryItem = async ({
   eventId,
   itemId,
@@ -515,63 +546,4 @@ const timeIsBetweenStartAndEnd = (
   const timeNum = time.getHours() * 60 + time.getMinutes();
 
   return startNum <= timeNum && timeNum < endNum;
-};
-
-// export const attendingUserEvent = async (email, eventId) => {
-
-//   const guestsRef = collection(db, "guests");
-//   const q = query(guestsRef, where('email', "==", email),where('eventId', "==", eventId));
-//   const querySnapshot = await getDocs(q);
-//   const guests = []
-//   querySnapshot.forEach((document) => {
-//     console.log(document)
-//     guests.push(document.id)
-//   })
-//   const guestRef = doc(db, "guests", guests[0])
-//   console.log(guestRef)
-//   await updateDoc(guestRef, {
-//     attending: false
-//   })
-// }
-
-// export const attendingUserEvent = () => {
-
-//   const washingtonRef = doc(db, "guests", "6FONGdQsIxoeOQIHW6rB");
-//   // Set the "capital" field of the city 'DC'
-//   return updateDoc(washingtonRef, {
-//     attending: true
-//   })
-//   // console.log(washingtonRef,"<<<<<ref")
-//   // .then((data)=>{console.log(data,"<<<<<<<DATA")});
-
-// }
-export const getGuestsByEventId = async (eventId: string) => {
-  console.log("getGuestsByEventId");
-
-  const guests: Guest[] = [];
-  const guestsRef = collection(db, "guests");
-  const q = query(guestsRef, where("eventId", "==", eventId));
-  const querySnapshot = await getDocs(q);
-
-  querySnapshot.forEach((doc) => {
-    const guestData = doc.data();
-    guests.push({
-      id: doc.id,
-      email: guestData.email,
-      eventId: guestData.eventId,
-      isHost: guestData.isHost,
-      attending: guestData.attending,
-    });
-  });
-  return guests;
-};
-
-export const updateGuestAttending = async (
-  guestId: string,
-  attending: boolean
-) => {
-  const guestRef = doc(db, "guests", guestId);
-  await updateDoc(guestRef, {
-    attending,
-  });
 };

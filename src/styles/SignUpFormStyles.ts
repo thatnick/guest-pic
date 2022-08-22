@@ -39,7 +39,6 @@ const SignUpFormStyles = StyleSheet.create({
   buttons: {
     backgroundColor: YELLOW,
     borderRadius: 50,
-    // borderWidth:2,
     height: 35,
     width: 35,
 
@@ -50,7 +49,7 @@ const SignUpFormStyles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
-  }
+  },
 });
 
 export default SignUpFormStyles;

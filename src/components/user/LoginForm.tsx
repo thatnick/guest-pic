@@ -7,7 +7,6 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  Alert,
   Image,
 } from "react-native";
 import { signIn } from "../../firebase/auth";
@@ -23,7 +22,6 @@ import AppFormField from "../user/AppFormField";
 import SubmitButton from "../user/SubmitButton";
 import loginFormStyles from "../../styles/loginFormStyles";
 import ErrorMsg from "./ErrorMsg";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -32,8 +30,6 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginForm() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorInvalidUser, setErrorInvalidUser] = useState(false);
 
   const { user, setUser } = useContext(UserContext);
@@ -47,17 +43,6 @@ export default function LoginForm() {
     navigation.navigate("EventList");
   };
 
-  const handleLoginAs = async (email: string, password: string) => {
-    await signIn(email, password);
-    const user = await getUserByEmail(email);
-    setUser(user);
-
-    setEmail("");
-
-    setPassword("");
-    navigation.navigate("EventList");
-  };
-
   return (
     <ImageBackground
       blurRadius={1}
@@ -67,22 +52,26 @@ export default function LoginForm() {
     >
       <StatusBar barStyle={"light-content"} />
 
-      <View style={{flexDirection:"column",justifyContent:'center',alignItems:'center',padding:50,top:100}}>
-
-<Image 
-source={require("../../assets/images/gp_logo_white.png")}
-style={{resizeMode: "contain",
-width: "100%",
-height: "100%",}}
-/>
-
+      <View
+        style={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 50,
+          top: 100,
+        }}
+      >
+        <Image
+          source={require("../../assets/images/gp_logo_white.png")}
+          style={{ resizeMode: "contain", width: "100%", height: "100%" }}
+        />
       </View>
 
       <View
         style={{
           height: "10%",
           width: "70%",
-          backgroundColor: '#F1F0FC',
+          backgroundColor: "#F1F0FC",
           marginTop: "40%",
           position: "absolute",
         }}

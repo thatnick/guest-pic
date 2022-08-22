@@ -1,17 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-//import DatePicker from "react-native-datepicker";
 import DatePicker from "react-native-date-picker";
 import React, { useState, useContext } from "react";
 import {
   Text,
   View,
   TextInput,
-  Button,
   ScrollView,
   SafeAreaView,
   Pressable,
 } from "react-native";
-import { UserContext, SelectedEventContext } from "../../contexts";
+import { UserContext } from "../../contexts";
 import {
   addEvent,
   addGuestToEvent,
@@ -20,11 +18,9 @@ import {
 import { styles } from "../../styles/forms";
 import { BackButton } from "../BackButton";
 
-
 export default function CreateEventForm() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
-  const { selectedEvent } = useContext(SelectedEventContext);
 
   // Event
   const [eventTitle, setEventTitle] = useState("");
@@ -60,7 +56,8 @@ export default function CreateEventForm() {
       eventId: newEvent.id,
       title: itineraryTitle,
       location: itineraryLocation,
-      time: eventDate,
+      startTime: eventDate,
+      endTime,
       description: itineraryDescription,
     });
 
@@ -144,20 +141,12 @@ export default function CreateEventForm() {
           />
 
           <Text style={styles.modalSubtitle}>End Time:</Text>
-          <DatePicker
-            date={endTime}
-            onDateChange={setEndTime}
-            mode={"time"}
-          />
+          <DatePicker date={endTime} onDateChange={setEndTime} mode={"time"} />
         </View>
-        
       </ScrollView>
-        <Pressable
-          style={styles.modalSubmit}
-          onPress={handleRegisterPress}
-        >
-          <Text style={styles.modalButtonText}>Create event</Text>
-        </Pressable>
+      <Pressable style={styles.modalSubmit} onPress={handleRegisterPress}>
+        <Text style={styles.modalButtonText}>Create event</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }

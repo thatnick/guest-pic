@@ -1,9 +1,8 @@
-import { Image, Pressable, Text, View, TouchableOpacity } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import React from "react";
 import { useContext } from "react";
 import { UserContext, InProgressEventsContext } from "../../contexts";
 import { useNavigation } from "@react-navigation/native";
-import IonIcon from "react-native-vector-icons/Ionicons";
 import { resetStack } from "./ResetStack";
 import { userHeaderStyle } from "../../styles/userHeader";
 
@@ -33,7 +32,7 @@ export default function UserHeader() {
           style={userHeaderStyle.avatar}
           source={{ uri: user.avatarUrl }}
         />
-        <View style={userHeaderStyle.text}>
+        <View>
           <Pressable onLongPress={() => navigation.navigate("SetTestDateTime")}>
             <Text style={userHeaderStyle.event}>{eventNow}</Text>
             <Text style={userHeaderStyle.item}>{itemNow}</Text>
