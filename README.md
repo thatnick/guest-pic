@@ -11,6 +11,8 @@ The team was made up of [AdilBulsari](https://github.com/AdilBulsari), [Evil-Pab
 Prerequisites: Xcode, watchman and cocoapods must be installed.
 
 1. Clone the repo
-2. Run `npm i`
-3. Run `npx pod-install ios`
-4. Run `npm run ios` (to run on the simulator) or open and build/run guestpic._xcworkspace_ (to run on your device).
+2. Create a new project on Firebase with Auth, Firestore and Storage
+3. Paste your Firebase config into firebase/firebaseAp.ts
+4. Run `npm i`
+5. Run `npx pod-install ios`
+6. Run `npm run ios` (to run on the simulator) or open and build/run guestpic._xcworkspace_ (to run on your device).
