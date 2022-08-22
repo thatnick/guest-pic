@@ -3,7 +3,6 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  getEvents,
   getEventsByGuestEmail,
   getInProgressEventsByGuest,
   getInProgressItemsByEvents,
@@ -12,7 +11,7 @@ import EventCard from "./EventCard";
 import UserHeader from "../user/UserHeader";
 import { useFocusEffect } from "@react-navigation/native";
 import { InProgressEventsContext, UserContext } from "../../contexts";
-import { pageStyle } from "../../styles/EventList";
+import { pageStyle } from "../../styles/eventListStyles";
 
 export default function EventList() {
   const navigation = useNavigation();

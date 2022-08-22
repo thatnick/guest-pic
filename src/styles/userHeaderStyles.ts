@@ -1,8 +1,7 @@
 import { StyleSheet } from "react-native";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
-import { BLUE, OFFWHITE, PURPLE, YELLOW } from "../utilities/colour-palette";
+import { PURPLE, YELLOW } from "../utilities/colour-palette";
 
-export const userHeaderStyle = StyleSheet.create({
+export const userHeaderStyles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
@@ -10,7 +9,6 @@ export const userHeaderStyle = StyleSheet.create({
     alignItems: "center",
     marginLeft: 20,
     marginRight: 20,
-    marginBotoom: 20,
   },
   avatarAndText: {
     display: "flex",

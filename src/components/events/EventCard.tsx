@@ -1,15 +1,10 @@
 import React, { useContext } from "react";
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+import { ImageBackground, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SelectedEventContext } from "../../contexts";
-import { cardStyle } from "../../styles/EventList";
+import { cardStyle } from "../../styles/eventListStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Event } from "../../utilities/types";
 
 interface Props {
   event: Event;
@@ -33,7 +28,7 @@ export default function EventCard({ event }: Props) {
           }}
         />
         <View style={cardStyle.infoContainer}>
-          <View style={cardStyle.info}>
+          <View>
             <Text style={cardStyle.title}> {event.title}</Text>
             <Text style={cardStyle.description}>
               {event.date.toString().slice(0, 15)}

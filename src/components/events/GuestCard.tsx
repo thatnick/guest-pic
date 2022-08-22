@@ -1,54 +1,44 @@
-import { Image,  Text, View } from "react-native";
-import React, {  useContext,  useState } from "react";
+import { Image, Text, View } from "react-native";
+import React, { useContext, useState } from "react";
 import { Switch } from "react-native-gesture-handler";
-import {  UserContext } from "../../contexts";
+import { UserContext } from "../../contexts";
 import { updateGuestAttending } from "../../firebase/db";
-import { styles } from "../../styles/guestList";
+import { guestListStyles } from "../../styles/guestListStyles";
+import { Guest, User } from "../../utilities/types";
 
-const GuestCard = ({ item, guests }) => {
-  console.log(guests, "<<<<");
-  console.log(item, "<<<<userrr");
+interface Props {
+  guestUser: User;
+  guests: Guest[];
+}
 
-  function attendingHandler() {
-    for (let i in guests) {
-      if (guests[i].email === item.email) {
-        {
-          console.log(guests[i]["attending"], "hellllllooooo");
-          return guests[i].attending;
-        }
-      }
-    }
-  }
-
-  const [isAttending, setIsAttending] = useState<"true" | "false">(
-    attendingHandler
-  );
+const GuestCard = ({ guestUser, guests }: Props) => {
+  const [isAttending, setIsAttending] = useState<boolean>();
   const { user } = useContext(UserContext);
 
   const attendingSwitch = () => {
-    for (let i in guests) {
-      if (guests[i].email === item.email) {
-        updateGuestAttending(guests[i].id, !guests[i].attending);
+    for (const guest in guests) {
+      if (guests[guest].email === guestUser.email) {
+        updateGuestAttending(guests[guest].id, !guests[guest].attending);
         setIsAttending(!isAttending);
       }
     }
   };
 
   return (
-    <View style={styles.card}>
-      <View style={styles.alignLeft}>
+    <View style={guestListStyles.card}>
+      <View style={guestListStyles.alignLeft}>
         <Image
-          style={styles.image}
+          style={guestListStyles.image}
           source={{
-            uri: item.avatarUrl,
+            uri: guestUser.avatarUrl,
           }}
         />
-        <Text style={styles.textFont}>{item.name}</Text>
+        <Text style={guestListStyles.textFont}>{guestUser.name}</Text>
         <Switch
-          style={styles.switch}
+          style={guestListStyles.switch}
           value={isAttending}
           onValueChange={attendingSwitch}
-          disabled={user.email !== item.email || item.isHost === true}
+          disabled={user.email !== guestUser.email || guestUser.isHost === true}
         />
       </View>
     </View>
@@ -56,4 +46,3 @@ const GuestCard = ({ item, guests }) => {
 };
 
 export default GuestCard;
-

@@ -1,5 +1,5 @@
 import { FlatList, Image, Pressable, View } from "react-native";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Photo } from "../../utilities/types";
 import { getPhotosByItineraryItem } from "../../firebase/db";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
@@ -7,8 +7,6 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 const PhotoGallery = ({ event, item }) => {
   const navigation = useNavigation();
   const [photoPairs, setPhotoPairs] = useState<Photo[][]>([]);
-
-  useEffect(() => {}, []);
 
   useFocusEffect(
     useCallback(() => {

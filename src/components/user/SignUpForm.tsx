@@ -2,8 +2,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
-  StyleSheet,
   TouchableOpacity,
   SafeAreaView,
   Alert,
@@ -16,21 +14,15 @@ import { addUser } from "../../firebase/db";
 import { User } from "../../utilities/types";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
-import SignUpFormStyles from "../../styles/SignUpFormStyles";
-import { pageStyle } from "../../styles/EventList";
-import { BackButton } from "../BackButton";
-
-
+import signUpFormStyles from "../../styles/signUpFormStyles";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-
   const [showPassword, setShowPassword] = useState(true);
   const { setUser } = useContext(UserContext);
-
   const navigation = useNavigation();
 
   const handleRegisterPress = async () => {
@@ -59,20 +51,20 @@ export default function SignUpForm() {
   };
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <View style={{margin:10, flexDirection:"row-reverse"}}>
-      <Pressable style={SignUpFormStyles.buttons}>
-            <Icon 
-                name={"close"}
-                size={30}
-                color={'black'}
-                onPress={() => navigation.goBack()}/>
+      <View style={{ margin: 10, flexDirection: "row-reverse" }}>
+        <Pressable style={signUpFormStyles.buttons}>
+          <Icon
+            name={"close"}
+            size={30}
+            color={"black"}
+            onPress={() => navigation.goBack()}
+          />
         </Pressable>
-
       </View>
-      <View style={SignUpFormStyles.registerForm}>
+      <View style={signUpFormStyles.registerForm}>
         <Text>Email :</Text>
         <TextInput
-          style={SignUpFormStyles.textInputContainer}
+          style={signUpFormStyles.textInputContainer}
           placeholder="email"
           textContentType="emailAddress"
           autoCapitalize="none"
@@ -80,7 +72,7 @@ export default function SignUpForm() {
         ></TextInput>
         <Text>Password:</Text>
         <TextInput
-          style={SignUpFormStyles.textInputContainer}
+          style={signUpFormStyles.textInputContainer}
           placeholder="password"
           textContentType="newPassword"
           secureTextEntry={showPassword}
@@ -88,29 +80,29 @@ export default function SignUpForm() {
         ></TextInput>
         <Text>Name:</Text>
         <TextInput
-          style={SignUpFormStyles.textInputContainer}
+          style={signUpFormStyles.textInputContainer}
           placeholder="name"
           onChangeText={(newText) => setName(newText)}
         />
         <Text>Avatar:</Text>
         <TextInput
-          style={SignUpFormStyles.textInputContainer}
+          style={signUpFormStyles.textInputContainer}
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="image URL"
           onChangeText={(newText) => setAvatarUrl(newText)}
         ></TextInput>
         <TouchableOpacity
-          style={SignUpFormStyles.button}
+          style={signUpFormStyles.button}
           onPress={handleShowPasswordPress}
         >
-          <Text style={SignUpFormStyles.text}>Show Password</Text>
+          <Text style={signUpFormStyles.text}>Show Password</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={SignUpFormStyles.button}
+          style={signUpFormStyles.button}
           onPress={handleRegisterPress}
         >
-          <Text style={SignUpFormStyles.text}>Register</Text>
+          <Text style={signUpFormStyles.text}>Register</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
