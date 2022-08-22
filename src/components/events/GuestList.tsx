@@ -1,15 +1,5 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import {
-  Button,
-  FlatList,
-  Modal,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { FlatList, Modal, StatusBar, Text, View } from "react-native";
 import { SelectedEventContext, UserContext } from "../../contexts";
 import {
   getGuestsByEventId,
@@ -19,20 +9,19 @@ import {
 import AddGuestForm from "./AddGuestForm";
 import GuestCard from "./GuestCard";
 import { styles } from "../../styles/guestList";
-import { BLUE, PURPLE, RED, YELLOW } from "../../styles/guestList";
 import { BackButton } from "../BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddGuestFormButton } from "./AddGuestFormButton";
-import { pageStyle, buttons } from "../../styles/EvenDetails";
+import { pageStyle } from "../../styles/EvenDetails";
+import { Guest, User } from "../../utilities/types";
 
 export default function GuestList() {
   const { selectedEvent } = useContext(SelectedEventContext);
   const { user } = useContext(UserContext);
-  const [guests, setGuests] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [guests, setGuests] = useState<Guest[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isHost, setIsHost] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     getGuestUsersByEventId(selectedEvent.id).then((users) => {
@@ -48,7 +37,7 @@ export default function GuestList() {
       setIsHost(isHost);
     });
   }, []);
-  // console.log(guests);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"light-content"} />
@@ -60,31 +49,27 @@ export default function GuestList() {
       <View style={styles.flatlist}>
         <FlatList
           data={users}
-          renderItem={({ item }) => <GuestCard item={item} guests={guests} />}
+          renderItem={({ item: user }) => (
+            <GuestCard guestUser={user} guests={guests} />
+          )}
         />
       </View>
 
       <View style={styles.modal}>
-      
-      
-      {isHost ? (
-        
-
-        
-        <AddGuestFormButton setModalVisible={setModalVisible}/>
-      ) : null}
-      <Modal
-      style={pageStyle.centeredView}
-      animationType='slide'
-      transparent={true} 
-      visible={modalVisible}>
-        <AddGuestForm
-          setModalVisible={setModalVisible}
-          event={selectedEvent.id}
-        />
-        
-      </Modal>
-
+        {isHost ? (
+          <AddGuestFormButton setModalVisible={setModalVisible} />
+        ) : null}
+        <Modal
+          style={pageStyle.centeredView}
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+        >
+          <AddGuestForm
+            setModalVisible={setModalVisible}
+            eventId={selectedEvent.id}
+          />
+        </Modal>
       </View>
     </SafeAreaView>
   );
